@@ -1,10 +1,10 @@
 /**
 	@fileoverview
-	@description This file map is for use when loading Glow in its unbuilt 
-	source form only. You may want to do this for testing purposes whilst 
+	@description This file map is for use when loading Glow in its unbuilt
+	source form only. You may want to do this for testing purposes whilst
 	doing work on the source code.
 	@example
-	
+
 		<script type="text/javascript" src="../../../gloader/src/gloader.js">
 			// change the relative paths depending on where your test file is
 			gloader.use(
@@ -15,7 +15,7 @@
 				}
 			)
 		</script>
-		
+
 		<script type="text/javascript">
 			// the version id of the unbuilt library is always: @VERSION@
 			gloader.load(
@@ -59,5 +59,4 @@ gloader.map.add(
 		"glow.i18n":                 ["{$base}/i18n/i18n.js"]
 	}
 )
-		
-	
+

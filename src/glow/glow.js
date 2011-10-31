@@ -75,7 +75,7 @@
 			*/
 			//check gloader to see if dom is already ready
 			isDomReady: window.gloader && gloader.isReady,
-			
+
 			/**
 			@name glow.isReady
 			@description Is Glow ready?
@@ -235,7 +235,7 @@
 			@name glow.ready
 			@function
 			@description Calls a function when the DOM had loaded and the browser is supported
-			
+
 				"ready" also waits for glow's CSS file to load if it has been
 				requested.
 
@@ -257,7 +257,7 @@
 				}
 				return this;
 			},
-			
+
 			/**
 			@name glow._readyBlockers
 			@private
@@ -266,7 +266,7 @@
 				True if they are blocking, false if they've since unblocked
 			*/
 			_readyBlockers: {},
-			
+
 			/**
 			@name glow._addReadyBlock
 			@private
@@ -281,7 +281,7 @@
 
 			@example
 				glow._addReadyBlock("widgetsCss");
-				
+
 				// when CSS is ready...
 				glow._removeReadyBlock("widgetsCss");
 			*/
@@ -293,7 +293,7 @@
 				}
 				return glow;
 			},
-			
+
 			/**
 			@name glow._removeReadyBlock
 			@private
@@ -306,7 +306,7 @@
 
 			@example
 				glow._addReadyBlock("widgetsCss");
-				
+
 				// when CSS is ready...
 				glow._removeReadyBlock("widgetsCss");
 			*/
@@ -551,7 +551,7 @@
 					var template = "My cat's name is {name}. His colours are {colours.0} & {colours.1}. His mum is {family.mum}, his dad is {family.dad} and he has {family.siblings.length} brothers or sisters.";
 					var result = glow.lang.interpolate(template, data);
 					// result == "My cat's name is Domino. His colours are black & white. His mum is Spot, his dad is Patch and he has 0 brothers or sisters."
-				
+
 				@example
 					var data = {
 						name: 'Haxors!!1 <script src="hackhackhack.js"></script>'
@@ -570,7 +570,7 @@
 						div;
 
 					opts = opts || {};
-					
+
 					// make sure the dom module is around
 					if (opts.escapeHtml) {
 						if (!glow.dom) { throw new Error('glow.lang.interpolate - glow.dom is needed for escapeHtml'); }
@@ -592,10 +592,10 @@
 							val,
 							i = 0,
 							len = keyParts.length;
-						
+
 						if (key in data) {
 							// need to be backwards compatible with "flattened" data.
-							val = data[key]; 
+							val = data[key];
 						} else {
 							// look up the chain
 							val = data;
@@ -607,7 +607,7 @@
 								}
 							}
 						}
-						
+
 						if (opts.escapeHtml) {
 							val = div.text(val).html();
 						}
@@ -743,10 +743,10 @@
 		},
 		env = glow.env,
 		d = document;
-	
+
 	//dom ready stuff
 	//run queued ready functions when DOM is ready
-	
+
 	function runDomReadyQueue() {
 		glow.isDomReady = true;
 		// run all functions in the array
@@ -754,7 +754,7 @@
 			domReadyQueue[i]();
 		}
 	}
-	
+
 	function runReadyQueue() {
 		// if we're already processing the queue, just exit, the other instance will take care of it
 		if (processingReadyQueue) return;
@@ -773,11 +773,11 @@
 		readyQueueLen = readyQueueLen - i;
 		processingReadyQueue = false;
 	}
-	
+
 	(function(){
 		//don't do this stuff if the dom is already ready
 		if (glow.isDomReady) { return; }
-		
+
 		glow._addReadyBlock("glow_domReady");
 		if (env.ie) {
 			if (typeof window.frameElement != 'undefined') {

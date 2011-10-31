@@ -21,7 +21,7 @@ h1 {
 	margin:0;
 	background: #633;
 	border-bottom: 8px solid #411;
-	color: #fff;	
+	color: #fff;
 }
 
 div.body {
@@ -267,7 +267,7 @@ ul.unitTests span.testStats span {
 .borderTest {
 	border: 1px solid #000;
 	border-width: 10px 10px 5em 5em;
-	border-style: dotted dashed double solid; 
+	border-style: dotted dashed double solid;
 }
 .listTest {
 	list-style-type: square;

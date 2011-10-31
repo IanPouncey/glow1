@@ -551,7 +551,7 @@
 			slider._handleSize = slider._handleElm[0]["offset" + vocab.lengthUpper];
 			slider._handleElm[0].style[vocab.length] = oldLengthStyle;
 
-			
+
 			
 			//apply the start value
 			if (opts.val != undefined) { //first use the option

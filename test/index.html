@@ -14,7 +14,7 @@
 	try {
 	  document.execCommand("BackgroundImageCache", false, true);
 	} catch(err) {}
-	
+
 	/*
 	loadMethod should be:
 	 'gloaderSyncNoCallback'
@@ -23,7 +23,7 @@
 	 'scriptTags' default
 	*/
 	var loadMethod = decodeURIComponent((window.location.search.match(/loadMethod=([^&;]+)/) || ["", "scriptTags"])[1]);
-	
+
 	var testFiles = [
 		'glow/glow.js',
 		'glow/dom/dom.js',
@@ -59,8 +59,8 @@
 	(function() {
 		if (loadMethod == 'scriptTags') {
 			// note that gloader will not allow script tags, so ensure that the gloader file is not loaded in this case
-			if (window.gloader) throw "The gloader file must not be included when loading glow via script tags."; 
-			
+			if (window.gloader) throw "The gloader file must not be included when loading glow via script tags.";
+
 			// the following line will doc write out the tags for all the glow source files
 			srcLoader({
 				onLoad: function() {
@@ -72,7 +72,7 @@
 		else {
 			// in this case we're assuming the gloader file actually is loaded
 			if (!window.gloader) throw "The gloader file must be included when loading glow via gloader.";
-			
+
 			srcLoader({
 				loadMethod: loadMethod,
 				onLoad: function(glow) {
@@ -88,11 +88,11 @@
 					} else {
 						t.run(function() { UnitTest.Output.html(t); });
 					}
-			
+
 				}
 			});
 		}
-	
+
 	})();
 </script>
 
@@ -104,9 +104,9 @@
 <div id="main" style="display:none">
 	<p id="firstp">See <a id="simon1" href="http://simon.incutio.com/archive/2003/03/25/#getElementsBySelector" rel="bookmark">this blog entry</a> for more information.</p>
 	<p id="ap">
-		Here are some links in a normal paragraph: <a id="google" href="http://www.google.com/" title="Google!">Google</a>, 
-		<a id="groups" href="http://groups.google.com/">Google Groups</a>. 
-		This link has <code><a href="http://smin" id="anchor1">class="blog"</a></code>: 
+		Here are some links in a normal paragraph: <a id="google" href="http://www.google.com/" title="Google!">Google</a>,
+		<a id="groups" href="http://groups.google.com/">Google Groups</a>.
+		This link has <code><a href="http://smin" id="anchor1">class="blog"</a></code>:
 		<a href="http://diveintomark.org/" class="blog" hreflang="en" id="mark">diveintomark</a>
 
 	</p>
@@ -130,13 +130,13 @@
 
 		<input type="hidden" name="hidden" id="hidden1"/>
 		<input type="text" style="display:none;" name="foo[bar]" id="hidden2"/>
-		
+
 		<input type="text" id="name" name="name" value="name" maxlength="15" />
-		
+
 		<button id="button" name="button">Button</button>
-		
+
 		<textarea id="area1">foobar</textarea>
-		
+
 		<select name="select1" id="select1">
 			<option id="option1a" value="">Nothing</option>
 			<option id="option1b" value="1">1</option>
@@ -155,19 +155,19 @@
 			<option id="option3c" selected="selected" value="2">2</option>
 			<option id="option3d" value="3">3</option>
 		</select>
-		
+
 		<object id="object1" codebase="stupid">
 			<param name="p1" value="x1" />
 			<param name="p2" value="x2" />
 		</object>
-		
+
 		<span id="台北Táiběi"></span>
 		<span id="台北" lang="中文"></span>
 		<span id="utf8class1" class="台北Táiběi 台北"></span>
 		<span id="utf8class2" class="台北"></span>
 		<span id="foo:bar" class="foo:bar"></span>
 		<span id="test.foo[5]bar" class="test.foo[5]bar"></span>
-		
+
 		<foo_bar id="foobar">test element</foo_bar>
 	</form>
 	<b id="floatTest">Float test.</b>
@@ -176,7 +176,7 @@
 		<input type="text" id="length" name="test"/>
 		<input type="text" id="idTest" name="id"/>
 	</form>
-	<table id="table"></table>	
+	<table id="table"></table>
 	<div id="fx-tests"></div>
 	<form id="testForm" action="#" method="get">
 		<textarea name="T3" rows="2" cols="15">?
@@ -225,7 +225,7 @@ Z</textarea>
 <div id="animTests" style="display:none">
 	<div id="fadein">fadeIn<div>fadeIn</div></div>
 	<div id="fadeout">fadeOut<div>fadeOut</div></div>
-	
+
 	<div id="slideup">slideUp<div>slideUp</div></div>
 	<div id="slidedown">slideDown<div>slideDown</div></div>
 	<div id="slidedown2"><div style="height:100px"></div></div>
@@ -253,13 +253,13 @@ Z</textarea>
 		<p><input type="submit" value="Apply" /></p>
 	</form>
 </div>
-		
+
 <script type="text/javascript">
 (function() {
 	var moduleSelect = document.getElementById("module"),
 		loadMethodSelect = document.getElementById("loadMethod"),
 		optionObj;
-		
+
 	for (var i = 0, modulesLen = t.allModuleNames.length; i < modulesLen; i++) {
 		optionObj = document.createElement("option");
 		optionObj.value = t.allModuleNames[i];

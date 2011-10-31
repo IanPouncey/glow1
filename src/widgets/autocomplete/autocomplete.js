@@ -5,13 +5,13 @@
 		'glow', '@VERSION@',
 		'glow.widgets.AutoSuggest'
 	]],
-	
+
 	builder: function(glow) {
 /* private fields *************************************************************/
 		var $      = glow.dom.get, // shortcuts
 			events = glow.events,
 			anim   = glow.anim;
-			
+
 /* private functions **********************************************************/
 /* constructor ****************************************************************/
 		/**
@@ -20,7 +20,7 @@
 			@see <a href="../furtherinfo/widgets/autosuggest/">AutoSuggest user guide</a>
 			@deprecated Since version 1.2.2. You should now use glow.widgets.AutoSuggest with the 'complete' constructor option
 			@description Adds the ability to complete what has been typed to the AutoSuggest widget.
-			
+
 			This widget acts as a thin wrapper to the {@link glow.widgets.AutoSuggest}
 			widget and adds the ability to automatically append the missing text
 			to complete what has been typed by the user. Note that because the
@@ -34,12 +34,12 @@
 			@param {Object} opts All options are passed directly to the wrapped instance of
 			{@link glow.widgets.AutoSuggest}.
 			@param {string} opts.delim Character to delimit multiple entries.
-			  If defined, the user can enter more than one term into the text input 
+			  If defined, the user can enter more than one term into the text input
 			  element, delimited by this string (and any spaces surrounding the delimiter).
 		 */
 		glow.widgets.AutoComplete = function(inputElement, dataSource, opts) { /*debug*///console.log('new glow.widgets.AutoComplete('+inputElement+', '+dataSource+', '+opts+')');
 			opts = opts || {};
-			
+
 			/**
 				@object
 				@name glow.widgets.AutoComplete#autosuggest
@@ -50,9 +50,9 @@
 			this.autosuggest._indexer = function(dataItem) { return dataItem.toString(); }
 			this.autosuggest._formatItem = function(dataItem) { return dataItem.toString(); }
 			this.autosuggest.setData(dataSource);
-			
+
 			var that = this.autosuggest;
-			
+
 			events.addListener(
 				that,
 				'itemActive',
@@ -60,13 +60,13 @@
 					var selectedOffset = that.getSelectedOffset();
 					if (selectedOffset == -1) return false;
 					that.suggest(that._found[selectedOffset]);
-					
+
 					return true;
 				}
 			);
 		}
 
-/* public fields **************************************************************/	
+/* public fields **************************************************************/
 /* public methods *************************************************************/
 	}
 });

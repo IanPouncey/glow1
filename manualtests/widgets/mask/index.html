@@ -15,18 +15,18 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.widgets.Mask'])</script>
-	
+
 </head>
 
 <body>
 	<h1>glow.widgets.Mask</h1>
-	
+
 	<h2>Simple Mask</h2>
-		
+
 	<p>Things to test for:</p>
-	
+
 	<ul>
 		<li>
 			Ensure the mask covers the entire view
@@ -48,7 +48,7 @@
 			Closing the mask should make it disappear
 		</li>
 	</ul>
-	
+
 	<p>
 		Make the <a href="#" id="mask-appear">mask appear</a>.
 	</p>
@@ -58,14 +58,14 @@
 	<select>
 		<option>This should appear beneath the mask</option>
 	</select>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
 		var myMask = new glow.widgets.Mask({
 			onClick: function() { this.remove(); }
 		});
-		
+
 		glow.events.addListener(
 			glow.dom.get("#mask-appear"),
 			"click",
@@ -77,8 +77,8 @@
 	});
 	// ]]>
 	</script>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

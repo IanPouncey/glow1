@@ -7,7 +7,7 @@ function testXml (name, expectedXml, test) {
 	var tester = new UnitTest();
 
 	t.test(name, function () {
-		
+
 		t.expect(1);
 
 		test(tester);
@@ -43,7 +43,7 @@ testXml(
 		tester.test("Blah Test", function () {
 
 			tester.expect(1);
-		
+
 			tester.ok(true, 'test assert');
 		});
 
@@ -61,7 +61,7 @@ testXml(
 
 		tester.test("Blah Test", function () {
 			tester.expect(1);
-		
+
 			tester.ok(false, 'test assert');
 		});
 

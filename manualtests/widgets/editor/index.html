@@ -15,9 +15,9 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.data', 'glow.widgets.Editor'])</script>
-	
+
 	<style type="text/css" media="screen">
 		#commentEntry
 		{
@@ -35,16 +35,16 @@
 
 <body>
 	<h1>glow.widgets.Editor</h1>
-	
+
 	<h2>Settings</h2>
-	
+
 	<!--
 		You may want to use this to provide a simple way to switch themes
 		and orientation. urlOpts will contain the results of the form
-		
+
 		Simply delete if you don't need it
 	-->
-	
+
 	<form action="?" id="urlOpts">
 		<p>
 			<label>
@@ -57,7 +57,7 @@
 			<input type="submit" value="Go" />
 		</p>
 	</form>
-	
+
 	<script type="text/javascript">
 		// get values from url
 		var urlOpts = glow.data.decodeUrl( window.location.search.slice(1) );
@@ -66,36 +66,36 @@
 		// update the form
 		glow.dom.get('#urlOpts').val(urlOpts);
 	</script>
-	
+
 	<h2>Basic Editor</h2>
-	
+
 	<ul>
 		<li>Write text into the editor</li>
 		<li>Does the cut|copy|paste functionality work in the editor?</li>
 		<li>Can you select text in the first editor and change the styling using the tools in the toolbar?</li>
 		<li>Can you use familiar keyboard shortcuts to make text bold / italic</li>
 	</ul>
-	
+
 	<form action="foo" method="get" id="editor1Form">
 		<div>
 			<label for="editor1Field">Your Comment:</label>
 			<textarea id="editor1Field" name="editor1Field" rows="10" cols="100" style="width: 500px"></textarea>
 		</div>
 	</form>
-	
+
 	<p>
 		<a href="#" id="getFormVals1">Get form value</a>
 	</p>
-	
+
 	<script type="text/javascript" class="showSrc">
 		// this once broke editor, leaving it in to test regressions
 		Array.prototype.blahblahblahblah = function() {};
-		
+
 		glow.ready(function() {
 			window.editor1 = new glow.widgets.Editor("#editor1Field", {
 				theme: urlOpts.theme
 			});
-			
+
 			glow.events.addListener(editor1, 'commit', function() {
 				manualTests.log('editor1: commit');
 			});
@@ -105,8 +105,8 @@
 			});
 		});
 	</script>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

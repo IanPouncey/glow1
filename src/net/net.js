@@ -78,7 +78,7 @@
 				defer: false,
 				forceXml: false
 			}, opts || {} );
-			
+
 			// add requested with header if one hasn't been added
 			if ( !('X-Requested-With' in newOpts.headers) ) {
 				newOpts.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -504,7 +504,7 @@
 		 * @description Returned by {@link glow.net.post post}, {@link glow.net.get get} async requests and {@link glow.net.loadScript loadScript}
 		 * @glowPrivateConstructor There is no direct constructor, since {@link glow.net.post post} and {@link glow.net.get get} create the instances.
 		 */
-		 
+
 		/**
 		 * @name glow.net.Request#event:load
 		 * @event
@@ -514,7 +514,7 @@
 		 *   with an HTTP code of 2xx. loadScript requests will fire 'load' only
 		 *   if {callback} is used in the URL.
 		 */
-		 
+
 		/**
 		 * @name glow.net.Request#event:abort
 		 * @event
@@ -526,7 +526,7 @@
 		 * @see <a href="../furtherinfo/net/net.shtml">Using glow.net</a>
 		 * @glowPrivateConstructor There is no direct constructor, since {@link glow.net.post glow.net.post} and {@link glow.net.get glow.net.get} create the instances.
 		 */
-		 
+
 		/**
 		 * @name glow.net.Request#event:error
 		 * @event
@@ -536,8 +536,8 @@
 		 *   with an HTTP code which isn't 2xx or the request times out. loadScript
 		 *   calls will fire 'error' only if the request times out.
 		 */
-		 
-		 
+
+
 		/*
 		 We don't want users to create instances of this class, so the constructor is documented
 		 out of view of jsdoc
@@ -561,7 +561,7 @@
 			 * @type Number
 			 */
 			this._timeout = null;
-			
+
 			/*
 			 @name glow.net.Request#_forceXml
 			 @private
@@ -569,20 +569,20 @@
 			 @description Force the response to be treated as xml
 			*/
 			this._forceXml = opts.forceXml;
-			
+
 			// force the reponse to be treated as xml
 			// IE doesn't support overrideMineType, we need to deal with that in {@link glow.net.Response#xml}
 			if (opts.forceXml && requestObj.overrideMimeType) {
 				requestObj.overrideMimeType('application/xml');
 			}
-			
+
 			/**
 			 * @name glow.net.Request#complete
 			 * @description Boolean indicating whether the request has completed
 			 * @example
 				// request.complete with an asynchronous call
 				var request = glow.net.get(
-					"myFile.html", 
+					"myFile.html",
 					{
 						async: true,
 						onload: function(response) {
@@ -617,7 +617,7 @@
 				 *   Also, this will be undefined if the request originated from loadScript.
 				 * @example
 				var request = glow.net.get(
-					"myFile.html", 
+					"myFile.html",
 					{
 						async: true,
 						onload: function(response) {
@@ -646,7 +646,7 @@
 				This is done automatically unless the defer option is set
 			@example
 				var request = glow.net.get(
-					"myFile.html", 
+					"myFile.html",
 					{
 						onload : function(response) {alert("Loaded");},
 						defer: true
@@ -667,7 +667,7 @@
 			 *		may still be loaded but	the callback will not be fired.
 			 * @example
 				var request = glow.net.get(
-					"myFile.html", 
+					"myFile.html",
 					{
 						async: true,
 						defer: true,
@@ -689,20 +689,20 @@
 			 @name glow.net.Request#destroy
 			 @function
 			 @description Release memory from a {@link glow.net.loadScript} call.
-				
+
 				This is called automatically by {@link glow.net.loadScript loadScript}
 				calls that have {callback} in the URL. However, if you are not using
 				{callback}, you can use this method manually to release memory when
 				the request has finished.
-			 
+
 			 @example
 				var request = glow.net.loadScript('http://www.bbc.co.uk/whatever.js');
-			
+
 			 @returns this
 			*/
 			destroy: function() {
 				var that = this;
-				
+
 				if (this._callbackIndex !== undefined) {
 					// set timeout is used here to prevent a crash in IE7 (possibly other versions) when the script is from the filesystem
 					setTimeout(function() {
@@ -733,7 +733,7 @@
 		function Response(nativeResponse, timedOut, request) {
 			//run Event constructor
 			events.Event.call(this);
-			
+
 			/**
 			@name glow.net.Response#_request
 			@private
@@ -741,7 +741,7 @@
 			@type glow.net.Request
 			*/
 			this._request = request;
-			
+
 			/**
 			@name glow.net.Response#nativeResponse
 			@description The response object from the browser.
@@ -777,7 +777,7 @@
 				(this.status == 0 && nativeResponse.responseText);
 
 		}
-		
+
 		/* (hidden from jsdoc as it appeared in output docs)
 		@name glow.net-shouldParseAsXml
 		@function
@@ -791,7 +791,7 @@
 			// Files from the filesystem don't have a content type, but could be xml files, parse them to be safe
 			return endsPlusXml.test(contentType) || contentType === '';
 		}
-		
+
 		//don't want to document this inheritance, it'll just confuse the user
 		glow.lang.extend(Response, events.Event, {
 			/**
@@ -813,7 +813,7 @@
 			*/
 			xml: function() {
 				var nativeResponse = this.nativeResponse;
-				
+
 				if (
 					// IE fails to recognise the doc as XML in some cases
 					( glow.env.ie && shouldParseAsXml.call(this) )
@@ -830,7 +830,7 @@
 						throw new Error(STR.XML_ERR);
 					}
 					return nativeResponse.responseXML;
-				}				
+				}
 			},
 
 			/**
@@ -941,7 +941,7 @@
 				}
 				$('body').append(this.iframe);
 			},
-		
+
 			/**
 			@name _XDomainRequest#_addForm
 			@private
@@ -1130,7 +1130,7 @@
 					 &lt;script type="text/javascript">
 					 window.name = '{ "success": true }';
 					 &lt;/script>
-		
+
 		@param {String} url url to perform the request on
 				the URL to post the data to.
 		@param {Object} data
@@ -1146,7 +1146,7 @@
 				@param {Function} [opts.onTimeout] callback called when request times out
 						a callback that is called when the requested url takes longer than the timeout to respond
 				@param {String} [opts.blankUrl='/favicon.ico'] url to load after main request
-						the path of a blank URL on the same domain as the caller (default '/favicon.ico')	   
+						the path of a blank URL on the same domain as the caller (default '/favicon.ico')
 		*/
 		r.xDomainPost = function (url, data, opts) {
 			var request = new _XDomainRequest(url, data, false, opts);
@@ -1165,7 +1165,7 @@
 					 &lt;script type="text/javascript">
 					 window.name = '{ "success": true }';
 					 &lt;/script>
-		
+
 		@param {String} url url to perform the request on
 				The address that the GET request should be sent to.
 		@param {Object} opts
@@ -1178,7 +1178,7 @@
 				@param {Function} [opts.onTimeout] callback called when request times out
 						a callback that is called when the requested url takes longer than the timeout to respond
 				@param {String} [opts.blankUrl='/favicon.ico'] url to load after main request
-						the path of a blank URL on the same domain as the caller (default '/favicon.ico')	   
+						the path of a blank URL on the same domain as the caller (default '/favicon.ico')
 		*/
 		r.xDomainGet = function (url, opts) {
 			var request = new _XDomainRequest(url, {}, true, opts);

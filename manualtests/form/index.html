@@ -15,17 +15,17 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.forms'])</script>
 </head>
 
 <body>
 	<h1>glow.forms</h1>
-	
+
 	<h2>Test Title</h2>
-	
+
 	<p>Issue #29 - expando named submit breaks validation.</p>
-	
+
 	<form action="thanks.html" onsubmit="manualTests.log('Form.submit handler ran.'); return false;" id="myFormElement">
 		<p>
 			<label>
@@ -33,32 +33,32 @@
 				<input name="name" id="name" type="text" />
 			</label>
 		</p>
-		
+
 		<p>
 			<label>
 				Username:
 				<input name="username" id="username" type="text" /> (not "foo")
 			</label>
 		</p>
-		
+
 		<p>
 			<label>
 				Email Address:
 				<input name="email" id="email" type="text" />
 			</label>
 		</p>
-		
+
 		<!--script type="text/javascript">
 			manualTests.log("original submit is: "+document.forms[0].submit);
 		</script-->
-		
+
 		<p>
 			<label>
 				Will you submit to receiving our newsletter?
 				<input name="submit" id="submit" type="checkbox" />
 			</label>
 		</p>
-		
+
 		<p>
 			<label>
 				Sign Up:
@@ -66,16 +66,16 @@
 			</label>
 		</p>
 	</form>
-	
+
 	<!--script type="text/javascript">
 		manualTests.log("current submit is: "+document.forms[0].submit);
-		
+
 		document.forms[0].submit.parentNode.removeChild(document.forms[0].submit);
 		delete document.forms[0].submit;
-		
+
 		manualTests.log("restored submit is: "+document.forms[0].submit);
 	</script-->
-	
+
 	<script type="text/javascript" class="showSrc">
 		var myForm = new glow.forms.Form("#myFormElement");
 		myForm
@@ -123,7 +123,7 @@
 			}]
 		);
 	</script>
-	
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 </body>
 </html>

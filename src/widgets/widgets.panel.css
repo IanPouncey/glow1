@@ -161,9 +161,9 @@
   .glowCSSVERSION-ie .glowCSSVERSION-panel .tb div,
   .glowCSSVERSION-ie .glowCSSVERSION-panel .bb div {
 	  opacity: 1;
-	  filter: alpha(opacity=50);	  
+	  filter: alpha(opacity=50);
   }
-  
+
   .glowCSSVERSION-ie .glowCSSVERSION-panel .tb,
   .glowCSSVERSION-ie .glowCSSVERSION-panel .bb {
 	  zoom: 1;

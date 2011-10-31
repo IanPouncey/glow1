@@ -30,7 +30,7 @@
 		@param {Object} [opts.draggableOptions] An options object to apply to each draggable.
 			See {@link glow.dragdrop.Draggable Draggable} for options
 		@param {Function} [opts.onSort] Create an event listener that is fired when the sortable is sorted - i.e. after one of the draggables has been dragged.
-		
+
 		*/
 
 		/**
@@ -48,7 +48,7 @@
 
 			var mySortable = new glow.widgets.Sortable('div#sections');
 			alert(mySortable.containers); // Returns a nodeList of all the sortable items
-		
+
 		*/
 
 		/**
@@ -102,8 +102,8 @@
 			// draggables
 			this.addItems( containers.children() );
 		};
-			
-			
+
+
 		/**
 		@private
 		@name glow.widgets.Sortable#handleDrag
@@ -121,7 +121,7 @@
 			// stuff is in the air now...
 			this._itemsInMotion = true;
 		}
-		
+
 		/**
 		@private
 		@name glow.widgets.Sortable#equaliseColumns
@@ -220,7 +220,7 @@
 						}, opts)
 					);
 
-					
+
 					addListener(draggable, 'drag', handleDrag, this_);
 					addListener(draggable, 'drop', handleDrop, this_);
 					addListener(draggable, 'afterDrop', handleAfterDrop, this_);

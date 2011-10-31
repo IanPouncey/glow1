@@ -67,7 +67,7 @@ glow.forms.Form = function(formNode, opts) { /*debug*///console.log("glow.forms.
 	glow.events.addListener(this, "validate", this.opts.onValidate || feedback.defaultFeedback);
 
 	this._idleTimer = null;
-	
+
 	this._localeModule = $i18n.getLocaleModule("GLOW_FORMS");
 
 	// add event listener to form
@@ -86,12 +86,12 @@ glow.forms.Form = function(formNode, opts) { /*debug*///console.log("glow.forms.
 	@name glow.forms.Form#event:validate
 	@event
 	@description Fired whenever the glow tries to validate a form.
-	
+
 	If you prefer you can set a handler for this event via the <code>onValidate</code> option of the glow.forms.Form constructor.
-	
+
 	@param {glow.forms.ValidateResult} event A specialised Event object.
 	@example
-	
+
 	glow.events.addListener(myForm, "validate", function(e) {
 		if (e.eventName == 'submit') {
 			if (e.errorCount == 0) { alert("Well done!"); }
@@ -171,7 +171,7 @@ var nextTest = function() { /*debug*///console.log("glow.forms.Form#nextTest()")
 		if (typeof glow.forms.tests[currentTest.type] != "function") {
 			throw "Unimplemented test: no test exists of type '"+currentTest.type+"'.";
 		}
-		
+
 		currentTest.opts._localeModule = this._localeModule;
 		glow.forms.tests[currentTest.type](fieldValue, currentTest.opts, callback, this.formNode.val());
 	}
@@ -197,7 +197,7 @@ var nextField = function() { /*debug*///console.log("glow.forms.Form#nextField()
 		this._fieldCur = 0;
 		// ready to fire the validate event now
 		glow.events.fire(this, "validate", this._result);
-		
+
 		if ( this.eventName == "submit" && this._result && !this._result.defaultPrevented() ) { // ready to submit now
 			try {
 				// we cannot initiate a form submit by simply returning true or false from
@@ -209,7 +209,7 @@ var nextField = function() { /*debug*///console.log("glow.forms.Form#nextField()
 				throw new Error("Glow can't submit the form because the submit function can't be called. Perhaps that form's submit was replaced by an input element named 'submit'?");
 			}
 		}
-		
+
 		return false; // don't keep going
 	}
 
@@ -258,11 +258,11 @@ var onTestResult = function(result, message) { /*debug*///console.log("glow.form
 	@description Add one or more tests to a field.
 	@param {String} fieldName The name of the field to add tests to.
 	@param {Array} [spec]
-	
+
 		Test specifications identify the type of test to be run on a field to
 		determine whether it contains desired data. See docs on the
 		{@link glow.forms.tests types of tests}.
-	
+
 	@example
 	//pattern for a test specification
 	[
@@ -273,7 +273,7 @@ var onTestResult = function(result, message) { /*debug*///console.log("glow.form
 	    message : "Incorrect value" //a custom error message to display
 	  }
 	]
-	
+
 	@example
 	//setting a form up for validation
 	var myForm = new glow.forms.Form(glow.dom.get("#myFormId"))
@@ -363,13 +363,13 @@ glow.forms.Form.prototype.addTests = function(fieldName /*...*/) { /*debug*///co
 	@constructor
 	@extends glow.events.Event
 	@description The overall result returned by an attempt to validate the current state of the form.
-	
+
 	The ValidateResult object is used by glow.forms.Form to accumulate and record the test results as they are run. It is created automatically by the running validation so it is not necessary for the user to instantiate it directly, but it is useful to know the properties and their meanings as these will likely be referred to when a custom <code>onValidate</code> handler is run.
 	@param {String} eventName
 	@property {String} eventName The name of the event that was associated with this validation event.
-	
+
 	Validation can happen based on one of several different user interactions, this property allows you to identify the type of interaction that initiated this validation. Examples are:
-	
+
 		<dl>
 			<dt>submit</dt>
 			<dd>The user has done something to submit the form, for example by pressing the Submit button.</dd>
@@ -380,17 +380,17 @@ glow.forms.Form.prototype.addTests = function(fieldName /*...*/) { /*debug*///co
 			<dt>click</dt>
 			<dd>The user has clicked the mouse on or in a form field.</dd>
 		</dl>
-	
-	Which user interaction is associated with which tests is determined by the options you used when you added the test. See the documentation for {@link glow.forms.Form#addTests} for more information. 
-	
+
+	Which user interaction is associated with which tests is determined by the options you used when you added the test. See the documentation for {@link glow.forms.Form#addTests} for more information.
+
 	@property {Object[]} fields Each object in this array has a name of a field, a test result such as glow.forms.PASS, glow.forms.FAIL or glow.forms.SKIP, and a message describing the test result.
-	
+
 	The effect of validation is that the value or state of each field in the form is compared to the tests the developer has added to the fields. In each tested field a determination is made that the current value either passes or fails (or, if the test wasn't run at all, is skipped). The <code>fields</code> property provides information on the overall result of the validation, on each field that was tested and the results.
-	
+
 	@property {Number} errorCount The number of fields that had a failing test.
-	
+
 	From the <code>fields</code> property you can determine how many fields have failing or passing values; this is property is simply a more convenient way to access the total failing count of tests that fail. If no tests fail then this value will be 0 and you can consider the form to have validated.
-	
+
  */
 glow.forms.ValidateResult = function(eventName) {
 	glow.events.Event.apply(this);
@@ -442,9 +442,9 @@ glow.forms.tests = {
 		@name glow.forms.tests.required
 		@function
 		@description The value must contain at least one non-whitespace character.
-		
+
 		A text input field that is empty, or contains only spaces for example will fail this test.
-		
+
 		@example
 		myForm.addTests(
 			"fieldName",
@@ -467,9 +467,9 @@ glow.forms.tests = {
 		@name glow.forms.tests.isNumber
 		@function
 		@description The value must be a valid number.
-		
+
 		A field that is empty, or contains a value that is not a number like 1 or 3.14 will fail this test.
-		
+
 		@example
 		myForm.addTests(
 			"fieldName",
@@ -492,9 +492,9 @@ glow.forms.tests = {
 		@name glow.forms.tests.min
 		@function
 		@description The numeric value must be at least the given value.
-		
+
 		A field whose value, when converted to a number, is not less than the given arg will fail this test.
-		
+
 		@example
 		myForm.addTests(
 			"fieldName",
@@ -518,9 +518,9 @@ glow.forms.tests = {
 		@name glow.forms.tests.max
 		@function
 		@description The numeric value must be no more than the given value.
-		
+
 		A field whose value, when converted to a number, is not more than the given arg will fail this test.
-		
+
 		@example
 		myForm.addTests(
 			"fieldName",
@@ -544,9 +544,9 @@ glow.forms.tests = {
 		@name glow.forms.tests.range
 		@function
 		@description The numeric value must be between x..y.
-		
+
 		A field whose value, when converted to a number, is not more than x and less than y will fail this test.
-		
+
 		@example
 		myForm.addTests(
 			"fieldName",
@@ -796,17 +796,17 @@ glow.forms.tests = {
 		@function
 		@description Send the data to the server for testing.
 			A request to the given URL will be made and the response will be passed to the given callback.
-			
+
 			'arg' is the function to handle the response from the server.
-			
-			This function should return a truthy value to indicate whether the server 
+
+			This function should return a truthy value to indicate whether the server
 			response should be considered a PASS or a FAIL. Optionally you can include a bespoke
 			error message by returning an array of two elements, the first being
 			the PASS or FAIL verdict, and the second being the error message to display.
-			
+
 			'url' is the url to call. You can use placeholders in here for form values (see example).
 		@example
-		
+
 		myForm.addTests(
 			"username",
 			["ajax", {
@@ -825,7 +825,7 @@ glow.forms.tests = {
 	ajax: function(values, opts, callback, formValues) { /*debug*///console.log("glow.forms.tests.ajax() - "+opts.url);
 		var queryValues = {},
 		    message = (opts.message || opts._localeModule.TEST_MESSAGE_AJAX);
-		    
+
 		for (var p in formValues) {
 			if (typeof formValues[p] == "string") {
 				queryValues[p] = escape(formValues[p]);
@@ -852,11 +852,11 @@ glow.forms.tests = {
 		@name glow.forms.tests.custom
 		@function
 		@description Create a custom test.
-		
+
 			'arg' is a function which tests the form value.
-			
+
 			The function is given the following parameters:
-			
+
 			<dl>
 				<dt>values</dt>
 				<dd>
@@ -879,7 +879,7 @@ glow.forms.tests = {
 					This is an object of all values captured in the form.
 				</dd>
 			</dl>
-		
+
 		@example
 		myForm.addTests(
 			"username",
@@ -982,10 +982,10 @@ var feedback = glow.forms.feedback = {};
 @see <a href="../furtherinfo/forms/defaultfeedback">Using the default form feedback</a>
 */
 feedback.defaultFeedback = (function() {
-	
+
 	//a hidden form element used to update a screenreader's buffer
 	var screenReaderBufferUpdater;
-	
+
 	//attempts to update the buffer of the screen reader
 	function updateScreenReaderBuffer() {
 		if (!screenReaderBufferUpdater) {
@@ -993,7 +993,7 @@ feedback.defaultFeedback = (function() {
 		}
 		screenReaderBufferUpdater[0].value++;
 	}
-	
+
 	//write out the messages which appear next to (or near) the fields
 	function inlineErrors(response) {
 		var fields = response.fields, //field test results
@@ -1075,12 +1075,12 @@ feedback.defaultFeedback = (function() {
 		glow.anim.css(errorSummary, "0.5", {
 			opacity: {from: 0, to: 1}
 		}, {tween: glow.tweens.easeOut()}).start();
-		
+
 		// if the error summary has been hidden, IE7 throws an exception here
-		try {		
+		try {
 			errorSummary[0].focus();
 		} catch (e) {}
-		
+
 		updateScreenReaderBuffer();
 	}
 
@@ -1100,7 +1100,7 @@ feedback.defaultFeedback = (function() {
 		setTimeout(function() {
 			inlineErrors(response);
 		}, 0);
-		
+
 		return false;
 	}
 }());

@@ -15,18 +15,18 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.widgets.Panel', 'glow.embed'])</script>
-	
+
 </head>
 
 <body>
 	<h1>glow.widgets.Panel</h1>
-	
+
 	<p>More tests are included in Panel's base class, <a href="../overlay">Overlay</a></p>
-	
+
 	<h2>Settings</h2>
-	
+
 	<form action="?" id="urlOpts">
 		<p>
 			<label>
@@ -39,7 +39,7 @@
 			<input type="submit" value="Go" />
 		</p>
 	</form>
-	
+
 	<script type="text/javascript">
 		// get values from url
 		var urlOpts = glow.data.decodeUrl( window.location.search.slice(1) );
@@ -48,9 +48,9 @@
 		// update the form
 		glow.dom.get('#urlOpts').val(urlOpts);
 	</script>
-	
+
 	<h2>Basic Panel</h2>
-	
+
 	<ul>
 		<li>
 			<a href="#" id="panel1Show">Show panel</a>
@@ -75,13 +75,13 @@
 			Once closed, focus should return to the "Show panel" link above
 		</li>
 	</ul>
-	
+
 	<div id="panel1">
 		<h3 class="hd">This is my panel's header</h3>
 		<p>This is my panel's content</p>
 		<p class="ft">This is my panel's footer</p>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.panel1 = new glow.widgets.Panel('#panel1', {
@@ -89,16 +89,16 @@
 				closeOnEsc: true,
 				theme: urlOpts.theme
 			});
-			
+
 			panel1.header.css("color", "red");
 			panel1.body.css("color", "green");
 			panel1.footer.css("color", "blue");
-			
+
 			glow.events.addListener('#panel1Show', 'click', function() {
 				panel1.show();
 				return false;
 			});
-			
+
 			// log events
 			glow.events.addListener(panel1, 'show', function() {
 				manualTests.log('panel1: show');
@@ -114,7 +114,7 @@
 			});
 		});
 	</script>
-	
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

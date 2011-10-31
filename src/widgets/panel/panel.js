@@ -27,7 +27,7 @@
 			CLOSE_LINK : "Close Panel",
 			TOP_OF_PANEL_LINK : "Back to top of panel"
 		});
-	
+
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		 This block outputs CSS rules for IE only directly to the page.
@@ -146,7 +146,7 @@
 			r[rLen++] = '</div>';
 			return r.join("");
 		}();
-		
+
 		/**
 		@name glow.widgets.Panel
 		@class

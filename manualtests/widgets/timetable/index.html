@@ -15,16 +15,16 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.data', 'glow.widgets.Timetable'])</script>
 	<script type="text/javascript" src="data.js"></script>
 </head>
 
 <body>
 	<h1>glow.widgets.Timetable</h1>
-	
+
 	<h2>Settings</h2>
-	
+
 	<form action="?" id="urlOpts">
 		<p>
 			<label>
@@ -44,7 +44,7 @@
 			<input type="submit" value="Go" />
 		</p>
 	</form>
-	
+
 	<script type="text/javascript">
 		// get values from url
 		var urlOpts = glow.data.decodeUrl( window.location.search.slice(1) );
@@ -54,9 +54,9 @@
 		// update the form
 		glow.dom.get('#urlOpts').val(urlOpts);
 	</script>
-	
+
 	<h2>TV Guide</h2>
-	
+
 	<ul>
 		<li>The timetable should display 2 tracks of TV shows</li>
 		<li>The first elements should be "00:00 Skiing Weather" and "01:20 BBC News 24"</li>
@@ -64,12 +64,12 @@
 		<li>The two tracks should have a header and footer of "BBC One" and "BBC Two" respectively</li>
 		<li>You should be able to drag the timetable using the mouse</li>
 	</ul>
-	
+
 	<div id="timetable1"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
-		
+
 			window.timetable1 = new glow.widgets.Timetable(
 				"#timetable1",
 				new Date(2008, 01, 01, 00),
@@ -85,7 +85,7 @@
 					itemTemplate: function(item) {
 						var hh = item.start.getHours(),
 							mm = item.start.getMinutes();
-							
+
 						if (hh < 10) {
 							hh = "0" + hh;
 						}
@@ -121,7 +121,7 @@
 					return String(hh);
 				}
 			});
-			
+
 			var trackName,
 				trackData,
 				track,
@@ -129,14 +129,14 @@
 				len,
 				itemData,
 				end;
-				
+
 			for (trackName in exampleData) {
-				
+
 				// force it to output only BBC1 & BBC2
 				if (trackName != 'BBC One' && trackName != 'BBC Two') {
 					continue;
-				} 
-				
+				}
+
 				trackData = exampleData[trackName];
 				track = timetable1.addTrack(trackName, 150);
 
@@ -150,12 +150,12 @@
 					);
 				}
 			}
-			
+
 			timetable1.draw();
-			
+
 			// adding interface elements
-			
-			
+
+
 			// events
 			glow.events.addListener(timetable1, 'change', function() {
 				manualTests.log('timetable1: change');
@@ -171,8 +171,8 @@
 			});
 		});
 	</script>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>
