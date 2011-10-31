@@ -11,7 +11,7 @@
 	builder: function(glow) {
 
 		var $i18n = glow.i18n;
-		
+
 		$i18n.addLocaleModule("GLOW_EMBED", "en", {
 			FLASH_MESSAGE : "This content requires Flash Player version {min} (installed version: {installed})",
 			NO_PLAYER_MESSAGE : "No Flash Flayer installed, or version is pre 6.0.0"
@@ -154,7 +154,7 @@
 		*/
 		function _getFlashPlayerVersion(){
 			var $match, flash_player, NO_FLASH = {major : 0, minor : 0, release : 0}, result = NO_FLASH;
-			
+
 			if (glow.env.ie){
 				try {
 					flash_player = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");

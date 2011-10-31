@@ -48,13 +48,13 @@
 				return this[cachedName] = orig.apply(this, arguments);
 			};
 		}
-		
+
 		/*
 		 Copy margins from one element to another
 		*/
 		function copyMargins(to, from) {
 			var i = sides.length, margin;
-			
+
 			while (i--) {
 				margin = 'margin-' + sides[i];
 				to.css(margin, from.css(margin));
@@ -548,7 +548,7 @@
 
 			intersectSize: function (that, touches) {
 				var a = this.outerBounds(), b = that.outerBounds();
-				
+
 				if (touches) {
 					a[1]++; b[1]++; a[2]++; b[2]++;
 				}
@@ -595,21 +595,21 @@
 				var placeholderBox = new Box(placeholder),
 					el = this.el,
 					position = pos || el.css('position');
-				
+
 				placeholder.css('display', 'none');
-				
+
 				el.after(placeholder);
-				
+
 				placeholder.css('width', (el[0].offsetWidth - placeholderBox.surroundWidth()) + 'px')
 					.css('height', (el[0].offsetHeight - placeholderBox.surroundHeight()) + 'px');
-				
+
 				// copy margin values
 				copyMargins(placeholder, el);
-				
+
 				placeholder.remove();
-				
+
 				placeholder.css('display', 'block');
-				
+
 				if (position != 'static') {
 					placeholder.css('left', startLeft + 'px');
 					placeholder.css('top', startTop + 'px');
@@ -637,7 +637,7 @@
 					position = box.el.position(),
 					top = position.top,
 					left = position.left;
-				
+
 				return top  >= bounds[0]  // top
 					&& left <= bounds[1]  // right
 					&& top  <= bounds[2]  // bottom
@@ -748,7 +748,7 @@
 
 			By default dragging will not work when the user clicks in form
 			elements, otherwise these elements would be unusable.
-			
+
 		@param {Number|Object} [opts.step=1] The pixel interval the draggable snaps to.
 			If a number, the draggable will step by that number of pixels on the x and y axis. You
 			can provide an object in the form <code>{x:2, y:4}</code> to set different steps to each
@@ -761,14 +761,14 @@
 		@param {Function} [opts.onLeave] An event listener that fires when the draggable is dragged out of a drop target.
 
 		@param {Function} [opts.onDrop] An event listener that fires when the draggable is dropped.
-		
+
 		@param {Function} [opts.onAfterDrop] An event listener that fires after the element has dropped, including any animations
 
 			The default action is to animate the draggable back to it's start
 			position. This can be cancelled by returning false from the listener
 			or calling {@link glow.events.Event.preventDefault} on the
 			{@link glow.events.Event} param.
-			
+
 		@example
 			// create a draggable element with a corresponding DropTarget,
 			// container and two event listeners
@@ -790,7 +790,7 @@
 
 			Concelling this event results in the user being unable to pick up
 			the draggable.
-		
+
 		@param {glow.events.Event} event Event Object
 	*/
 	/**
@@ -831,7 +831,7 @@
 				placeholderClass : 'glow-dragdrop-placeholder',
 				step			 : {x:1, y:1}
 			}, opts || {});
-			
+
 			//normalise the step param to an object
 			if (typeof opts.step == "number") {
 				opts.step = {x: opts.step, y: opts.step};
@@ -930,9 +930,9 @@
 					pos = el.css('position'),
 					newLeft,
 					newTop;
-				
+
 				box.resetPosition();
-				
+
 				var position = box.el.position(),
 					offset = {
 						x: position.left,
@@ -942,7 +942,7 @@
 				if (this._placeholder || this._dropIndicator) {
 					el.remove();
 				}
-				
+
 				if (origPos == 'static' && offset.y == startOffset.y && offset.x == startOffset.x) {
 					el.css('position', 'static');
 					el.css('left', '');
@@ -1008,7 +1008,7 @@
 						return;
 					}
 				}
-				
+
 				//fire the drag event
 				if (fire(this, 'drag').defaultPrevented()) {
 					//the default action was prevented, don't do any dragging
@@ -1030,13 +1030,13 @@
 					step = opts.step;
 
 				this._preDragPosition = el.css('position');
-				
-				var position = box.el.position(), 
+
+				var position = box.el.position(),
 					startOffset = this._startOffset = {
 						x: position.left,
 						y: position.top
 					};
-				
+
 				if (container) {
 					this._containerBox = new Box(container);
 					this._bounds = this._containerBox.boundsFor(box);
@@ -1060,7 +1060,7 @@
 					y: e.pageY
 				};
 
-				
+
 
 				this._preDragStyle = el.attr('style');
 
@@ -1144,8 +1144,8 @@
 						(this._startOffset.y + e.pageY - this._mouseStart.y),
 					bounds = this._bounds,
 					step = this._opts.step;
-				
-				
+
+
 				//round position to the nearest step
 				if (step.x != 1) {
 					newX = Math.round((newX - this._startOffset.x) / step.x) * step.x + this._startOffset.x;
@@ -1153,7 +1153,7 @@
 				if (step.y != 1) {
 					newY = Math.round((newY - this._startOffset.y) / step.y) * step.y + this._startOffset.y;
 				}
-				
+
 				// only pay for the function call if we have a container or an axis
 				if (bounds) {
 					// only apply bounds on the axis we're using
@@ -1164,7 +1164,7 @@
 						newY = newY < bounds[0] ? bounds[0] : newY > bounds[2] ? bounds[2] : newY;
 					}
 				}
-				
+
 				// set the new position
 				element[0].style.left = newX + 'px';
 				element[0].style.top = newY + 'px';
@@ -1381,12 +1381,12 @@
 				this._dragging = 0;
 
 				//remove any helpers/placeholders
-				
+
 				if (this._reset) {
 					this._reset();
 					delete this._reset;
 				}
-				
+
 				if (this.placeholder) {
 					this.placeholder.remove();
 				}
@@ -1420,7 +1420,7 @@
 						0.5
 					),
 					duration = 0.3 + (distance / 1000);
-				
+
 				var channels = [[
 					glow.anim.css(el, duration, {
 						left: this._startOffset.x,
@@ -1495,7 +1495,7 @@
 		@param {Function} [opts.onActive] An event listener to fire when an associated Draggable starts being dragged.
 
 		@param {Function} [opts.onInactive] An event listener to fire when an associated Draggable stops being dragged.
-		
+
 		@example
 			var myDropTarget = new glow.dragdrop.DropTarget('#dropTarget', {
 				onActive: function(e){
@@ -1713,7 +1713,7 @@
 				var marginLeft = parseInt(dropIndicator.css('margin-left')) || 0,
 					marginTop  = parseInt(dropIndicator.css('margin-top')) || 0,
 					position = box.el.position();
-					
+
 				draggable._startOffset = {
 					x: position.left,
 					y: position.top

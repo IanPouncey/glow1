@@ -15,10 +15,10 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.widgets.Sortable'])</script>
-	
-	<style type="text/css">	
+
+	<style type="text/css">
 		#sortable1 li {
 			cursor: pointer;
 		}
@@ -88,15 +88,15 @@
 
 <body>
 	<h1>glow.widgets.Sortable</h1>
-	
+
 	<h2>Simple list sortable</h2>
-	
+
 	<ul>
 		<li>Drag &amp; drop to sort the elements below</li>
 		<li>Once released, the element should animate into place</li>
 		<li>'sort' should fire when elements are reordered</li>
 	</ul>
-	
+
 	<ol id="sortable1">
 		<li>One</li>
 		<li>Two</li>
@@ -109,25 +109,25 @@
 		<li>Nine</li>
 		<li>Ten</li>
 	</ol>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var sortable1 = new glow.widgets.Sortable('#sortable1');
-			
+
 			glow.events.addListener(sortable1, 'sort', function() {
 				manualTests.log('sortable1: sort');
 			});
 		});
 	</script>
-	
+
 	<h2>Block sortable with handle</h2>
-	
+
 	<ul>
 		<li>The below elements can only be dragged by the green box</li>
 		<li>Drag &amp; drop to sort the elements below</li>
 		<li>Once released, the element should animate into place</li>
 	</ul>
-	
+
 	<div id="sortable2">
 		<div class="sortableItem">
 			<div class="handle"></div>
@@ -146,7 +146,7 @@
 			<p>Sortable item 4</p>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var sortable2 = new glow.widgets.Sortable('#sortable2', {
@@ -154,21 +154,21 @@
 					handle: 'div.handle'
 				}
 			});
-			
+
 			glow.events.addListener(sortable2, 'sort', function() {
 				manualTests.log('sortable2: sort');
 			});
 		});
 	</script>
-	
+
 	<h2>Multi column sort</h2>
-	
+
 	<ul>
 		<li>Drag &amp; drop to sort the elements below</li>
 		<li>Elements should be draggable between columns</li>
 		<li>Once released, the element should animate into place</li>
 	</ul>
-	
+
 	<div id="sortable3">
 		<div class="col">
 			<div class="sortableItem">
@@ -213,23 +213,23 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var sortable3 = new glow.widgets.Sortable('#sortable3 > *');
-			
+
 			glow.events.addListener(sortable3, 'sort', function() {
 				manualTests.log('sortable3: sort');
 			});
 		});
 	</script>
-	
+
 	<h2>Negative margins</h2>
-	
+
 	<ul>
 		<li>Drag an element from column 1 / 2 to the top of column 3</li>
 	</ul>
-	
+
 	<div id="sortable4">
 		<div id="sortable4PromoElm">Promo</div>
 		<div style="clear:left"></div>
@@ -282,17 +282,17 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var sortable4 = new glow.widgets.Sortable('#sortable4 > div.col');
-			
+
 			glow.events.addListener(sortable4, 'sort', function() {
 				manualTests.log('sortable4: sort');
 			});
 		});
 	</script>
-	
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

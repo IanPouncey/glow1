@@ -66,23 +66,23 @@ t.test("id", function() {
 	t.selects("#台北Táiběi, #台北", ["台北Táiběi", "台北"], "Multiple ID selectors using UTF8");
 	t.selects("div #台北", ["台北"], "Descendant ID selector using UTF8");
 	t.selects("form > #台北", ["台北"], "Child ID selector using UTF8");
-	
+
 	t.selects("#foo\\:bar", ["foo:bar"], "Escaped ID");
 	t.selects("#test\\.foo\\[5\\]bar", ["test.foo[5]bar"], "Escaped ID");
 	t.selects("div #foo\\:bar", ["foo:bar"], "Descendant escaped ID");
 	t.selects("div #test\\.foo\\[5\\]bar", ["test.foo[5]bar"], "Descendant escaped ID");
 	t.selects("form > #foo\\:bar", ["foo:bar"], "Child escaped ID");
 	t.selects("form > #test\\.foo\\[5\\]bar", ["test.foo[5]bar"], "Child escaped ID");
-	
+
 	t.selects("#form > #radio1", ["radio1"], "ID Selector, child ID present");
 	t.selects("#form  #first", [], "ID Selector, not an ancestor ID");
 	t.selects("#form > #option1a", [], "ID Selector, not a child ID");
-	
+
 	t.selects("#foo > *", ["sndp", "en", "sap"], "All Children of ID");
 	t.selects("#firstUL > *", [], "All Children of ID with no children");
-	
+
 	t.selects("#asdfasdf #foobar", [], "ID selector with non-existant ancestor");
-	
+
 	t.isSet( glow.dom.get("body").get("#form"), q("form"), "ID selector within the context of another element" );
 });
 
@@ -92,14 +92,14 @@ t.test("class", function() {
 	t.selects(".blog.link", ["simon"], "Class Selector");
 	t.selects("a.blog", ["mark","simon"], "Class Selector w/ Element");
 	t.selects("p .blog", ["mark","simon"], "Parent Class Selector");
-	
+
 	t.selects(".台北Táiběi", ["utf8class1"], "Class selector using UTF8");
 	t.selects(".台北", ["utf8class1","utf8class2"], "Class selector using UTF8");
 	t.selects(".台北Táiběi.台北", ["utf8class1"], "Class selector using UTF8");
 	t.selects(".台北Táiběi, .台北", ["utf8class1","utf8class2"], "Class selector using UTF8");
 	t.selects("div .台北Táiběi", ["utf8class1"], "Descendant class selector using UTF8");
 	t.selects("form > .台北Táiběi", ["utf8class1"], "Child class selector using UTF8");
-	
+
 	t.selects(".foo\\:bar", ["foo:bar"], "Escaped Class");
 	t.selects(".test\\.foo\\[5\\]bar", ["test.foo[5]bar"], "Escaped Class");
 	t.selects("div .foo\\:bar", ["foo:bar"], "Descendant escaped Class");
@@ -140,10 +140,10 @@ t.test("glow.dom.create", function () {
 	t.expect(16);
 
 	var NodeList = glow.dom.create(' <div id="aNewNode1">test</div> <div id="aNewNode2">test</div> ');
-	
+
 	t.ok(NodeList.length == 2, "two element NodeList created with glow.dom.create");
 	t.ok(NodeList[0].id == "aNewNode1" && NodeList[1].id == "aNewNode2", "nodes created with glow.dom.create as expected");
-	
+
 	var error;
 	try {
 		var nodes = glow.dom.create(' <div>test</div> hello <div>test</div> ');
@@ -151,10 +151,10 @@ t.test("glow.dom.create", function () {
 		error = e;
 	}
 	t.ok(error.message && error.message.indexOf("Text must be wrapped in an element") > -1, "Throws error with non-whitespace text nodes");
-	
+
 	//IE doesn't like link elements inserted via innerHTML
 	var myLink = glow.dom.create('<link type="text/css" rel="stylesheet" media="screen" href="/static/users/style/id-panel.css" />')
-	
+
 	t.ok(myLink[0] && myLink[0].nodeName.toLowerCase() == "link", "Link element created");
 
 	// glow.dom.create needs to work with elements that cannot be a child of a DIV
@@ -163,47 +163,47 @@ t.test("glow.dom.create", function () {
 	// CAPTION NODE
 	var caption = glow.dom.create("<caption></caption>");
 	t.ok(caption[0] && caption[0].nodeName.toLowerCase() == "caption", "Caption element created");
-	
+
 	// THEAD NODE
 	var thead = glow.dom.create("<thead></thead>");
 	t.ok(thead[0] && thead[0].nodeName.toLowerCase() == "thead", "Thead element created");
-	
+
 	// TH NODE
 	var th = glow.dom.create("<th></th>");
 	t.ok(th[0] && th[0].nodeName.toLowerCase() == "th", "Th element created");
-	
+
 	// COLGROUP NODE
 	var colgroup = glow.dom.create("<colgroup />");
 	t.ok(colgroup[0] && colgroup[0].nodeName.toLowerCase() == "colgroup", "Colgroup element created");
-	
+
 	// TBODY NODE
 	var tbody = glow.dom.create("<tbody></tbody>");
 	t.ok(tbody[0] && tbody[0].nodeName.toLowerCase() == "tbody", "Tbody element created");
-	
+
 	// TR NODE
 	var tr = glow.dom.create("<tr></tr>");
 	t.ok(tr[0] && tr[0].nodeName.toLowerCase() == "tr", "Tr element created");
-	
+
 	// TD NODE
 	var td = glow.dom.create("<td></td>");
 	t.ok(td[0] && td[0].nodeName.toLowerCase() == "td", "Td element created");
-	
+
 	// TFOOT NODE
 	var tfoot = glow.dom.create("<tfoot></tfoot>");
 	t.ok(tfoot[0] && tfoot[0].nodeName.toLowerCase() == "tfoot", "Tfoot element created");
-	
+
 	// OPTION NODE
 	var option = glow.dom.create("<option></option>");
-	t.ok(option[0] && option[0].nodeName.toLowerCase() == "option", "Option element created"); 
-	
+	t.ok(option[0] && option[0].nodeName.toLowerCase() == "option", "Option element created");
+
 	// LEGEND NODE
 	var legend = glow.dom.create("<legend></legend>");
 	t.ok(legend[0] && legend[0].nodeName.toLowerCase() == "legend", "Legend element created");
-	
+
 	// SCRIPT NODE
 	var script = glow.dom.create("<script></script>");
 	t.ok(script[0] && script[0].nodeName.toLowerCase() == "script", "Script element created");
-	
+
 	// STYLE NODE
 	var style = glow.dom.create('<style type="text/css">#abc1234 { margin:0; }</style>');
 	t.equals(style[0].nodeName.toLowerCase(), "style", "Style element created");
@@ -212,12 +212,12 @@ t.test("glow.dom.create", function () {
 
 t.test("glow.dom.create - interpolate", function() {
 	t.expect(5);
-	
+
 	var iNodes = glow.dom.create("<div>{foo}</div>", {
 		interpolate: {foo: "FOO"}
 	});
 	t.equals(iNodes.text(), "FOO", "Basic Interpolation");
-	
+
 	var data = {
 			faveElms: '<strong>strong</strong> & <h1>h1</h1>',
 			food: 'cake',
@@ -225,28 +225,28 @@ t.test("glow.dom.create - interpolate", function() {
 			gt: '>'
 		},
 		template = '<div>My favourite elements are {faveElms}. Do you have any {food}? Here\'s a {lt}span{gt}. This {<b>placeholder</b>} does not exist.</div>';
-	
+
 	var elm = glow.dom.create(template, {
 		interpolate: data
 	});
-	
+
 	t.equals(elm.get("*").length, 4, "HTML not escaped");
-	
+
 	elm = glow.dom.create(template, {
 		interpolate: data,
 		escapeHtml: true
 	});
-	
+
 	t.equals(elm.get("span, strong, h1").length, 0, "HTML escaped, no unwanted elements created");
 	t.equals(elm.text(), 'My favourite elements are <strong>strong</strong> & <h1>h1</h1>. Do you have any cake? Here\'s a <span>. This {placeholder} does not exist.', "HTML escaped, text retained");
-	
+
 	// test escapeHtml doesn't fail when interpolate isn't used
 	var moreNodes = glow.dom.create('<div>Hello</div>', {
 		escapeHtml: true
 	});
-	
+
 	t.equals(moreNodes.html(), "Hello", "Simple Node Created");
-	
+
 	iNodes.destroy();
 });
 
@@ -509,7 +509,7 @@ t.test("glow.dom.NodeList.attr(key:String, value:String)", function () {
 
 	glow.dom.get("#check1").attr("checked", "");
 	// removed because setAttribute("checked", "") has no effect in opera
-	
+
 });
 
 // glow.dom.NodeList.attr(Object)
@@ -609,7 +609,7 @@ t.test("glow.dom.NodeList.addClass(String)", function () {
 	t.expect(3);
 
 	var nodes = glow.dom.create("<div></div><div></div>");
-	
+
 	t.equals(nodes.addClass("blah"), nodes, "addClass returns the node list");
 	t.ok(nodes.slice(0,1).hasClass("blah") && nodes.slice(1,2).hasClass("blah"), "add a class");
 	nodes.addClass("bah");
@@ -624,7 +624,7 @@ t.test("glow.dom.NodeList.removeClass(String)", function () {
 	t.expect(6);
 
 	var nodes = glow.dom.create('<div class="classa classb"></div><div class="classa"></div>');
-	
+
 	t.equals(nodes.removeClass("classb"), nodes, "removeClass returns the node list");
 	t.ok(!nodes.hasClass("classb"), "remove a class from one node");
 	var oldClasses = [nodes[0].className, nodes[1].className];
@@ -681,7 +681,7 @@ t.test("glow.dom.NodeList.val()", function () {
 		"val",
 		"get value from checked checkbox"
 	);
-	
+
 	t.equals(
 		glow.dom.create("<input type=\"checkbox\" name=\"blah\" value=\"val\"/>").val(),
 		"",
@@ -779,7 +779,7 @@ t.test("glow.dom.NodeList.val(String)", function () {
 	var multiSelect = glow.dom.create("<select multiple=\"multiple\" name=\"blah\"><option value=\"1\">blah</option><option value=\"2\">blah2</option></select>");
 
 	multiSelect.val(["1", "2"]);
-	
+
 	t.ok(multiSelect[0].options[0].selected && multiSelect[0].options[1].selected, "multiple select takes array of values");
 });
 
@@ -804,7 +804,7 @@ t.test("glow.dom.NodeList.val(Object)", function () {
 		  '<input type="radio" name="myRadios2" value="rval2" />' +
 		'</form>'
 	).appendTo(document.body);
-	
+
 	form.val({
 		nm1 : "3val",
 		nm2 : "2val",
@@ -825,91 +825,91 @@ t.test("glow.dom.NodeList.val(Object)", function () {
 	);
 
 	t.ok(! form[0].elements[3].checked, "undefined checkbox is unchecked");
-	t.ok(! form[0].elements[4].checked, "checkbox without value in array unchecked");	
+	t.ok(! form[0].elements[4].checked, "checkbox without value in array unchecked");
 	t.ok(form[0].elements[5].checked, "checkbox with value in array checked");
 	t.ok(form[0].elements[6].checked, "checkbox with value checked");
 	t.ok(! form[0].elements[7].checked, "checkbox with wrong value value unchecked");
 
 	t.ok(! form[0].elements[8].checked && ! form[0].elements[9].checked, "setting radio to undefined unchecks all");
 	t.ok(form[0].elements[10].checked && ! form[0].elements[11].checked, "setting radio to value checks correct one");
-	
+
 	form.remove();
 });
 
 t.test("glow.dom.NodeList#prop on empty NodeList", function() {
 	t.expect(1);
-	
+
 	var myNodeList = new glow.dom.NodeList();
-	
+
 	// these shouldn't cause an error
 	myNodeList.prop("hello", "world");
 	myNodeList.prop({
 		no: "errors",
 		please: "thankyou"
 	});
-	
+
 	t.ok(myNodeList.prop("hello") === undefined, "on empty NodeList returns undefined");
 });
 
 t.test("glow.dom.NodeList#prop", function() {
 	t.expect(23);
-	
+
 	var elm = glow.dom.create(
 		'<input type="checkbox" name="ck2" value="val2" checked="checked"/>' +
 		'<div>Hello</div>' +
 		'<span>World</span>' +
 	'');
-	
+
 	// getting
 	t.ok( elm.prop("checked") === true, "Checked property === true" );
 	t.equals( elm.prop("nodeName").toLowerCase(), "input", "Get the node name" );
 	t.ok( elm.prop("doesNotExist") === undefined, "Not existant property is undefined" );
-	
+
 	// setting
-	
+
 	elm.prop("_test1", 10);
 	var myObj = {hello:"world"};
 	var returnVal = elm.prop("_test2", myObj);
-	
+
 	t.ok(returnVal === elm, "NodeList returned when setting");
-	
+
 	// getting what we just set, via api
 	t.ok( elm.slice(0,1).prop("_test1") === 10, "10 set and got via prop() (elm 1)" );
 	t.ok( elm.slice(1,2).prop("_test1") === 10, "10 set and got via prop() (elm 2)" );
 	t.ok( elm.slice(2,3).prop("_test1") === 10, "10 set and got via prop() (elm 3)" );
-	
+
 	t.ok( elm.slice(0,1).prop("_test2") === myObj, "myObj set and got via prop() (elm 1)" );
 	t.ok( elm.slice(1,2).prop("_test2") === myObj, "myObj set and got via prop() (elm 2)" );
 	t.ok( elm.slice(2,3).prop("_test2") === myObj, "myObj set and got via prop() (elm 3)" );
-	
+
 	t.ok( elm.slice(0,1)[0]._test1 === 10, "10 set and got via [0] (elm 1)" );
 	t.ok( elm.slice(1,2)[0]._test1 === 10, "10 set and got via [0] (elm 2)" );
 	t.ok( elm.slice(2,3)[0]._test1 === 10, "10 set and got via [0] (elm 3)" );
-	
+
 	t.ok( elm.slice(0,1)[0]._test2 === myObj, "myObj set and got via [0] (elm 1)" );
 	t.ok( elm.slice(1,2)[0]._test2 === myObj, "myObj set and got via [0] (elm 2)" );
 	t.ok( elm.slice(2,3)[0]._test2 === myObj, "myObj set and got via [0] (elm 3)" );
-	
+
 	// more setting - multiple values
-	
+
 	var myObj2 = {foo:"bar"};
-	
+
 	returnVal = elm.prop({
 		_test3: 5,
 		_test4: myObj2
 	});
-	
+
 	t.ok(returnVal === elm, "NodeList returned when setting multiple");
-	
+
 	// get those values
 	t.ok( elm.slice(0,1).prop("_test3") === 5, "5 set and got via prop() (elm 1)" );
 	t.ok( elm.slice(1,2).prop("_test3") === 5, "5 set and got via prop() (elm 2)" );
 	t.ok( elm.slice(2,3).prop("_test3") === 5, "5 set and got via prop() (elm 3)" );
-	
+
 	t.ok( elm.slice(0,1).prop("_test4") === myObj2, "myObj2 set and got via prop() (elm 1)" );
 	t.ok( elm.slice(1,2).prop("_test4") === myObj2, "myObj2 set and got via prop() (elm 2)" );
 	t.ok( elm.slice(2,3).prop("_test4") === myObj2, "myObj2 set and got via prop() (elm 3)" );
-	
+
 	elm.destroy();
 });
 
@@ -924,7 +924,7 @@ t.test("glow.dom.NodeList.is(CssExpression)", function () {
 	t.ok(nodes.is("#select3 option"), "NodeList is expression");
 
 	t.ok(! nodes.is("#option3a, #idTest"), "NodeList isn't expression");
-	
+
 });
 
 t.module("glow.dom.NodeList Altering context selection");
@@ -975,20 +975,20 @@ t.test("glow.dom.NodeList.parent()", function() {
 
 t.test("glow.dom.NodeList.ancestors()", function() {
 	t.expect(3);
-	
+
 	var nodes = glow.dom.get("#simon1").ancestors();
 	var expectedNodes = glow.dom.get("#firstp, #main, dl, body, html");
-	
+
 	t.isSet(nodes, expectedNodes, "Gets ancestors");
-	
+
 	var nodes = glow.dom.get("#simon1, #foo").ancestors();
 	var expectedNodes = glow.dom.get("#firstp, #main, dl, body, html");
-      
-	
+
+
 	t.isSet(nodes, expectedNodes, "Gets only unique ancestors");
-	
+
 	nodes = glow.dom.get("#foo, #ap").ancestors();
-	
+
 	t.ok(nodes instanceof glow.dom.NodeList, "Returns NodeList");
 });
 
@@ -1020,7 +1020,7 @@ t.module("glow.dom.NodeList Manipulation");
 t.test("glow.dom.NodeList.text()", function () {
 	t.expect(2);
 
-	var nodes = glow.dom.create("<div>first text</div><div>second text</div>");	
+	var nodes = glow.dom.create("<div>first text</div><div>second text</div>");
 	t.equals(nodes.text(), "first text", "get the text of the first context node");
 
 	nodes.text("new first text");
@@ -1047,7 +1047,7 @@ t.test("Load DOM", function() {
 
 t.test("glow.dom.NodeList.remove()", function () {
 	t.expect(2);
-	var nodes = glow.dom.create("<div>first</div><div>second</div>");	
+	var nodes = glow.dom.create("<div>first</div><div>second</div>");
 
 	var body = document.getElementById("body");
 	body.appendChild(nodes[0]);
@@ -1056,21 +1056,21 @@ t.test("glow.dom.NodeList.remove()", function () {
 	t.ok(nodes[0].parentNode == body && nodes[1].parentNode == body, "set up test for remove");
 
 	nodes.remove();
-	
+
 	// IE replaces parentNode with a document fragment, so parentNode isn't always null
 	t.ok(nodes[0].parentNode != body && nodes[1].parentNode != body, "remove removes nodes from document");
 });
 
 t.test("glow.dom.NodeList#destroy", function() {
 	t.expect(5);
-	
+
 	var nodes = glow.dom.create('<div id="destroyTest1">first</div><div id="destroyTest2">second</div>').appendTo(document.body);
-	
+
 	t.equals(glow.dom.get("#destroyTest1").length, 1, "First element in document");
 	t.equals(glow.dom.get("#destroyTest2").length, 1, "Second element in document");
-	
+
 	nodes.destroy();
-	
+
 	t.equals(nodes.length, 0, "NodeList emptied");
 	t.equals(glow.dom.get("#destroyTest1").length, 0, "First element not in document");
 	t.equals(glow.dom.get("#destroyTest2").length, 0, "Second element not in document");
@@ -1079,7 +1079,7 @@ t.test("glow.dom.NodeList#destroy", function() {
 t.test("glow.dom.NodeList.clone()", function () {
 	t.expect(6);
 
-	var nodes = glow.dom.create("<div><span>first</span></div><div>second</div>");	
+	var nodes = glow.dom.create("<div><span>first</span></div><div>second</div>");
 
 	var clone = nodes.clone();
 
@@ -1092,10 +1092,10 @@ t.test("glow.dom.NodeList.clone()", function () {
 	t.equals(clone[0].firstChild.nodeName, nodes[0].firstChild.nodeName, "clone duplicates child elements");
 
 	t.equals(clone[1].innerText, nodes[1].innerText, "clone duplicates text nodes");
-	
+
 	var emptyNodeList = new glow.dom.NodeList(),
 		emptyClone = emptyNodeList.clone();
-		
+
 	t.equals(emptyClone.length, 0, "Clone works on empty nodelists");
 
 });
@@ -1108,36 +1108,36 @@ t.test("glow.dom.NodeList#html()", function () {
 	t.equals(nodes.html().toLowerCase(), "<span>first</span>", "html returns inner html for first node");
 
 	nodes.html("<div>first</div>");
-	
+
 	t.equals(nodes.html().toLowerCase(), "<div>first</div>", "html sets inner html for first node");
-	
+
 	var emptyNodeList = new glow.dom.NodeList();
 	// this shouldn't error
 	emptyNodeList.html("<div></div>");
 	t.equals(emptyNodeList.length, 0, "No error on empty nodelist");
-	
+
 	// http://glow-project.lighthouseapp.com/projects/33663/tickets/17-empty-nodelists-html-method-causes-error-if-passed-undefined
 	emptyNodeList = new glow.dom.NodeList();
 	// this shouldn't error
 	emptyNodeList.html(undefined);
 	t.equals(emptyNodeList.length, 0, "No error on empty nodelist with undefined param");
-	
+
 	t.equals((new glow.dom.NodeList()).html(), "", "Empty nodelist should return empty string");
-	
+
 	var tableNode = glow.dom.create("<table class='madetable'></table>").appendTo("body")
-	
+
 	// add a row
 	tableNode.html("<tr><td>first</td></tr>");
-	
+
 	t.equals(tableNode.get('tr').length, 1, 'Table row added');
-	
+
 	// clear table
 	tableNode.html("");
-	
+
 	t.equals(tableNode.get('tr').length, 0, 'Table contents removed');
-	
+
 	tableNode.destroy();
-	
+
 	// adding a number - should convert it to a string
 	var div = glow.dom.create('<div></div>');
 	div.html(1);
@@ -1148,7 +1148,7 @@ t.test("glow.dom.NodeList#html()", function () {
 t.test("glow.dom.NodeList#append()", function () {
 	t.expect(6);
 
-	var node = glow.dom.create("" + 
+	var node = glow.dom.create("" +
 		'<div>' +
 			'<div class="first">1</div>' +
 		'</div>' +
@@ -1169,7 +1169,7 @@ t.test("glow.dom.NodeList#append()", function () {
 		secondNode.children()[1].className == "second",
 		"append html to nodes"
 	);
-	
+
 
 	var domNode = glow.dom.create('<div class="third"></div>');
 	res = node.append(domNode[0]);
@@ -1210,19 +1210,19 @@ t.test("glow.dom.NodeList#append()", function () {
 		secondNode.children()[4] != domNode[1],
 		"append NodeList"
 	);
-	
+
 	node.append("Just some text!");
-	
+
 	t.equals( node[0].lastChild.nodeValue, "Just some text!", "Added text node" );
 	t.equals( node[1].lastChild.nodeValue, "Just some text!", "Added both text nodes" );
-	
+
 	t.ok(glow.dom.create("<div></div><div></div>").append("Hello").text() == "Hello", "Adding text");
 });
 
 t.test("glow.dom.NodeList.prepend(String / Node / Array)", function () {
 	t.expect(4);
 
-	var node = glow.dom.create('' + 
+	var node = glow.dom.create('' +
 		'<div>' +
 			'<div class="fifth">5</div>' +
 		'</div>' +
@@ -1264,7 +1264,7 @@ t.test("glow.dom.NodeList.prepend(String / Node / Array)", function () {
 	var nodeSet = glow.dom.create('<div class="first"></div><div class="second"></div>');
 	res = glow.dom.create("<div></div><div></div>").prepend(nodeSet);
 	t.ok(res.get("> div.first, > div.second").length == 4 && res.get("> div").slice(0, 1).hasClass("first"), "prepend nodeset");
-	
+
 	node = glow.dom.create('' +
 		'<div></div>' +
 		'<div>Text</div>' +
@@ -1278,7 +1278,7 @@ t.test("glow.dom.NodeList.prepend(String / Node / Array)", function () {
 t.test("glow.dom.NodeList.appendTo(String / Node / Array)", function () {
 	t.expect(3);
 
-	var nodes = glow.dom.create("" + 
+	var nodes = glow.dom.create("" +
 		'<div class="second">2</div>' +
 		'<div class="third">3</div>'
 	);
@@ -1334,7 +1334,7 @@ t.test("glow.dom.NodeList.appendTo(String / Node / Array)", function () {
 t.test("glow.dom.NodeList.prependTo(String / Node / Array)", function () {
 	t.expect(3);
 
-	var nodes = glow.dom.create("" + 
+	var nodes = glow.dom.create("" +
 		'<div class="first">1</div>' +
 		'<div class="second">2</div>'
 	);
@@ -1426,7 +1426,7 @@ t.test("glow.dom.NodeList.after(Element)", function () {
 	);
 
 	var node = glow.dom.create('<div class="blah2"></div>');
-	
+
 	var orig = container.children();
 	var res = orig.after(node[0]);
 
@@ -1455,7 +1455,7 @@ t.test("glow.dom.NodeList.after(NodeList)", function () {
 	);
 
 	var nodes = glow.dom.create('<div class="blah2"></div><div class="blah3"></div>');
-	
+
 	var orig = container.children();
 	var res = orig.after(nodes);
 
@@ -1515,7 +1515,7 @@ t.test("glow.dom.NodeList.before(Element)", function () {
 	);
 
 	var node = glow.dom.create('<div class="blah2"></div>');
-	
+
 	var orig = container.children();
 	var res = orig.before(node[0]);
 
@@ -1526,7 +1526,7 @@ t.test("glow.dom.NodeList.before(Element)", function () {
 		container.children()[0] == node[0] &&
 		container.children()[1] == orig[0] &&
 		container.children()[2].className == 'blah2' &&
-		container.children()[2] != node[0] && 
+		container.children()[2] != node[0] &&
 		container.children()[3] == orig[1],
 		"insert dom Element before nodes"
 	);
@@ -1544,7 +1544,7 @@ t.test("glow.dom.NodeList.before(NodeList)", function () {
 	);
 
 	var nodes = glow.dom.create('<div class="blah2"></div><div class="blah3"></div>');
-	
+
 	var orig = container.children();
 	var res = orig.before(nodes);
 
@@ -1740,136 +1740,136 @@ t.test("glow.dom.NodeList.replaceWith(NodeList)", function () {
 t.test("glow.dom.NodeList.replaceWith special cases", function () {
   t.expect(3);
   //safari 2 doesn't like it when 2 elements with the same id appear on the page at the same time, even for a moment
-  
+
   var testDoc = glow.dom.create('<div id="testGuff"><div id="myTestElement">Hello</div></div>').appendTo(document.body);
-  
+
   testDoc.get("#myTestElement").replaceWith('<span id="myTestElement">Bye</span>');
-  
+
   t.equals(testDoc.children()[0].nodeName, "SPAN", "Div replaced with new element");
   t.equals(testDoc.children()[0].id, "myTestElement", "Span has correct id");
   t.ok(glow.dom.get("#myTestElement").length, "Can get new item by ID");
-  
+
   testDoc.remove();
 });
 
 
 
 t.test("glow.dom.NodeList#wrap", function () {
-	
-	t.expect(5);  
-		
+
+	t.expect(5);
+
 	var testDoc = glow.dom.create("<p class='gift'><span>Shiny toys</span></p>").appendTo(document.body);
 	var testDoc =  glow.dom.get(".gift").wrap("<div id='giftwrap'><span class='tissuepaper'></span></div>");
-	
-	// Test that the wrapped item has the correct new parent 
-	t.ok(glow.dom.get(".gift").parent().hasClass("tissuepaper"), "Wrapped item has new correct parent");    
-	
-	
+
+	// Test that the wrapped item has the correct new parent
+	t.ok(glow.dom.get(".gift").parent().hasClass("tissuepaper"), "Wrapped item has new correct parent");
+
+
 	glow.dom.get("#giftwrap").remove();
-	
-	var testDoc = glow.dom.create("<div id='test'><div class='2toys'>two toys: <span class='toy'>toy1</span><span class='toy'>toy2</span></div><div class='1toy'><span class='toy'>toy3</span></div></div>").appendTo(document.body);    
+
+	var testDoc = glow.dom.create("<div id='test'><div class='2toys'>two toys: <span class='toy'>toy1</span><span class='toy'>toy2</span></div><div class='1toy'><span class='toy'>toy3</span></div></div>").appendTo(document.body);
 	var testDoc =  glow.dom.get(".toy").wrap("<div class='giftwrap'><span class='tissuepaper'></span></div>");
-		
+
 	t.ok(glow.dom.get(".toy").parent().hasClass("tissuepaper"), "Multiple wrapped items have correct new wrapper parents");
-		
+
 	glow.dom.get("#test").remove();
-		
-	var nodes = glow.dom.create("<div class='inner'>inner</div>").wrap("<div class='outer'></div>");   
-		
+
+	var nodes = glow.dom.create("<div class='inner'>inner</div>").wrap("<div class='outer'></div>");
+
 	t.ok(nodes.parent().hasClass("outer"), "Unattached wrapped item has correct new wrapper parent");
-		
+
 	glow.dom.get(".outer").remove();
-		
+
 	var wrappernodes = glow.dom.create("<div class='wrappernode'>wrappernode</div>").appendTo(document.body);
-		
+
 	var towrap = glow.dom.create("<div class='towrap'>wrap1</div><div class='towrap'>wrap2</div><div class='towrap'>wrap3</div>").appendTo(document.body);
-		
+
 	var nodes = glow.dom.get(".towrap").wrap(wrappernodes);
-		
+
 	t.ok(nodes.parent().hasClass("wrappernode") && wrappernodes.children().length == 1 && nodes.length == 3, "Three in document wrapper nodes have correct parents and one new child each");
-		
+
 	glow.dom.get(".wrappernode").remove();
 	glow.dom.get(".towrap").remove();
-		
-	var wrappernodes2 = glow.dom.create("<div class='wrappernode'>wrappernode</div>");    
-		
+
+	var wrappernodes2 = glow.dom.create("<div class='wrappernode'>wrappernode</div>");
+
 	var nodes = glow.dom.create("<div class='towrap'>wrap1</div><div class='towrap'>wrap2</div>").wrap(wrappernodes2);
-		
+
 	t.ok(nodes.parent().hasClass("wrappernode") && wrappernodes2.children().length == 1 && nodes.length == 2, "Two new unattached wrapped nodes have correct parents and two children");
-		
+
 	glow.dom.get(".wrappernode").remove();
-   
-    
+
+
 });
 
 t.test("glow.dom.NodeList#unwrap", function () {
     t.expect(6);
-    
+
     var testDoc =  glow.dom.create("<div id='giftwrap'><div id='gift'><span>Shiny toys</span></div></div>").appendTo(document.body);
-    var expectedNodes = testDoc.children();    
-    var newDoc = glow.dom.get("#gift").unwrap();           
-    
+    var expectedNodes = testDoc.children();
+    var newDoc = glow.dom.get("#gift").unwrap();
+
     t.ok(glow.dom.get("#gift"), "Unwrapped node exists");
-    
+
     t.isSet(newDoc, expectedNodes, "Returned value is new unwrapped nodelist");
 
     newDoc.remove();
     testDoc.remove();
-    
-    
+
+
     var testDoc =  glow.dom.create("<div id='box'>"
 								   + "<div class='tissuepaper'><div class='tissuepaper' id='inner'><span>Shiny toys</span>"
-								   + "</div></div></div>").appendTo(document.body); 
+								   + "</div></div></div>").appendTo(document.body);
     var toUnwrap = glow.dom.get(".tissuepaper")
-    
-    var newDoc = toUnwrap.unwrap();      
-    
+
+    var newDoc = toUnwrap.unwrap();
+
     t.isSet(newDoc, toUnwrap, "Unwraps multiple nodes, and when nested");
 
     newDoc.remove();
     testDoc.remove();
-    
-    
+
+
     var testDoc =  glow.dom.create("<div id='box'>"
 								   + "<div class='tissuepaper'><div class='tissuepaper' id='inner'><span>Shiny toys</span>"
 								   + "</div></div></div>");
- 
-    
+
+
     var expectedNodes = glow.dom.get("#inner");
-    
+
     var toUnwrap = glow.dom.get(".tissuepaper")
-    
-    var newDoc = toUnwrap.unwrap();   
-    
-    
+
+    var newDoc = toUnwrap.unwrap();
+
+
     t.isSet(newDoc, toUnwrap, "Removes parents for unattached nodes");
 
     newDoc.remove();
     testDoc.remove();
-	
-	
+
+
 	var testDoc =  glow.dom.create("<div id='gift'><span>Shiny toys</span></div>");
-    var expectedNodes = testDoc.children();    
-    var newDoc = glow.dom.get("#gift").unwrap();           
-    
+    var expectedNodes = testDoc.children();
+    var newDoc = glow.dom.get("#gift").unwrap();
+
     t.ok(glow.dom.get("#gift"), "Orphaned unwrap item returns");
 
     newDoc.remove();
     testDoc.remove();
-	
+
 	var testDoc =  glow.dom.create("<div id='giftwrap'><div class='gift'><span>Shiny toys</span></div><div class='gift'><span>Shiny toys</span></div></div>").appendTo(document.body);
     var toUnwrap = glow.dom.get(".gift")
-    
-    var newDoc = toUnwrap.unwrap();      
-    
+
+    var newDoc = toUnwrap.unwrap();
+
     t.isSet(newDoc, toUnwrap, "Removes only one parent for multiple to-unwrap nodes that share same parent");
 
     newDoc.remove();
     testDoc.remove();
-	
-	
+
+
 });
-			
+
 
 t.module("glow.dom.NodeList XML tests");
 
@@ -1920,14 +1920,14 @@ t.test("glow.dom.NodeList#attr (XML)", function() {
 	});
 	t.ok(testNodes.length == 1
 		 && testNodes[0].nodeName == "testOne", "Get Attr");
-	
+
 	testNodes = xmlNodes.get("o").filter(function() {
 	  return glow.dom.get(this).attr("y") == "3";
 	});
-	
+
 	t.ok(testNodes.length == 2
 		 && testNodes[0].nodeName == "o", "Get Attr with element filter");
-	
+
 	xmlNodes.get("testTwo").attr("x", "42");
 	t.equals(xmlNodes.get("testTwo").attr("x"), "42", "Set then get attribute");
 });
@@ -1935,11 +1935,11 @@ t.test("glow.dom.NodeList#attr (XML)", function() {
 t.test("glow.dom.NodeList attribute checking and removing (XML)", function() {
 	t.expect(4);
 	var xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	t.ok(xmlNodes.get("testOne").hasAttr("something"), "has existing attribute");
 	t.ok(xmlNodes.get("testOne").hasAttr("isEmpty"), "has existing (but empty) attribute");
 	t.ok(!xmlNodes.get("testOne").hasAttr("doesntHave"), "false for non-existant attribute");
-	
+
 	t.ok(!xmlNodes.get("testTwo").removeAttr("x").hasAttr("x"), "remove attribute");
 });
 
@@ -1947,7 +1947,7 @@ t.test("glow.dom.NodeList#isWithin (XML)", function() {
 	t.expect(3);
 	var xmlNodes = glow.dom.get(xmlData).children().clone();
 
-	
+
 	t.ok(xmlNodes.get("o").isWithin(xmlNodes), "Nodes are within document");
 	t.ok(xmlNodes.get("testOne").isWithin(xmlNodes.get("nodeListTest")), "Node is within element");
 	t.ok(!xmlNodes.get("testTwo").isWithin(xmlNodes.get("testOne")), "Node isn't within element");
@@ -1956,7 +1956,7 @@ t.test("glow.dom.NodeList#isWithin (XML)", function() {
 t.test("glow.dom.NodeList altering content selection (XML)", function() {
 	t.expect(4);
 	var xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	t.ok(xmlNodes.get("w").children().eq(xmlNodes.get("testOne o")), "children()");
 	t.ok(xmlNodes.get("testOne o").parent().eq(xmlNodes.get("w")), "parent()");
 	t.ok(xmlNodes.get("testOne").next()[0].nodeName == "testTwo", "next()");
@@ -1966,46 +1966,46 @@ t.test("glow.dom.NodeList altering content selection (XML)", function() {
 t.test("glow.dom.NodeList Manipulation (XML)", function() {
 	t.expect(11);
 	var xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	/*
 	 * make sure you check appending using string etc. May have to just
 	 * mention that in documentation
 	 */
-	
+
 	t.equals(xmlNodes.get("b").text(), "Pass", "Getting inner text from a node");
 	t.equals(xmlNodes.get("b").empty().get(" > * ").length, 0, "Empty node");
 	xmlNodes.get("b").remove();
 	t.equals(xmlNodes.get("b").length, 0, "Removed node");
 	var testTwoClone = xmlNodes.get("testTwo").clone().empty();
 	t.ok(xmlNodes.get("testTwo > *").length == 4 && testTwoClone.get(" > * ").length == 0, "Cloned node");
-	
+
 	//get fresh xml, we've messed with the current one too much...
 	var xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	xmlNodes.get("nodeListTest").append(xmlData.createElement("pass"));
 	t.equals(xmlNodes.get("nodeListTest > pass").length, 1, "Node appended using node created by xml document");
 	xmlNodes.get("testTwo o").append(xmlData.createElement("pass"));
 	t.equals(xmlNodes.get("o > pass").length, 4, "Append correctly cloning nodes for multiple appends");
 	xmlNodes.get("testTwo").prepend(xmlData.createElement("shouldBeFirst"));
 	t.equals(xmlNodes.get("testTwo > *")[0].nodeName, "shouldBeFirst", "Prepend using node created by xml document");
-	
+
 	//get fresh xml, we've messed with the current one too much...
 	xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	glow.dom.get(xmlData.createElement("shouldBeLast")).appendTo(xmlNodes.get("testTwo"));
 	t.equals(xmlNodes.get("testTwo > *").slice(-1)[0].nodeName, "shouldBeLast", "appendTo using node created by xml document");
 	glow.dom.get(xmlData.createElement("shouldBeFirst")).prependTo(xmlNodes.get("testTwo"));
 	t.equals(xmlNodes.get("testTwo > *")[0].nodeName, "shouldBeFirst", "prependTo using node created by xml document");
-	
+
 	//get fresh xml, we've messed with the current one too much...
 	xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	xmlNodes.get("testTwo o").slice(1, 2).after(xmlData.createElement("afterO"));
 	t.equals(xmlNodes.get("testTwo o").slice(1, 2).next()[0].nodeName, "afterO", "after using node created by xml document");
-	
+
 	//get fresh xml, we've messed with the current one too much...
 	xmlNodes = glow.dom.get(xmlData).children().clone();
-	
+
 	xmlNodes.get("testTwo o").slice(2, 3).before(xmlData.createElement("beforeO"));
 	t.equals(xmlNodes.get("testTwo o").slice(2, 3).prev()[0].nodeName, "beforeO", "before using node created by xml document");
 });
@@ -2034,23 +2034,23 @@ t.test("glow.dom.NodeList.width", function() {
 		'</div>'
 	)[0];
 	document.body.appendChild(node);
-	
+
 	t.ok( typeof glow.dom.get(window).width() == 'number', "window width is number" );
 	t.ok( glow.dom.get(window).width() > 0, "window width is greater than zero" );
 	t.ok( typeof glow.dom.get(document).width() == 'number', "document width is number" );
 	t.ok( glow.dom.get(document).width() > 0, "document width is greater than zero" );
-	
+
 	t.equals(glow.dom.get("#cssTests div.width100").width(), 100, "Width get");
 	t.equals(glow.dom.get("#cssTests div.width100.padding10").width(), 100, "Ignore padding");
 	t.equals(glow.dom.get("#cssTests div.bordered").width(), 100, "Ignore border");
 	t.equals(glow.dom.get("#cssTests div.width100.overflowScroll").width(), 100, "Element with scrollbars");
 	t.equals(glow.dom.get("#cssTests div.containsWidth100Div").width(), 100, "Element floating and containing div");
 	t.equals(glow.dom.get("#autoWidthTest").width(), 470, "Auto width element with border & padding");
-	
+
 	t.equals(glow.dom.get("#cssTests div.bordered").width(200).width(), 200, "Set width number");
 	t.equals(glow.dom.get("#cssTests div.bordered").width("300").width(), 300, "Set width str, no unit");
 	t.equals(glow.dom.get("#cssTests div.bordered").width("400px").width(), 400, "Set width str, inc unit");
-	
+
 	node.parentNode.removeChild(node);
 });
 
@@ -2066,18 +2066,18 @@ t.test("glow.dom.NodeList.height", function() {
 		'</div>'
 	)[0];
 	document.body.appendChild(node);
-	
+
 	t.ok( typeof glow.dom.get(window).height() == 'number', "window height is number" );
 	t.ok( glow.dom.get(window).height() > 0, "window height is greater than zero" );
 	t.ok( typeof glow.dom.get(document).height() == 'number', "document height is number" );
 	t.ok( glow.dom.get(document).height() > 0, "document height is greater than zero" );
-	
+
 	t.equals(glow.dom.get("#cssTests div.height100").height(), 100, "height get");
 	t.equals(glow.dom.get("#cssTests div.height100.padding10").height(), 100, "Ignore padding");
 	t.equals(glow.dom.get("#cssTests div.bordered").height(), 100, "Ignore border");
 	t.equals(glow.dom.get("#cssTests div.height100.overflowScroll").height(), 100, "Element with scrollbars");
 	t.equals(glow.dom.get("#cssTests div.containsHeight100Div").height(), 100, "Element floating and containing div");
-	
+
 	t.equals(glow.dom.get("#cssTests div.bordered").height(200).height(), 200, "Set height number");
 	t.equals(glow.dom.get("#cssTests div.bordered").height("300").height(), 300, "Set height str, no unit");
 	t.equals(glow.dom.get("#cssTests div.bordered").height("400px").height(), 400, "Set height str, inc unit");
@@ -2146,7 +2146,7 @@ t.test("glow.dom.NodeList.css getting", function() {
 		'</div>'
 	)[0];
 	document.body.appendChild(node);
-	
+
 	t.equals(glow.dom.get("#cssTests div.width100").css("width"), "100px", "Width");
 	t.equals(glow.dom.get("#cssTests div.height100").css("height"), "100px", "Height");
 	t.equals(glow.dom.get("#cssTests div.padTest").css("padding-right"), "10px", "Absolute Padding");
@@ -2162,7 +2162,7 @@ t.test("glow.dom.NodeList.css getting", function() {
 		//t.equals(glow.dom.get("#cssTests div.padTest2").css("padding-left"), "250px", "Percent padding");
 		//cannot get value for auto in some browsers
 		//t.equals(glow.dom.get("#cssTests div.marginTest2").css("margin-left"), "dunno", "Auto margin");
-	
+
 	//lists
 	t.equals(glow.dom.get("#cssTests ul.listTest").css("list-style-image"), "none", "list-style-image");
 	t.equals(glow.dom.get("#cssTests ul.listTest").css("list-style-position"), "outside", "list-style-position");
@@ -2170,21 +2170,21 @@ t.test("glow.dom.NodeList.css getting", function() {
 	t.equals(glow.dom.get("#cssTests ul.listTest li").css("list-style-image"), "none", "list-style-image (on li)");
 	t.equals(glow.dom.get("#cssTests ul.listTest li").css("list-style-position"), "outside", "list-style-position (on li)");
 	t.equals(glow.dom.get("#cssTests ul.listTest li").css("list-style-type"), "square", "list-style-type (on li)");
-	
+
 	//color tests
 	t.equals(glow.dom.get("#cssTests div.colourTest").css("color"), "rgb(0, 255, 0)", "color");
 	t.equals(glow.dom.get("#cssTests div.colourTest div").css("color"), "rgb(0, 255, 0)", "color nested");
 	//safari gets this one a little wrong, but it's ok
 	t.ok(/rgb\(12[78], 12[78], 12[78]\)/.test(glow.dom.get("#cssTests div.colourTest").css("background-color")), "background-color (percentage color)");
 	t.equals(glow.dom.get("#cssTests div.colourTest").css("border-left-color"), "rgb(0, 128, 0)", "border-left-color (keyword)");
-	
+
 	//background test
 	t.equals(glow.dom.get("#cssTests div.backgroundTest").css("background-image"), "url(" + /^([\s\S]+)\//.exec(window.location.href)[1] + "/testdata/fail.png)", "background-image");
 	t.equals(glow.dom.get("#cssTests div.backgroundTest").css("background-attachment"), "scroll", "background-attachment");
 	t.equals(glow.dom.get("#cssTests div.backgroundTest").css("background-repeat"), "repeat-x", "background-repeat");
 		//Cannot get a reliable value for this
 		//t.equals(glow.dom.get("#cssTests div.backgroundTest").css("background-position"), "top right", "background-position");
-	
+
 	//font & direction
 	t.equals(glow.dom.get("#cssTests div.fontTest").css("direction"), "rtl", "direction");
 		//some browsers return used font, others return full list provided in stylesheet
@@ -2205,13 +2205,13 @@ t.test("glow.dom.NodeList.css getting", function() {
 		//t.equals(glow.dom.get("#cssTests div.fontTest").css("text-transform"), "capitalize", "text-transform");
 	t.equals(glow.dom.get("#cssTests div.fontTest").css("white-space"), "nowrap", "white-space");
 	t.equals(glow.dom.get("#cssTests div.fontTest").css("word-spacing"), "240px", "word-spacing");
-	
+
 	//bordering
 	t.equals(glow.dom.get("#cssTests div.borderTest").css("border-top-style"), "dotted", "border-top-style");
 	t.equals(glow.dom.get("#cssTests div.borderTest").css("border-right-style"), "dashed", "border-right-style");
 	t.equals(glow.dom.get("#cssTests div.borderTest").css("border-bottom-style"), "double", "border-bottom-style");
 	t.equals(glow.dom.get("#cssTests div.borderTest").css("border-left-style"), "solid", "border-left-style");
-	
+
 	//misc
 	t.equals(glow.dom.get("#cssTests div.containsWidth100Div").css("float"), "left", "float");
 	t.equals(glow.dom.get("#cssTests div.padTest").css("clear"), "left", "clear");
@@ -2221,7 +2221,7 @@ t.test("glow.dom.NodeList.css getting", function() {
 	t.equals(glow.dom.get("#cssTests div.displayTest2").css("display"), "none", "display");
 	t.equals(glow.dom.get("#cssTests div.padTest").css("opacity"), "1", "opacity - none set");
 	t.equals(glow.dom.get("#cssTests div.opacityTest").css("opacity"), "0.25", "opacity - none set");
-	
+
 	//positioning
 	t.equals(glow.dom.get("#cssTests div.posTest1").css("position"), "absolute", "position");
 	t.equals(glow.dom.get("#cssTests div.posTest1").css("top"), "66px", "top (em val)");
@@ -2235,7 +2235,7 @@ t.test("glow.dom.NodeList.css getting", function() {
 	t.equals(glow.dom.get("#cssTests div.posTest4").css("left"), "250px", "left (%)");
 	t.equals(glow.dom.get("#cssTests div.posTest5").css("right"), "250px", "right (%)");
 	t.equals(glow.dom.get("#cssTests div.posTest7").css("left"), "30px", "Using correct offset parent");
-	
+
 	//display none tests
 	// doesn't work while display:none, may fix later?
 	//t.equals(glow.dom.get("#cssTests div.posTest8").css("top"), "60px", "top (em val display none)");
@@ -2244,8 +2244,8 @@ t.test("glow.dom.NodeList.css getting", function() {
 	t.equals(glow.dom.get("#cssTests div.posTest8").css("width"), "60px", "width (em val display none)");
 	t.equals(glow.dom.get("#cssTests div.posTest8").css("height"), "30px", "height (px val display none)");
 	//t.equals(glow.dom.get("#cssTests div.displayNone div").css("top"), "60px", "top (em val inside display none)");
-	
-	
+
+
 	node.parentNode.removeChild(node);
 });
 
@@ -2262,7 +2262,7 @@ t.test("Load DOM", function() {
 
 t.test("glow.dom.NodeList#offset", function() {
 	t.expect(18);
-	
+
 	var node = glow.dom.create('' +
 		'<div id="offsetTest" style="position:absolute; top:0; left:0; background:#000; zoom:1; overflow: hidden">' +
 			'<div id="elm1" style="position:relative; height:120px; width:300px; padding:20px; margin: 0 10px 10px 10px">' +
@@ -2282,7 +2282,7 @@ t.test("glow.dom.NodeList#offset", function() {
 			'</div>' +
 		'</div>' +
 	'').appendTo(document.body);
-	
+
 	var elm1Offset = glow.dom.get("#elm1").offset();
 	var elm1_1Offset = glow.dom.get("#elm1_1").offset();
 	var elm2Offset = glow.dom.get("#elm2").offset();
@@ -2292,35 +2292,35 @@ t.test("glow.dom.NodeList#offset", function() {
 	var elm4Offset = glow.dom.get("#elm4").offset();
 	var elm4_1Offset = glow.dom.get("#elm4_1").offset();
 	var elm5_1Offset = glow.dom.get("#elm5_1").offset();
-	
+
 	t.equals(elm1Offset.top, 0, "elm1 top offset");
 	t.equals(elm1Offset.left, 10, "elm1 left offset");
-	
+
 	t.equals(elm1_1Offset.top, 20, "elm1_1 top offset");
 	t.equals(elm1_1Offset.left, 30, "elm1_1 left offset");
-	
+
 	t.equals(elm2Offset.top, 170, "elm2 top offset");
 	t.equals(elm2Offset.left, 10, "elm2 left offset");
-	
+
 	t.equals(elm2_1Offset.top, 200, "elm2_1 top offset");
 	t.equals(elm2_1Offset.left, 40, "elm2_1 left offset");
-	
+
 	t.equals(elm3Offset.top, 380, "elm3 top offset");
 	t.equals(elm3Offset.left, 10, "elm3 left offset");
-	
+
 	t.equals(elm3_1Offset.top, (glow.env.ie < 8) ? 400 : 410, "elm3_1 top offset");
 	t.equals(elm3_1Offset.left, 40, "elm3_1 left offset");
-	
+
 	t.equals(elm4Offset.top, 15, "elm4 top offset");
 	t.equals(elm4Offset.left, 15, "elm4 left offset");
-	
+
 	t.equals(elm4_1Offset.top, (glow.env.ie < 8) ? 20 : 25, "elm4_1 top offset");
 	t.equals(elm4_1Offset.left, 25, "elm4_1 left offset");
-	
+
 	t.equals(elm5_1Offset.top, 650, "elm5_1 top offset");
 	t.equals(elm5_1Offset.left, 40, "elm5_1 left offset");
-	
-	node.destroy();	
+
+	node.destroy();
 });
 
 t.test("glow.dom.NodeList#offset with scrolling", function() {
@@ -2337,15 +2337,15 @@ t.test("glow.dom.NodeList#offset with scrolling", function() {
 	  '</div>' +
 	'</div>' +
   '').appendTo(document.body);
-  
-  
-  
+
+
+
   //safari 1.3 is annoying and won't set the scroll position straight away, so we need to do this...
   t.stop();
   setTimeout(function() {
 	node.get("div.scroller1")[0].scrollTop = 400;
 	node.get("div.scroller2")[0].scrollTop = 700;
-	
+
 	t.equals(node.get("div.test1").offset().top, 200, "y position with scrolling");
 	t.equals(node.get("div.test1").offset().left, 0, "x position with scrolling");
 	t.equals(node.get("div.test2").offset().top, 300, "nested y position with scrolling");
@@ -2358,7 +2358,7 @@ t.test("glow.dom.NodeList#offset with scrolling", function() {
 
 t.test("glow.dom.NodeList#position", function() {
 	t.expect(18);
-	
+
 	var node = glow.dom.create('' +
 		'<div id="positionTest" style="position:relative; background:#000; zoom:1; overflow: hidden">' +
 			'<div id="pos1" style="position:relative; height:120px; width:300px; padding:20px; margin: 0 10px 10px 10px">' +
@@ -2378,7 +2378,7 @@ t.test("glow.dom.NodeList#position", function() {
 			'</div>' +
 		'</div>' +
 	'').appendTo(document.body);
-	
+
 	var pos1Position = glow.dom.get("#pos1").position();
 	var pos1_1Position = glow.dom.get("#pos1_1").position();
 	var pos2Position = glow.dom.get("#pos2").position();
@@ -2388,66 +2388,66 @@ t.test("glow.dom.NodeList#position", function() {
 	var pos4Position = glow.dom.get("#pos4").position();
 	var pos4_1Position = glow.dom.get("#pos4_1").position();
 	var pos5_1Position = glow.dom.get("#pos5_1").position();
-	
+
 	t.equals(pos1Position.top, 0, "pos1 top position");
 	t.equals(pos1Position.left, 0, "pos1 left position");
-	
+
 	t.equals(pos1_1Position.top, 20, "pos1_1 top position");
 	t.equals(pos1_1Position.left, 20, "pos1_1 left position");
-	
+
 	t.equals(pos2Position.top, 160, "pos2 top position");
 	t.equals(pos2Position.left, 0, "pos2 left position");
-	
+
 	t.equals(pos2_1Position.top, 20, "pos2_1 top position");
 	t.equals(pos2_1Position.left, 20, "pos2_1 left position");
-	
+
 	t.equals(pos3Position.top, 370, "pos3 top position");
 	t.equals(pos3Position.left, 0, "pos3 left position");
-	
+
 	t.equals(pos3_1Position.top, (glow.env.ie < 8) ? 390 : 400, "pos3_1 top position");
 	t.equals(pos3_1Position.left, 30, "pos3_1 left position");
-	
+
 	t.equals(pos4Position.top, 5, "pos4 top position");
 	t.equals(pos4Position.left, 5, "pos4 left position");
-	
+
 	t.equals(pos4_1Position.top, (glow.env.ie < 8) ? 0 : 5, "pos4_1 top position");
 	t.equals(pos4_1Position.left, 5, "pos4_1 left position");
-	
+
 	t.equals(pos5_1Position.top, 20, "pos5_1 top position");
 	t.equals(pos5_1Position.left, 20, "pos5_1 left position");
-	
-	node.destroy();	
+
+	node.destroy();
 });
 
 t.test("glow.dom.NodeList#scrollLeft & scrollTop", function() {
 	t.expect(8);
-	
+
 	var testElm = glow.dom.create(' \
 		<div style="width:300px; height:200px; overflow:scroll; zoom:1;"> \
 			<div style="width:2000px;height:2000px"></div> \
 		</div> \
 	').appendTo(document.body);
-	
+
 	t.equals( typeof testElm.scrollLeft(), 'number', 'scrollLeft returns number' );
 	t.equals( typeof testElm.scrollTop(), 'number', 'scrollTop returns number' );
-	
+
 	// set scroll positions to 0,0
 	// setting scrollLeft twice to test chaining
 	testElm.scrollLeft(10).scrollTop(0).scrollLeft(0);
-	
+
 	t.equals( testElm.scrollTop(), 0, 'scrollTop' );
 	t.equals( testElm.scrollLeft(), 0, 'scrollLeft' );
-	
+
 	testElm.scrollLeft(30);
-	
+
 	t.equals( testElm.scrollTop(), 0, 'scrollTop' );
 	t.equals( testElm.scrollLeft(), 30, 'scrollLeft' );
-	
+
 	testElm.scrollTop(50);
-	
+
 	t.equals( testElm.scrollTop(), 50, 'scrollTop' );
 	t.equals( testElm.scrollLeft(), 30, 'scrollLeft' );
-	
+
 	testElm.destroy();
 });
 
@@ -2456,7 +2456,7 @@ t.module("glow.dom.NodeList#data");
 t.test("Load DOM", function() {
 	t.expect(1);
 	t.stop();
-	
+
 	glow.ready(function() {
 		t.ok(glow.isReady, "Document Ready");
 		t.start();
@@ -2465,7 +2465,7 @@ t.test("Load DOM", function() {
 
 t.test("glow.dom.NodeList#data Setup", function() {
 	t.expect(1);
-	
+
 	try {
 		glow.dom.create('' +
 			'<div id="dataTest">' +
@@ -2479,29 +2479,29 @@ t.test("glow.dom.NodeList#data Setup", function() {
 	}
 	catch (e) {
 	}
-	
+
 	t.equals(glow.dom.get("#para1").length, 1, "The created node is found.");
 });
 
 t.test("glow.dom.NodeList#data API", function() {
 	t.expect(2);
 	var dataTest = glow.dom.get("#dataTest");
-	
+
 	t.equals(typeof dataTest.data, "function", "A NodeList instance has a method named 'data'.");
 	t.equals(typeof dataTest.removeData, "function", "A NodeList instance has a method named 'removeData'.");
 });
 
 t.test("glow.dom.NodeList#data method", function() {
 	t.expect(7);
-	
+
 	var dataTest = glow.dom.get("#dataTest > p");
 	var self = dataTest.data("color", "red");
 	t.equals(dataTest.data("color"), "red", "Can set and get a key:val from NodeList.");
 	t.ok((dataTest === self), "The call to set a key:val is chainable.");
-	
+
 	var data = dataTest.data();
 	t.equals(data.color, "red", "Can get the entire data object from NodeList when given no arguments.");
-	
+
 	var para1 = glow.dom.get("#para1");
 	t.equals(para1.data("color"), "red", "Can get the same data from different NodeLists that refer to the same DomElements.");
 
@@ -2518,14 +2518,14 @@ t.test("glow.dom.NodeList#data method", function() {
 t.test("glow.dom.NodeList#removeData method", function() {
 	t.expect(5);
 	var dataTest = glow.dom.get("#dataTest p");
-	
+
 	var data = dataTest.data();
 	t.equals(data.color, "red", "Data is already set on the NodeList.");
 	dataTest.removeData("color");
 	t.equals(data.color, undefined, "Can remove data by key name.");
-	
+
 	t.equals(data.size, "grande", "More data is already set on the NodeList.");
-	
+
 	var self = dataTest.removeData();
 	data = dataTest.data();
 	t.equals(data.size, undefined, "Can remove all data at once.");
@@ -2534,19 +2534,19 @@ t.test("glow.dom.NodeList#removeData method", function() {
 
 t.test("glow.dom.NodeList#data Clone", function() {
 	t.expect(3);
-	
+
 	var testData = glow.dom.get("#dataTest");
 	testData.data("tea", "milky");
-	
+
 	testData.get("#span1").data("biscuits", 2);
 	var testClone = testData.clone();
 	t.equals(testClone.get("#span1").data("biscuits"), 2, "A cloned node has a copy of the data from the node it's based on.");
-	
+
 	t.equals(testClone.data("tea"), "milky", "A child node in a cloned node has the same data as the node it's based on.");
 
 	testData.data("tea", "lemony");
 	t.equals(testClone.data("tea"), "milky", "Changing the original data doesn't change the cloned data.");
-	
+
 });
 
 t.test("glow.dom.NodeList#data Destroy", function() {
@@ -2554,7 +2554,7 @@ t.test("glow.dom.NodeList#data Destroy", function() {
 
 	var testData = glow.dom.get("#dataTest");
 	testData.data("tea", "milky");
-	
+
 	t.equals(testData.data("tea"), "milky", "Before being destroyed the node's data is defined.");
 	testData.destroy();
 

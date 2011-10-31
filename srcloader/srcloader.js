@@ -5,7 +5,7 @@ var srcLoader;
 	 @name moduleList
 	 @description List of all modules.
 		In the order they must be loaded in. Update this as new modules
-		are added to glow. If any of these modules other than glow.widgets 
+		are added to glow. If any of these modules other than glow.widgets
 		need CSS, you'll need to edit createGlowMap as well
 	*/
 	var moduleList = [
@@ -33,7 +33,7 @@ var srcLoader;
 		"glow.widgets.Timetable",
 		"glow.widgets.Editor"
 	];
-	
+
 	/**
 	 @name cssList
 	 @description CSS Files to load
@@ -41,14 +41,14 @@ var srcLoader;
 	var cssList = [
 		"{$base}/widgets/widgets.css"
 	];
-	
+
 	/**
 	 @name autoRoot
 	 @description A calculated root folder for glow
 	*/
 	var autoRoot = (function() {
 		var lastElm = (document.body || document.getElementsByTagName("head")[0]).lastChild;
-		
+
 		return (lastElm.src || "").replace(/srcloader\/srcloader\.js$/, "");
 	})();
 	
@@ -65,7 +65,7 @@ var srcLoader;
 		gloader.map.add("glow", createGlowMap("../../"));
 	*/
 	var createGlowMap = function(root) {
-		
+
 		// add a trailing slash if we need to
 		if (root.slice(-1) != "/") {
 			root += "/";
@@ -107,7 +107,7 @@ var srcLoader;
 			'gloaderSyncNoCallback' (but you can still use opts.onLoad here)
 			'gloaderSyncCallback'
 			'gloaderAsync'
-			
+
 			If gloader isn't present on the page, it won't be used, glow will be
 			included by document.write'ing script tags
 			
@@ -147,7 +147,7 @@ var srcLoader;
 	
 		return function(opts) {
 			opts = opts || {};
-			
+
 			if (opts.loadMethod && !window.gloader) {
 				throw new Error("Cannot find gloader, cannot use load method: " + opts.loadMethod);
 			}
@@ -168,8 +168,8 @@ var srcLoader;
 				map = createGlowMap(path),
 				linkElm,
 				head = document.getElementsByTagName("head")[0];
-			
-			
+
+
 			// if gloader isn't around, we need to do things our own special way *sobs*
 			if (!window.gloader) {
 				

@@ -76,13 +76,13 @@
 		.glowCSSVERSION-editor .editor-toolbar-item .hover    .editor-toolbar-icon { background-position: 0px -56px; }
 
 		/* DROPDOWN */
-		
+
 		.glowCSSVERSION-editor .editor-toolbar-dropdown {
 			display: block;
 			width: 84px;
 			margin: 0 3px 0 3px;
 		}
-		
+
 		.glowCSSVERSION-editor .editor-toolbar-dropdown a {
 			color: black;
 			text-decoration: none;
@@ -96,7 +96,7 @@
 			line-height: 16px;
 			margin: 3px 0 0 2px;
 			background: #fff url(images/editor/menuarrow.png) no-repeat right 8px;
-			
+
 			overflow: hidden;
 		}
 		.glowCSSVERSION-editor .editor-toolbar-dropdown .disabled span {
@@ -117,36 +117,36 @@
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: medium;
 		}
-		
+
 		.glowCSSVERSION-overlay.overlayMenu ul {
 			list-style: none;
 			margin: 0;
 			padding: 0;
 		}
-		
+
 		.glowCSSVERSION-overlay.overlayMenu ul li {
 			padding: 2px 4px 2px 4px;
 			outline: none;
 		}
-		
+
 		.glowCSSVERSION-overlay.overlayMenu li.highlighted { background: #999; cursor: pointer; }
 		.glowCSSVERSION-overlay.overlayMenu .heading1 { font-size: 1.2em; }
 		.glowCSSVERSION-overlay.overlayMenu .heading2 { font-size: 1.1em; }
 		.glowCSSVERSION-overlay.overlayMenu .heading3 { font-size: 1.0em; }
 		.glowCSSVERSION-overlay.overlayMenu .normal   { font-size: 0.9em; }
-		
+
 		/* DROPDOWN DARK */
-		
+
 		.glowCSSVERSION-editor .editor-dark .editor-toolbar-dropdown span span {
 			border: 1px solid #666;
 			background: transparent url(images/editor/menuarrow.png) no-repeat scroll right -12px;
 			color: #fff;
 		}
-		
+
 		.glowCSSVERSION-editor .editor-dark .editor-toolbar-dropdown .hover span span {
 			border: 1px solid #ccc;
 		}
-		
+
 		.glowCSSVERSION-editor .editor-toolbar-dropdown .hover span span {
 			border: 1px solid #999;
 		}

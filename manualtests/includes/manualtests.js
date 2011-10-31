@@ -5,10 +5,10 @@
 */
 // global namespace for manualTest
 var manualTests = (function() {
-	
+
 	var manualTests = {},
 		repoRoot = getRepoRoot();
-	
+
 	var devConfig = {
 		// root of the cloned copy of glow
 		repoRoot: 	 repoRoot,
@@ -16,7 +16,7 @@ var manualTests = (function() {
 		mapPath:	 repoRoot + 'srcloader/map.js',
 		basePath:	 repoRoot + 'src/'
 	};
-	
+
 	var liveConfig = {
 		// root of the cloned copy of glow
 		repoRoot: 	 repoRoot,
@@ -24,47 +24,47 @@ var manualTests = (function() {
 		mapPath:	 'http://node1.bbcimg.co.uk/glow/glow/map.1.5.1.js',
 		basePath:	 ''
 	};
-	
+
 	/**
 	@name manualTests.config
 	@type Object
 	@description Config options & paths for the manual tests
 	*/
 	manualTests.config = devConfig;
-	
+
 	// gets a relative path to the repo root including trailing slash
 	function getRepoRoot() {
 		var lastScriptElm = ( document.body || document.getElementsByTagName('head')[0] ).lastChild;
 		return lastScriptElm.src.replace('manualtests.js', '../../');
 	}
-	
+
 	// output the source for a given script element
 	function revealSrcFor(scriptElm) {
 		// filter code so it can be safely displayed
 		var code = getSource( scriptElm ),
 			preElement = document.createElement("pre");
-		
+
 		// TODO move this stuff into a stylesheet?
 		preElement.style.border = '1px solid #ccc';
 		preElement.style.padding = '10px';
 		preElement.style.maxHeight = '200px';
 		preElement.style.overflow = 'auto';
-		
+
 		preElement.className = "src";
 		preElement.innerHTML = "<code>" + code + "<\/code>";
 		scriptElm.parentNode.insertBefore(preElement, scriptElm);
 	}
-	
+
 	// gets the source for a given script element, tidies it up, returns an html string
 	function getSource( scriptElm ) {
 		var code = scriptElm.innerHTML;
-		
+
 		// trim empty lines at start & end
 		code = code.replace("// <![CDATA[", "").replace("// ]]>", "").replace(/^(\s*\n\r?)*|(\n\r?\s*)*$/g, '');
-		
+
 		// match the initial spacing of the first line, so we can shift it left
 		var initialWhiteSpaceRe = new RegExp("^" + code.match(/^\s*/)[0], "mg");
-		
+
 		code = code.replace(initialWhiteSpaceRe, '')
 			.replace("// <![CDATA[", "").replace("// ]]>", "")
 			// simple html encoding
@@ -73,23 +73,23 @@ var manualTests = (function() {
 			.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
 			// change newlines to <br />
 			.replace(/\n\r?/g, "<br />");
-			
+
 		return code;
 	}
-	
+
 	/**
 	@name manualTests.showSrc
 	@function
 	@description Outputs script elements with a given class so they can be read
-	
+
 	@param {String} [className=showSrc] Only show scripts with this classname
 	*/
 	manualTests.showSrc = function(className) {
 		var classNamePadded = ' ' + (className || 'showSrc') + ' ';
-		
+
 		var scriptElms = document.getElementsByTagName('script'),
 			i = scriptElms.length;
-		
+
 		while (i--) {
 			// does the script element have the class name?
 			if ( (' ' + scriptElms[i].className + ' ').indexOf(classNamePadded) != -1 ) {
@@ -97,10 +97,10 @@ var manualTests = (function() {
 			}
 		}
 	}
-	
+
 	// the element to log to, will be undefined before onload
 	var logElm;
-	
+
 	// creates an element to send log messages to
 	function createLog() {
 		// create ogging element
@@ -116,7 +116,7 @@ var manualTests = (function() {
 		logElm.style.top = '0';
 		logElm.style.right = '0';
 		logElm.style.background = '#eee';
-		
+
 		// wait for the dom to be ready
 		var prev = window.onload;
 		window.onload = function() {
@@ -126,12 +126,12 @@ var manualTests = (function() {
 			document.body.appendChild(logElm);
 		}
 	}
-	
+
 	/**
 	@name manualTests.log
 	@function
 	@description Logs a string
-	
+
 	@param {String} msg String to log
 	*/
 	manualTests.log = function(msg) {
@@ -141,7 +141,7 @@ var manualTests = (function() {
 		// scroll the element to the bottom
 		logElm.scrollTop = logElm.scrollHeight;
 	}
-	
+
 	/**
 	@name manualTests.clearLog
 	@function
@@ -150,7 +150,7 @@ var manualTests = (function() {
 	manualTests.clearLog = function() {
 		logElm.innerHTML = '';
 	}
-	
+
 	createLog();
 	return manualTests;
 })();

@@ -15,15 +15,15 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.dom', 'glow.data', 'glow.widgets.Slider'])</script>
 </head>
 
 <body>
 	<h1>glow.widgets.Slider</h1>
-	
+
 	<h2>Settings</h2>
-	
+
 	<form action="?" id="urlOpts">
 		<p>
 			<label>
@@ -43,7 +43,7 @@
 			<input type="submit" value="Go" />
 		</p>
 	</form>
-	
+
 	<script type="text/javascript">
 		var urlOpts = glow.data.decodeUrl( window.location.search.slice(1) );
 		// defaults
@@ -51,9 +51,9 @@
 		urlOpts.vertical = urlOpts.vertical || '';
 		glow.dom.get('#urlOpts').val(urlOpts);
 	</script>
-	
+
 	<h2>Basic slider</h2>
-	
+
 	<ul>
 		<li>The handle of the slider can be dragged on its axis</li>
 		<li>The handle of the slider cannot be dragged off its track</li>
@@ -69,9 +69,9 @@
 			the slider.
 		</li>
 	</ul>
-	
+
 	<div id="slider1"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.slider1 = new glow.widgets.Slider('#slider1', {
@@ -82,7 +82,7 @@
 				slider1.disabled( !slider1.disabled() );
 				return false;
 			});
-			
+
 			// event logging
 			glow.events.addListener(slider1, 'slideStart', function() {
 				manualTests.log('slider1: slideStart');
@@ -95,9 +95,9 @@
 			});
 		})
 	</script>
-	
+
 	<h2>Form binding</h2>
-	
+
 	<ul>
 		<li>The form field should update when sliding stops</li>
 		<li>Values should be between 0 - 100 and always integer</li>
@@ -109,11 +109,11 @@
 			the slider. The form field should also be disabled.
 		</li>
 	</ul>
-	
+
 	<p><input type="text" id="slider2Field" /></p>
-	
+
 	<div id="slider2"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.slider2 = new glow.widgets.Slider('#slider2', {
@@ -125,7 +125,7 @@
 				slider2.disabled( !slider2.disabled() );
 				return false;
 			});
-			
+
 			// event logging
 			glow.events.addListener(slider2, 'slideStart', function() {
 				manualTests.log('slider2: slideStart');
@@ -138,10 +138,10 @@
 			});
 		})
 	</script>
-	
-	
+
+
 	<h2>Value stepping, snapping, range, changing during drag, ticks &amp; labels</h2>
-	
+
 	<ul>
 		<li>Values should be between -10 and 10 to the nearest .5</li>
 		<li>The change event should fire while moving the handle</li>
@@ -152,11 +152,11 @@
 		<li>The slider should have a correct numerical label every (even) 2</li>
 		<li>The handle should drag smoothly, but snap to the nearest tick mark once released</li>
 	</ul>
-	
+
 	<p><input type="text" id="slider3Field" /></p>
-	
+
 	<div id="slider3"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.slider3 = new glow.widgets.Slider('#slider3', {
@@ -173,7 +173,7 @@
 				theme: urlOpts.theme,
 				vertical: urlOpts.vertical
 			});
-			
+
 			// event logging
 			glow.events.addListener(slider3, 'slideStart', function() {
 				manualTests.log('slider3: slideStart');
@@ -186,9 +186,9 @@
 			});
 		})
 	</script>
-	
+
 	<h2>Labels, snapped dragging &amp; no buttons</h2>
-	
+
 	<ul>
 		<li>The interface should not include left &amp; right (or top &amp; bottom) buttons</li>
 		<li>The handle cannot be moved between the tick marks</li>
@@ -196,9 +196,9 @@
 		<li>Clicking those labels will move the handle to that point</li>
 		<li>The change event only fires if the slider is moved to a different value (ie, not dragged &amp; placed back in the original place)</li>
 	</ul>
-	
+
 	<div id="slider4"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.slider4 = new glow.widgets.Slider('#slider4', {
@@ -217,7 +217,7 @@
 				theme: urlOpts.theme,
 				vertical: urlOpts.vertical
 			});
-			
+
 			// event logging
 			glow.events.addListener(slider4, 'slideStart', function() {
 				manualTests.log('slider4: slideStart');
@@ -230,16 +230,16 @@
 			});
 		})
 	</script>
-	
+
 	<h2>Zero Step</h2>
-	
+
 	<ul>
 		<li>When dropped, the handle gives a decimal value between 0-100</li>
 		<li>The nudge buttons move the handle by a single pixel</li>
 	</ul>
-	
+
 	<div id="slider5"></div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			window.slider5 = new glow.widgets.Slider('#slider5', {
@@ -248,7 +248,7 @@
 				theme: urlOpts.theme,
 				vertical: urlOpts.vertical
 			});
-			
+
 			// event logging
 			glow.events.addListener(slider5, 'slideStart', function() {
 				manualTests.log('slider5: slideStart');
@@ -261,8 +261,8 @@
 			});
 		})
 	</script>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

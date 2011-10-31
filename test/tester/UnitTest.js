@@ -3,7 +3,7 @@ t.module("UnitTest");
 
 t.test("Basic Assertions", function() {
 	t.expect(11);
- 
+
 	// simple wrapper to run some tests and then test the result of those tests
 	function testTester (options, simulatedTests, testChecks) {
 		var tester = new UnitTest();
@@ -88,7 +88,7 @@ t.test("Basic Assertions", function() {
 			t.contains(report, 'FAIL [Simulated Module] desc', 'report contains pass for unsuccessful contains');
 		}
 	);
-	
+
 	// test doesNotContain passes
 	testTester(
 		{},
@@ -124,7 +124,7 @@ t.test("Basic Assertions", function() {
 			t.contains(report, 'TODO [Simulated Module] desc', 'report contains pass for unsuccessful but todo test');
 		}
 	);
-	
+
 	// test todo test
 	testTester(
 		{ todo : true },
@@ -157,7 +157,7 @@ t.test("Basic Assertions", function() {
 		}
 	);
 	*/
-	
+
 	// test skipped tests
 	testTester(
 		{},

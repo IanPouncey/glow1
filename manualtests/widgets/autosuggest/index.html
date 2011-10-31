@@ -15,13 +15,13 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">
 		gloader.load(
 			['glow', '@VERSION@', 'glow.events', 'glow.data', 'glow.widgets.AutoSuggest', 'glow.widgets.AutoComplete']
 		);
 	</script>
-	
+
 	<style type="text/css" title="text/css" media="screen">
 		.swatch {
 			width: 10px;
@@ -35,9 +35,9 @@
 
 <body>
 	<h1>glow.widgets.AutoSuggest</h1>
-	
+
 	<h2>Settings</h2>
-	
+
 	<form action="?" id="urlOpts">
 		<p>
 			<label>
@@ -50,16 +50,16 @@
 			<input type="submit" value="Go" />
 		</p>
 	</form>
-	
+
 	<script type="text/javascript">
 		var urlOpts = glow.data.decodeUrl( window.location.search.slice(1) );
 		// set defaults here, eg...
 		urlOpts.theme = urlOpts.theme || "light";
 		glow.dom.get('#urlOpts').val(urlOpts);
 	</script>
-	
+
 	<h2>Autosuggest with minimum input length, and completion</h2>
-	
+
 	<ul>
 		<li>Suggestions must not appear until at least 3 char have been entered</li>
 		<li>The browser's own autocomplete must not overlay our autosuggest</li>
@@ -74,13 +74,13 @@
 		<li>If the browser has a zoom feature, zoom the view before the AutoSuggest appears, ensure it's in the correct position</li>
 		<li>Pressing the left / right arrow keys should not hide any currently shown results</li>
 	</ul>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm1">
 			<p>Try it: <input type="text" id="colornames1" /> (type the name of a web-safe colour delimited with spaces)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -103,7 +103,7 @@
 				useCache: true
 			}
 		).loadData();
-		
+
 		glow.events.addListener('#testForm1', 'submit', function() {
 			alert('submit: ' + this.colornames1.value);
 			return false;
@@ -111,25 +111,25 @@
 	});
 	// ]]>
 	</script>
-	
-	
+
+
 	<h2>Autosuggest with formatItem, no completion</h2>
-	
+
 	<p>Making the suggstion list look fancy.</p>
-	
+
 	<ul>
 		<li>Unlike the previous test, when the suggestions are hovered over / activated with keyboard, the new value shouldn't appear in the input (until clicked / press enter)</li>
 		<li>The suggestions must also show the colour in a box next to the name</li>
 		<li>Only a single colour value will autocomplete (unlike the previous test, where many could be entered space separated)</li>
 		<li>Type "yell", select "YellowGreen" by clicking on it. Now delete what's in the input. The input should remain empty.</li>
 	</ul>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm2">
 			<p>Try it: <input type="text" id="colornames2" value="" /> (type the name of a web-safe colour)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -140,7 +140,7 @@
 				onItemSelect: function(e){
 					this.setValue(e.selectedItem.name);
 				},
-				formatItem: function(item) { 
+				formatItem: function(item) {
 					var html = '<div  style="clear: both; padding: 2px},"><div ';
 					html += 'class="swatch" style="background-color:#'+item.hex+'">';
 					html += '<'+'/div><'+'/div>';
@@ -150,7 +150,7 @@
 				theme: urlOpts.theme
 			}
 		).loadData();
-		
+
 		glow.events.addListener('#testForm2', 'submit', function() {
 			alert('submit: ' + this.colornames2.value);
 			return false;
@@ -158,25 +158,25 @@
 	});
 	// ]]>
 	</script>
-		
-		
-	
+
+
+
 	<h2>Autosuggest with isMatch, and formatItem</h2>
 	<p>
 		Here we are not matching on the beginning of the index. Note that completion isn't sane in such a case.
 	</p>
-	
+
 	<ul>
 		<li>Ensure items can be match by text other than the start of the term, eg "ell"</li>
 		<li>Ensure multiple items can be entered by separating them with a comma</li>
 	</ul>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm3">
 			<p>Try it: <input type="text" id="colornames3" /> (type the name of a web-safe colour delimited with commas)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -209,20 +209,20 @@
 	});
 	// ]]>
 	</script>
-	
+
 
 	<h2>Autosuggest with caseSensitive, maxListLength, onItemSelect, and completion</h2>
 	<ul>
 		<li>Ensure the search is case sensitive (i.e start with a capitalised first character like 'Magenta')</li>
 		<li>Once selected, a hex value should appear in the input</li>
 	</ul>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm4">
 			<p>Try it: <input type="text" id="colornames4" /> (type the name of a web-safe colour)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -240,7 +240,7 @@
 				theme: urlOpts.theme
 			}
 		).loadData();
-		
+
 		glow.events.addListener('#testForm4', 'submit', function() {
 			alert('submit: ' + this.colornames4.value);
 			return false;
@@ -248,16 +248,16 @@
 	});
 	// ]]>
 	</script>
-	
+
 
 	<h2>Autosuggest with appearance options</h2>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm5">
 			<p>Try it: <input type="text" id="colornames5" /> (type the name of a web-safe colour)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -273,7 +273,7 @@
 				theme: urlOpts.theme
 			}
 		).loadData();
-		
+
 		glow.events.addListener('#testForm5', 'submit', function() {
 			alert('submit: ' + this.colornames5.value);
 			return false;
@@ -284,13 +284,13 @@
 
 	<h2>Position Suggestion Manually</h2>
 	<p>The list of suggestions should appear to the <em>right</em> of the input element.</p>
-	
+
 	<div class="sandbox">
 		<form action="#" id="testForm6">
 			<p>Try it: <input type="text" id="colornames6" /> (type the name of a web-safe colour)</p>
 		</form>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 	// <![CDATA[
 	glow.ready(function() {
@@ -305,7 +305,7 @@
 			}
 		);
 		myAutoSuggest.loadData();
-		
+
 		glow.events.addListener(myAutoSuggest, "show", function(event) {
 			var inputOffset = myAutoSuggest.inputElement.offset();
 			myAutoSuggest.overlay.container
@@ -313,7 +313,7 @@
 				.css('top', parseInt(inputOffset.top) + 'px')
 				.css('width', ((myAutoSuggest.opts.width)? myAutoSuggest.opts.width : myAutoSuggest.inputElement[0].offsetWidth + 'px'));
 		});
-		
+
 		glow.events.addListener('#testForm6', 'submit', function() {
 			alert('submit: ' + this.colornames6.value);
 			return false;
@@ -321,17 +321,17 @@
 	});
 	// ]]>
 	</script>
-	
+
 	<h1>glow.widgets.AutoComplete examples</h1>
-	
+
 	<p>
 		This is a deprecated part of the API, included here to regression test against
 	</p>
-	
-	<div class="example">	
+
+	<div class="example">
 		<h2>Single-value glow.widgets.AutoComplete</h2>
 		<p>Using autocomplete directly in this way is now deprecated.</p>
-		
+
 		<script type="text/javascript" class="showSrc">
 		// <![CDATA[
 		glow.ready(function() {
@@ -344,18 +344,18 @@
 		});
 		// ]]>
 		</script>
-		
+
 		<div class="sandbox">
-			<form action="#" onsubmit="alert('submit: '+this.complete1.value); return false;">					
+			<form action="#" onsubmit="alert('submit: '+this.complete1.value); return false;">
 			<p>Try it: <input type="text" id="complete1" /> (type a tag name)</p>
 			</form>
 		</div>
 	</div>
-	
+
 	<div class="example">
 		<h2>Multi-value glow.widgets.AutoComplete</h2>
 		<p>Using autocomplete directly in this way is now deprecated.</p>
-		
+
 		<script type="text/javascript" class="showSrc">
 		// <![CDATA[
 		glow.ready(function() {
@@ -370,18 +370,18 @@
 		});
 		// ]]>
 		</script>
-		
+
 		<div class="sandbox">
 			<form action="#" onsubmit="alert('submit: '+this.complete2.value); return false;">
 			<p>Try it: <input type="text" id="complete2" /> (type tag names separated by a comma)</p>
 			</form>
 		</div>
 	</div>
-	
+
 	<div class="example">
 		<h2>Same with glow.widgets.AutoSuggest (using array of strings as dataSource)</h2>
 		<p>This is the preferred way to do autocomplete.</p>
-		
+
 		<script type="text/javascript" class="showSrc">
 		// <![CDATA[
 		glow.ready(function() {
@@ -397,23 +397,23 @@
 		});
 		// ]]>
 		</script>
-		
+
 		<div class="sandbox">
 			<form action="#" onsubmit="alert('submit: '+this.complete3.value); return false;">
 			<p>Try it: <input type="text" id="complete3" /> (type tag names separated by a comma)</p>
 			</form>
-			
+
 			<p>
 			Lorem ipsum clee chea saeff a. Enfreep gleepi whop heeth zogh, kucka thee shoogh ne gead ca. Hegh en, vee, fu dreati whim breest taeth ste faeck blea blea dro, plan, rae ha su koo, jooff wreap ho I gla trag ir slae ripi enmaev logher moo pog queeth I slaeing whooth bean draem, ir paers. Gu perki, ghee plae kae. Za beeing hews, bae posting ri blorling ceack wrirl, unjaeh musher fri. A, sla frashe hi; Rae bla ro I whad. Stushe I dust whea droo lae, I infrap truroer bloos troshen pi, troo cae tis, lurth gleth, precuth sea so, wu queaing see quu wha cli pla jockal cresh se la. Doopi, ches shoorl grae vaell hi jeah, op gle prega cloo, quath ke inlockall dreaw. Rea wreela, de, op, droo frae vi, furd stae du drist purth ne draing pij quoo.
 			</p>
-			
+
 			<p>
 			Tord hea op, wra en, zash treeb; The perbrala cheath quee taed quaen, ghor sod; Blea bu a preree, glurl unseashew neeti chee fri bree la, bagh! Gi, concroshegher cuh unsheerd bloing, stohus, ju zem. Ruv faert, ungrupi, tesum. En degleed po ir stea. Conplerth a brogs, do.
 			</p>
 		</div>
 	</div>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc()</script>
 </body>
 </html>

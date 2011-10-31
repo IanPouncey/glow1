@@ -111,7 +111,7 @@
 				content for a page element
 			@param {selector|Element|glow.dom.NodeList} [opts.returnTo] Element to give focus to when the overlay closes
 				By default, this is the context element if focusOnShow is true.
-				
+
 				For accessibility purposes you may want to set an element to give focus to when the overlay closes.
 				This means devices which present data to the user by the cursor position (such as screen readers)
 				will be sent somewhere useful.
@@ -137,7 +137,7 @@
 				focusOnShow: true
 				// the default for opts.returnTo is set below
 			}, opts);
-			
+
 			if (opts.focusOnShow && opts.returnTo === undefined) {
 				opts.returnTo = opts.context;
 			}
@@ -267,12 +267,12 @@
 					//remove aria from current context
 					currentContext.removeAttr("aria-describedby");
 					//change the returnTo value if it's currently refering to the context
-	
+
 					if ($(this.returnTo)[0] == currentContext[0]) {
 						this.returnTo = context;
 					}
 				}
-				
+
 				//add aria to new context
 				this.opts.context = $(context).attr("aria-describedby", this.container[0].id);
 				if (!this.returnTo) {

@@ -15,9 +15,9 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.data', 'glow.dom', 'glow.events', 'glow.anim'])</script>
-	
+
 	<style type="text/css">
 		#carousel1,
 		#carousel2,
@@ -94,14 +94,14 @@
 			left: auto;
 			right: 0;
 		}
-		
+
 		#carousel4 .win {
 			position: relative;
 			overflow: hidden;
 			width: 610px;
 			height: 200px;
 		}
-		
+
 		#carousel3 .next,
 		#carousel4 .next {
 			width: 192px;
@@ -112,7 +112,7 @@
 			background: url(next.png);
 			z-index: 2;
 		}
-		
+
 		#carousel3 .prev,
 		#carousel4 .prev {
 			width: 192px;
@@ -123,7 +123,7 @@
 			background: url(prev.png);
 			z-index: 2;
 		}
-		
+
 		#carousel1 div.text,
 		#carousel2 div.text,
 		#carousel3 div.text,
@@ -138,13 +138,13 @@
 			color: #fff;
 			font-size: 14px;
 		}
-		
+
 	</style>
 </head>
 
 <body>
 	<h1>glow.anim</h1>
-	
+
 	<div id="carousel1">
 		<ol>
 			<li style="left:10px"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>1<div class="text">Text</div></li>
@@ -169,7 +169,7 @@
 			<li style="left:3810px"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>20<div class="text">Text</div></li>
 		</ol>
 	</div>
-	
+
 	<div id="carousel2">
 		<ol>
 			<li style="left:10px"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>1<div class="text">Text</div></li>
@@ -195,7 +195,7 @@
 			<li style="left:4010px"><div class="text">Text</div></li>
 		</ol>
 	</div>
-	
+
 	<div id="carousel3">
 		<div class="prev"></div>
 		<div class="next"></div>
@@ -222,7 +222,7 @@
 			<li style="left:3810px"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>20<div class="text">Text</div></li>
 		</ol>
 	</div>
-	
+
 	<div id="carousel4">
 		<div class="prev"></div>
 		<div class="next"></div>
@@ -252,76 +252,76 @@
 			</ol>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var frameCount = 0;
 			window.anim1 = glow.anim.css('#carousel1 ol', 10, {
 				left: -3400
 			}, {tween:glow.tweens.easeBoth()});
-			
+
 			glow.events.addListener(anim1, 'frame', function() {
 				frameCount++;
 			});
-			
+
 			glow.events.addListener(anim1, 'complete', function() {
 				alert(frameCount/10);
 			});
 		});
-		
+
 		glow.ready(function() {
 			var frameCount = 0,
 				elm = document.getElementById('carousel2');
-				
+
 			window.anim2 = new glow.anim.Animation(10, {
 				tween: glow.tweens.easeBoth()
 			});
-			
+
 			glow.events.addListener(anim2, 'frame', function() {
 				elm.scrollLeft = Math.floor(3400 * this.value);
 				frameCount++;
 			});
-			
+
 			glow.events.addListener(anim2, 'complete', function() {
 				alert(frameCount/10);
 			});
 		});
-		
+
 		glow.ready(function() {
 			var frameCount = 0;
 			window.anim3 = glow.anim.css('#carousel3 ol', 10, {
 				left: -3400
 			}, {tween:glow.tweens.easeBoth()});
-			
+
 			glow.events.addListener(anim3, 'frame', function() {
 				frameCount++;
 			});
-			
+
 			glow.events.addListener(anim3, 'complete', function() {
 				alert(frameCount/10);
 			});
 		});
-		
+
 		glow.ready(function() {
 			var frameCount = 0,
 				elm = glow.dom.get('#carousel4 div.win')[0];
-				
+
 			window.anim4 = new glow.anim.Animation(10, {
 				tween: glow.tweens.easeBoth()
 			});
-			
+
 			glow.events.addListener(anim4, 'frame', function() {
 				elm.scrollLeft = Math.floor(3400 * this.value);
 				frameCount++;
 			});
-			
+
 			glow.events.addListener(anim4, 'complete', function() {
 				alert(frameCount/10);
 			});
 		});
 	</script>
-	
-	
+
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>

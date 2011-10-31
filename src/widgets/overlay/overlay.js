@@ -67,14 +67,14 @@
 			});
 			//get rid of stuff the user doesn't want hidden
 			if (hideFilter) { thingsToHide = thingsToHide.filter(hideFilter); }
-			
+
 			overlay._hiddenElements = thingsToHide;
-			
+
 			for (var i = 0, thingsToHideLen = thingsToHide.length; i < thingsToHideLen; i++) {
 				// update how many times this item has been hidden by a glow overlay
-				// this lets multiple overlays hide the same element 
+				// this lets multiple overlays hide the same element
 				thingsToHide[i].__glowOverlayHideCount = (Number(thingsToHide[i].__glowOverlayHideCount) || 0) + 1;
-				
+
 				if (thingsToHide[i].__glowOverlayHideCount == 1) {
 					// this is the first attempt to hide the element, so we need to actually hide it
 					// also store the current value for visibility
@@ -121,7 +121,7 @@
 			var hiddenElements = overlay._hiddenElements,
 				i = 0,
 				len = hiddenElements.length;
-			
+
 			for (; i < len; i++) {
 				// only show the element again if its hide count reaches zero
 				if ( --hiddenElements[i].__glowOverlayHideCount == 0 ) {
@@ -184,7 +184,7 @@
 							setTimeout(function() {
 								container.css("overflow", "hidden").css("display", "block");
 							}, 0);
-						} 
+						}
 						else {
 							container.css("overflow", "hidden");
 						}
@@ -320,11 +320,11 @@
 			@event
 			@description Fired when the overlay is about to appear on the screen, before any animation.
 
-				At this	point you can access the content of the overlay and make changes 
+				At this	point you can access the content of the overlay and make changes
 				before it is shown to the user. If you prevent the default action of this
-				event (by returning false or calling event.preventDefault) the overlay 
+				event (by returning false or calling event.preventDefault) the overlay
 				will not show.
-			
+
 			@param {glow.events.Event} event Event Object
 		*/
 		/**
@@ -333,9 +333,9 @@
 			@description Fired when the overlay is visible to the user and any 'show' animation is complete
 
 				This event is ideal to assign focus to a particular part of	the overlay.
-				If you want to change content of the overlay before it appears, see the 
+				If you want to change content of the overlay before it appears, see the
 				'show' event.
-			
+
 			@param {glow.events.Event} event Event Object
 		*/
 		/**
@@ -343,9 +343,9 @@
 			@event
 			@description Fired when the overlay is about to hide
 
-				If you prevent the default action of this event (by returning false or 
+				If you prevent the default action of this event (by returning false or
 				calling event.preventDefault) the overlay will not hide.
-			
+
 			@param {glow.events.Event} event Event Object
 		*/
 		/**
@@ -375,7 +375,7 @@
 				id: "glowCSSVERSIONOverlay" + (++overlayCount),
 				closeOnEsc: false
 			}, opts);
-			
+
 			// generate a default mask if needed
 			if (opts.modal && !opts.mask) {
 				opts.mask = new glow.widgets.Mask(opts.zIndex ? {zIndex: opts.zIndex-1} : {});
@@ -406,7 +406,7 @@
 			@type glow.dom.NodeList
 			*/
 			this._focalPoint = overlayNode.get("div.overlay-focalPoint");
-			
+
 			/**
 			@name glow.widgets.Overlay#_hiddenElements
 			@private
@@ -414,7 +414,7 @@
 			@type Node[]
 			*/
 			this._hiddenElements = [];
-			
+
 			/**
 			@name glow.widgets.Overlay#_blockScrollRepos
 			@private
@@ -427,7 +427,7 @@
 
 			// ensure the overlay has a unique ID, this is used by aria to point at this overlay
 			overlayNode[0].id = opts.id;
-			
+
 			// add any class names from the user
 			overlayNode[0].className += " " + (opts.className || "");
 
@@ -494,7 +494,7 @@
 				overlayNode.attr("tabIndex", "0");
 
 				// keypress + ESC key not being recognised in webkit, so use keyup instead.
-				// However, keyup + Opera doesn't recognise the ESC key, so use keypress as 
+				// However, keyup + Opera doesn't recognise the ESC key, so use keypress as
 				// default for all other browsers.
 				// https://bugs.webkit.org/show_bug.cgi?id=25147
 				// http://code.google.com/p/chromium/issues/detail?id=9061#c2
@@ -507,7 +507,7 @@
 						that.hide();
 					}
 				});
-				
+
 			}
 		}
 
@@ -567,12 +567,12 @@
 							} else if (this.opts.modal && $(document).width() < containerWidth) { //does the mask need to extend further?
 								this.opts.mask.maskElement.css("width", containerWidth + "px");
 							}
-						} 
+						}
 						else {
 							blockScrollPos.x = false;
 							container.css("left", Math.max(((winWidth - containerWidth) * (xVal/100)) + extraOffset.x, extraOffset.x) + "px");
 						}
-					} 
+					}
 					else {
 						container.css("left", xVal + extraOffset.x + "px");
 					}
@@ -589,12 +589,12 @@
 							} else if (this.opts.modal && $(document).height() < containerHeight) {
 								this.opts.mask.maskElement.css("height", containerHeight + "px");
 							}
-						} 
+						}
 						else {
 							blockScrollPos.y = false;
 							container.css("top", Math.max(((winHeight - containerHeight) * (yVal/100)) + extraOffset.y, extraOffset.y) + "px");
 						}
-					} 
+					}
 					else {
 						container.css("top", yVal + extraOffset.y + "px");
 					}
@@ -663,7 +663,7 @@
 					that._blockActions = true;
 					showAnim.start();
 					that.container.css("visibility", "visible");
-				} 
+				}
 				else {
 					that.container.css("visibility", "visible");
 					that.isShown = true;
@@ -675,9 +675,9 @@
 				if (that.opts.focusOnShow) {
 					that._focalPoint[0].focus();
 				}
-				
+
 				if (that.opts.modal) { addModalBehaviour.call(that); }
-				
+
 				return that;
 			},
 			/**
@@ -695,13 +695,13 @@
 					returnNodeName;
 
 				if (this._blockActions || !that.isShown) { return that; }
-				
+
 				if (events.fire(that, "hide").defaultPrevented()) {
 					return that;
 				}
-				
+
 				if (that.opts.modal) { removeModalBehaviour.call(that); }
-				
+
 				//run the appropiate animation
 				if (typeof animOpt == "string") {
 					hideAnim = generatePresetAnimation(that, false);
@@ -722,7 +722,7 @@
 					}
 					that._blockActions = true;
 					hideAnim.start();
-				} 
+				}
 				else {
 					closeOverlay(that);
 					that.isShown = false;
@@ -745,7 +745,7 @@
 
 						returnTo.attr("tabindex", "-1");
 					}
-					
+
 					returnTo[0].focus();
 				}
 
@@ -769,32 +769,32 @@
 				return that;
 			}
 		};
-		
-		/** 
+
+		/**
 			@private
 			@description Enforce requirement that focus to stay within the topmost overlay.
 			@this {glow.widgets.Overlay}
 		 */
 		function addModalBehaviour() {
 			if (this._keepfocusEventId !== undefined) { return; } // already added this requirement
-			
+
 			var overlay = this,   // this overlay
 			overlayZindex = null; // the z-index of this overlay
-			
+
 			overlayZindex = overlay.container.css('z-index'); // to be closured
-			
+
 			this._keepfocusEventId = events.addListener($('body'), 'focus', function(e) {
 				var parent = null,   // the parent element of the source element that is a child of the body
 				parentZindex = null; // the zindex of that parent
-				
+
 				// calculate the zindex of the source elements parent
-				parent = e.source.parentNode;				
+				parent = e.source.parentNode;
 				while (parent) {
 					if (parent.parentNode == document.body) { break; }
 					parent = parent.parentNode;
 				}
 				parentZindex = $(parent).css('z-index');
-				
+
 				// when the source element's zindex is less than ours, we take focus back
 				if (!parentZindex || parentZindex == "auto" || parentZindex < overlayZindex) {
 					overlay._focalPoint && overlay._focalPoint[0].focus();
@@ -802,8 +802,8 @@
 				}
 			});
 		}
-		
-		/** 
+
+		/**
 			@private
 			@description Leave environment clean of all changes made by addModalbehaviour().
 			@this {glow.widgets.Overlay}
@@ -813,7 +813,7 @@
 			events.removeListener(this._keepfocusEventId);
 			delete this._keepfocusEventId;
 		}
-		
+
 		glow.widgets.Overlay = Overlay;
 	}
 });

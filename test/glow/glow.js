@@ -35,62 +35,62 @@ t.test("DOM Ready Blocking testing", function() {
 	// we can assume the DOM is ready at this stage
 	t.expect(7);
 	var results = "";
-	
+
 	glow._addReadyBlock("test1");
-	
+
 	glow.ready(function() {
 		results += "1";
 	});
 	glow.ready(function() {
 		results += "2";
 	});
-	
+
 	t.equals(results, "", "glow.ready correctly blocked");
 
 	glow._removeReadyBlock("test1");
-	
+
 	t.equals(results, "12", "glow.ready queue run in order");
-	
+
 	glow.ready(function() {
 		results += "3";
 	});
-	
+
 	t.equals(results, "123", "glow.ready unblocked");
-	
+
 	glow._addReadyBlock("test2");
 	glow._addReadyBlock("test3");
-	
+
 	glow.ready(function() {
 		results += "4";
 	});
 	glow.ready(function() {
 		results += "5";
 	});
-	
+
 	t.equals(results, "123", "glow.ready blocked");
-	
+
 	glow._removeReadyBlock("test2");
-	
+
 	t.equals(results, "123", "glow.ready still blocked");
-	
+
 	glow._removeReadyBlock("test3");
-	
+
 	t.equals(results, "12345", "glow.ready queue run in order");
-	
+
 	glow.ready(function() {
 		results += "6";
 	});
-	
+
 	t.equals(results, "123456", "glow.ready unblocked");
 });
 
 t.test("DOM Ready nested blocking", function() {
 	t.expect(4);
-	
+
 	var results = "";
-	
+
 	glow._addReadyBlock("test4");
-	
+
 	glow.ready(function() {
 		results += "1";
 		glow._addReadyBlock("test5");
@@ -99,29 +99,29 @@ t.test("DOM Ready nested blocking", function() {
 		});
 		glow._removeReadyBlock("test5");
 	});
-	
+
 	t.equals(results, "", "glow.ready blocked");
-	
+
 	glow._removeReadyBlock("test4");
-	
+
 	t.equals(results, "12", "glow.ready unblocked & queue run");
-	
+
 	glow.ready(function() {
 		results += "3"
 	});
-	
+
 	t.equals(results, "123", "glow.ready unblocked");
 	t.equals(glow.isReady, true, "glow.isReady");
-	
+
 });
 
 t.test("DOM Ready split blocking", function() {
 	t.expect(3);
-	
+
 	var results = "";
-	
+
 	glow._addReadyBlock("test6");
-	
+
 	glow.ready(function() {
 		results += "1";
 		glow._addReadyBlock("test7");
@@ -129,15 +129,15 @@ t.test("DOM Ready split blocking", function() {
 			results += "2";
 		});
 	});
-	
+
 	t.equals(results, "", "glow.ready blocked");
-	
+
 	glow._removeReadyBlock("test6");
-	
+
 	t.equals(results, "1", "glow.ready unblocked & queue run");
-	
+
 	glow._removeReadyBlock("test7");
-	
+
 	t.equals(results, "12", "glow.ready unblocked & queue run");
 });
 
@@ -337,7 +337,7 @@ t.test("glow.lang.interpolate()", function() {
 		"{foo} is {bar}, but FOO is BAR",
 		"Works with alternate single delimiter (regex char)"
 	);
-	
+
 	// test html escaping
 	var data = {
 			faveElms: '<strong>strong</strong> & <h1>h1</h1>',
@@ -349,7 +349,7 @@ t.test("glow.lang.interpolate()", function() {
 			escapeHtml: true
 		}),
 		elm = glow.dom.create(str);
-	
+
 	t.equals(elm[0].nodeName.toLowerCase(), 'div', 'div created');
 	t.equals(elm.get('*').length, 0, 'No extra elements created');
 	t.equals(elm.text(), 'My favourite elements are <strong>strong</strong> & <h1>h1</h1>. Do you have any cake? Here\'s a <span>', 'Html special chars correctly escaped');

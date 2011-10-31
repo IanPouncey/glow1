@@ -9,12 +9,12 @@
 		'glow.i18n',
 		'glow.widgets.Overlay'
 	]],
-	
+
 	builder: function(glow) {
 		var $      = glow.dom.get, // shortcuts
 			events = glow.events,
 			$i18n  = glow.i18n;
-			
+
 		$i18n.addLocaleModule("GLOW_WIDGETS_EDITOR", "en", {
 			ENTER_MESSAGE  : "You are about to enter a Rich Text Editor",
 			SKIP_LINK_TEXT : "Skip past",
@@ -28,22 +28,22 @@
 
 			STRIKE_TITLE : "Strikethrough",
 			STRIKE_LABEL : "Strike",
-			
+
 			UNORDERED_TITLE : "Unordered list",
 			UNORDERED_LABEL : "unordered list",
-			
+
 			ORDERED_TITLE : "Ordered list",
 			ORDERED_LABEL : "ordered list",
-			
+
 			FORMATBLOCK_TITLE : "Text style",
 			FORMATBLOCK_LABEL : "text style",
-			
+
 			HEADINGLEVELONE_TITLE : "Heading 1",
 			HEADINGLEVELTWO_TITLE : "Heading 2",
 			HEADINGLEVELTHREE_TITLE : "Heading 3",
 			NORMAL_TITLE : "Normal"
 
-			
+
 		/*
 			BLOCK_TITLE : "Blockquote",
 			BLOCK_LABEL : "blockquote"
@@ -53,11 +53,11 @@
 
 			TOGGLE_TITLE : "toggle",
 			TOGGLE_LABEL : "toggle",
-			
+
 			** DONT FORGET THE OTHER LOCAL PACKS (eg CY)
 		*/
 		});
-		
+
 		/**
 			@name glow.widgets.Editor
 			@class
@@ -76,7 +76,7 @@
 			@_property {glow.dom.NodeList} textarea
 			@_property {glow.widgets.Editor.Toolbar} toolbar
 			@_property {glow.widgets.Editor.EditArea} editArea
-			
+
 			@example
 				var editor = new glow.widgets.Editor("#commentEntry");
 
@@ -91,9 +91,9 @@
 		 */
 		glow.widgets.Editor = function(textarea, opts) {
 			textarea = $(textarea);
-			
+
 			var editorLocaleModule = $i18n.getLocaleModule("GLOW_WIDGETS_EDITOR");
-			
+
 			this._tools = createTools(editorLocaleModule);
 
 			opts = this._opts = glow.lang.apply(
@@ -107,15 +107,15 @@
 			this.element = glow.dom.create('<div class="glowCSSVERSION-editor"><p class="glowCSSVERSION-hidden">{ENTER_MESSAGE}, <a href="#endOfEditor' + endOfEditorCounter() + '" tabindex="0">{SKIP_LINK_TEXT}</a></p><div class="editor-' + (opts.theme || "light") + '"><div class="editor-state"></div></div><p id="endOfEditor' + endOfEditorCounter() + '" class="glowCSSVERSION-hidden endOfEditorCounter" tabindex="0">{LEAVE_MESSAGE}</p></div>', {interpolate : editorLocaleModule});
 			this.textarea = textarea;
 			this.toolbar = new glow.widgets.Editor.Toolbar(this);
-			
+
 			if (this._opts.toolset == "basic") {
 				this.toolbar._addToolset("italics", "bold", "strike", "formatBlock", /*"blockquote",*/ "unorderedlist", "orderedlist");
 			}
 			else throw new Exception("Unknown toolset name.");
-			
+
 			this.editArea = new glow.widgets.Editor.EditArea(this);
 			this.cleaner = new TagCleaner();
-			
+
 			// Safari 2 is not enhanced
 			if (!isSafariTwo()) {
 				place.apply(this);
@@ -159,7 +159,7 @@ var Idler = function(attachTo, name, wait, opts) { /*debug*///console.info("new 
 		},
 		opts
 	);
-	
+
 	var that = this;
 	this.attachTo = attachTo;
 	this.name = name;
@@ -168,11 +168,11 @@ var Idler = function(attachTo, name, wait, opts) { /*debug*///console.info("new 
 	this.rate = opts.rate;
 	this.running = false;
 	this.initiated = false;
-	
+
 	if (typeof this.name.pop == "undefined") { // is it an array?
 		this.name = [this.name];
 	}
-	
+
 	for (var i = 0, l = this.name.length; i < l; i++) {
 		var name = this.name[i];
 		glow.events.addListener(
@@ -185,7 +185,7 @@ var Idler = function(attachTo, name, wait, opts) { /*debug*///console.info("new 
 			}
 		);
 	}
-	
+
 	this._start();
 }
 
@@ -234,7 +234,7 @@ Idler.prototype._start = function() {
 	if (this.running) return;
 
 	this._tick();
-	
+
 	this.running = true;
 }
 
@@ -247,14 +247,14 @@ Idler.prototype._start = function() {
  */
 Idler.prototype._stop = function() {
 	if (!this.running) return;
-	
+
 	clearInterval(this.intervalId);
 	clearTimeout(this.timeoutId);
-	
+
 	this.running = false;
 }
 
-////		
+////
 
 		/**
 			@ignore
@@ -284,53 +284,53 @@ Idler.prototype._stop = function() {
 			this.textarea.css("position", "absolute");
 			this.textarea.css("left", "-9999px");
 			this.textarea.css("top", "-9999px");
-			
+
 			this.bound = true;
 		}
-		
+
 ////////
 		glow.widgets.Editor.prototype.inject = function(html) {
 			this.editArea._setContent(this.cleaner.dirty(this.cleaner.clean(html)));
 		}
-		
+
 		glow.widgets.Editor.prototype.commit = function() {
 			if (this.bound) {
 				$(this.textarea).val(this.cleaner.clean(this.editArea._getContent()));
 			}
 			glow.events.fire(this, "commit", {});
 		}
-				
+
 		function TagCleaner(opts) {
 			// assumes nesting of dirty tags is always valid
 			// assumes no '>' in any dirty tag attributes
 			// assumes attributes are quoted with double-quotes, and attribute values contain no escaped double-quotes
 
 			this.opts = opts || {};
-			
+
 			this.whitelist = ["em", "strong", "strike", "p", "br", /*"blockquote",*/ "ul", "ol", "li", "h1", "h2", "h3"]; // TODO: support tags.attributes
 		}
-		
+
 		// runs before clean
 		TagCleaner.prototype.pretreat = function(input) {
 			// remove html comments
 			input = input.replace(/<!--[\s\S]*?-->/g, "");
-			
+
 			// remove style tags and their contents
 			input = input.replace(/<style\b[\s\S]*?<\/style>/gi, "");
-			
+
 			// remove script tags and their contents
 			input = input.replace(/<script\b[\s\S]*?<\/script>/gi, "");
-			
+
 			return input
 		}
-		
+
 		TagCleaner.prototype.clean = function(input) { /*debug*///console.log("TagCleaner#clean("+input+")")
 				var output = "",
 			    stack = [];
-			    
+
 			    input = this.pretreat(input);
-			    
-//var sanity = 99;			
+
+//var sanity = 99;
 			while (input) {
 //if (sanity-- == 0) throw new Error("stoopid loops");
 				var skip = 1; // characters
@@ -339,7 +339,7 @@ Idler.prototype._stop = function() {
 					var foundTag = new TagCleaner.Tag(RegExp.$1);
 
 					this.tagClean(foundTag);
-					
+
 					if (foundTag.clean && foundTag.opening) { // there's a clean version
 						output += foundTag.clean.start;
 						if (!foundTag.unary) stack.unshift(foundTag);
@@ -358,19 +358,19 @@ Idler.prototype._stop = function() {
 				else { // non-tag content
 					output += input.charAt(0);
 				}
-			
+
 				// move ahead
 				input = input.substring(skip);
 			}
-			
+
 			output = this.spin(output);
-			
+
 			return output;
 		}
-		
+
 		TagCleaner.prototype.dirty = function(clean) {
 			var dirty;
-	
+
 			if (glow.env.gecko) { // mozilla?
 				dirty = clean
 					.replace(/<strong>/g, '<b _moz_dirty="">').replace(/<\/strong>/g, '</b>')
@@ -400,10 +400,10 @@ Idler.prototype._stop = function() {
 				;
 			}
 			else { throw new Error("Can't be dirty: Unknown browser."); }
-			
+
 			return dirty;
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -413,7 +413,7 @@ Idler.prototype._stop = function() {
 		 */
 		TagCleaner.prototype.spanClean = function(tag) {
 			var clean = {start:"", end:""};
-			
+
 			if (/\bstyle\s*=\s*"(.+)"/.test(tag.attrText.toLowerCase())) {
 				if (RegExp.$1.indexOf("bold") > -1) {
 					clean.start += "<strong>";
@@ -424,27 +424,27 @@ Idler.prototype._stop = function() {
 					clean.start += "<\/strong>";
 					clean.end = "<strong>"+clean.end;
 				}
-				
+
 				if (RegExp.$1.indexOf("italic") > -1) {
 					clean.start += "<em>";
 					clean.end = "<\/em>"+clean.end;
 				}
-				
+
 				// safari needs this
 				if (RegExp.$1.indexOf("font-style: normal") > -1) {
 					clean.start += "<\/em>";
 					clean.end = "<em>"+clean.end;
 				}
-				
+
 				if (RegExp.$1.indexOf("line-through") > -1) {
 					clean.start += "<strike>";
 					clean.end = "<\/strike>"+clean.end;
 				}
 			}
-			
+
 			return clean;
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -453,15 +453,15 @@ Idler.prototype._stop = function() {
 			@returns {String[]} An array of [0] opening tag or tags as a string and [1] closing tag or tags as a string.
 		 */
 		 TagCleaner.prototype.tagClean = function(tag) {
-			var clean = ["", ""];	
-			
+			var clean = ["", ""];
+
 			if (tag.name == "span")   clean = this.spanClean(tag);
 			else if (tag.name == "b") clean = {start:'<strong>', end:'<\/strong>'};
 			else if (tag.name == "i") clean = {start:'<em>', end:'<\/em>'};
-			
+
 			if (clean.start) tag.clean = clean;
 		}
-		
+
 		TagCleaner.Tag = function(tagText) { /*debug*///console.log("new TagCleaner.Tag("+tagText+")");
 			/^<(\/?)([a-zA-Z1-6]+)\b(.*)( ?\/)?>$/.exec(tagText);
 			this.closing = !!RegExp.$1;
@@ -470,10 +470,10 @@ Idler.prototype._stop = function() {
 			this.name = RegExp.$2.toLowerCase();
 			this.attrText = RegExp.$3;
 			this.text = tagText;
-			
+
 			// normalise case of tag names
 			this.start = tagText.replace(/^<(\/?)([a-zA-Z]+)\b/, "<$1"+this.name);
-			
+
 			if (this.opening && !this.unary) {
 				this.end = "<\/"+this.name+">";
 			}
@@ -481,7 +481,7 @@ Idler.prototype._stop = function() {
 		TagCleaner.Tag.prototype.toString = function() {
 			return "<" + RegExp.$1 + this.name/* + this.attrText */+ RegExp.$4 +">";
 		}
-		
+
 		TagCleaner.prototype.spin = function(input) {
 			var whitetags = this.whitelist.join("\|");
 			// note: Safari 2.0.4 doesn't support unicode in regex, but can use unprintable ASCII characters, like the "Group Separator"
@@ -489,13 +489,13 @@ Idler.prototype._stop = function() {
 			input = input.replace(allowedTags, "\x1D$1\x1D");     // hide allowed tags
 			input = input.replace(/<[^>]+>/g, "");                // kill all visible tags
 			input = input.replace(/\x1D([^\x1D]+)\x1D/g, "<$1>"); // restore allowed tags
-			
+
 			// general final clean up...
 			input = input.replace(/<>/g, ""); // remove Safari droppings
-			
+
 			return input;
 		}
-		
+
 ////////
 
 		/**
@@ -514,7 +514,7 @@ Idler.prototype._stop = function() {
 			this._tools = [];
 			this.editor.element.get(".editor-state").prepend(this.element);
 		}
-			
+
 		 /**
 		     @ignore
 		     @private
@@ -531,28 +531,28 @@ Idler.prototype._stop = function() {
 		 */
 		 glow.widgets.Editor.Toolbar.prototype._addToolset = function(/*arguments*/) {
 		 	var toolToAdd;
-		 	
+
 		 	for (var i = 0, l = arguments.length; i < l; i++) {
 		 		if ( (toolToAdd = this.editor._tools[arguments[i]]) ) {
 		 			toolToAdd.opts.theme = this.editor._opts.theme; // tools inherit theme from associated editor theme
 					addTool.call(this, glow.widgets.Editor.Toolbar.prototype._toolFactory(toolToAdd));
 				}
 		 	}
-		 	
+
 			// Give the toolbar one focusable button
 			// this.element.get('a').item(0).tabIndex = 0;
 			addToolbarIntoTabIndex.apply(this);
 
 		 	return this;
 		 }
-		
+
 		 /**
 		     @ignore
 		     @private
 			 @name glow.widgets.Editor.Toolbar#_toolFactory
 			 @description Factory for building different kinds of toolbar tools.
 			 @function
-			 @param {this.editor._tools} 
+			 @param {this.editor._tools}
 			 @returns {glow.widgets.Editor.Toolbar.tool} this
 		 */
 		 glow.widgets.Editor.Toolbar.prototype._toolFactory = function(toolToAdd, editorRef) {
@@ -567,7 +567,7 @@ Idler.prototype._stop = function() {
 			}
 			return newTool;
 		 }
-		
+
 		// modifies HTML in place, while preserving the cursor position
 		glow.widgets.Editor.blackList = {
 			FORM:       true,
@@ -633,23 +633,23 @@ Idler.prototype._stop = function() {
 			ILAYER:     true,
 			LAYER:      true
         };
-		glow.widgets.Editor.prototype._rinse = function() { /*debug*///console.log("glow.widgets.Editor#_rinse()");		
+		glow.widgets.Editor.prototype._rinse = function() { /*debug*///console.log("glow.widgets.Editor#_rinse()");
 			if (this._lastRinse == this.editArea._getContent()) return; /*debug*///console.log("rinsing");
 
 			var doc = this.editArea.contentWindow.document;
 			var node = doc.body;
-			
+
 			var that = this; // keep track of me, even when recursing
 			function walkNode(node) {
 				if (node.childNodes) {
 					for (var i = 0; i < node.childNodes.length; i++) {
 						var keepStatus = glow.widgets.Editor.blackList[node.childNodes[i].nodeName];
-						
+
 						if (node.nodeType == 1) { // an element node
 							if (keepStatus) {
 									var replacementNode = doc.createElement("SPAN");
 									//replacementNode.setAttribute('class', 'glow-rinsed');
-									
+
 									replacementNode.innerHTML = that.cleaner.clean(node.childNodes[i].innerHTML+" ");
 									node.replaceChild(replacementNode, node.childNodes[i]);
 							}
@@ -672,7 +672,7 @@ Idler.prototype._stop = function() {
 			}
 
 			walkNode(node);
-			
+
 			this._lastRinse = this.editArea._getContent();
 		}
 
@@ -688,7 +688,7 @@ Idler.prototype._stop = function() {
 		 	this._tools.push(toolToAdd);
 			this.element.get(".editor-toolbar-tools").append(toolToAdd.element);
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -703,7 +703,7 @@ Idler.prototype._stop = function() {
 			addTool.call(this, newTool);
 			return this;
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -719,7 +719,7 @@ Idler.prototype._stop = function() {
 				if (this._tools[i].name == name) return this._tools[i];
 			}
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -744,7 +744,7 @@ Idler.prototype._stop = function() {
 					else {
 						this._tools[i].label( "Normal" );
 					}
-					
+
 				}
 				else if (domPath.indexOf("|"+this._tools[i].tag+"|") > -1) {
 		 			this._tools[i].activate();
@@ -756,25 +756,25 @@ Idler.prototype._stop = function() {
 			}
 		 	return handled;
 		}
-		
-		/** 
+
+		/**
 			@ignore
 			@private
-			@name glow.widgets.Editor.Toolbar#_shortcut 
-			@description 
-			@function 
-			@param {String} name 
-			@returns {glow.widgets.Editor.Toolbar.Tool} 
-		 */ 
-	   glow.widgets.Editor.Toolbar.prototype._shortcut = function(letter) { 
+			@name glow.widgets.Editor.Toolbar#_shortcut
+			@description
+			@function
+			@param {String} name
+			@returns {glow.widgets.Editor.Toolbar.Tool}
+		 */
+	   glow.widgets.Editor.Toolbar.prototype._shortcut = function(letter) {
 			var i = this._tools.length;
 			var handled = false;
-			while (--i >= 0) { 
+			while (--i >= 0) {
 				if (this._tools[i].shortcut == letter) {
-					this._tools[i].press(); 
+					this._tools[i].press();
 					return true;
 				}
-			} 
+			}
 			return false;
 	   }
 
@@ -796,13 +796,13 @@ Idler.prototype._stop = function() {
 			this.shortcut = this.opts.shortcut;
 			this.isActive = false;
 			this.isEnabled = true;
-			
+
 			if (this.opts.onDeactivate) glow.events.addListener(this, "deactivate", this.opts.onDeactivate, context);
 			if (this.opts.onActivate)   glow.events.addListener(this, "activate", this.opts.onActivate, context);
 			if (this.opts.onDisable)    glow.events.addListener(this, "disable", this.opts.onDisable, context);
 			if (this.opts.onEnable)     glow.events.addListener(this, "enable", this.opts.onEnable, context);
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -814,7 +814,7 @@ Idler.prototype._stop = function() {
 			this.isActive = true;
 			glow.events.fire(this, 'activate');
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -826,7 +826,7 @@ Idler.prototype._stop = function() {
 			this.isActive = false;
 			glow.events.fire(this, 'deactivate');
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -838,7 +838,7 @@ Idler.prototype._stop = function() {
 			this.isEnabled = false;
 			glow.events.fire(this, 'disable');
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -850,7 +850,7 @@ Idler.prototype._stop = function() {
 			this.isEnabled = true;
 			glow.events.fire(this, 'enable');
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -879,19 +879,19 @@ Idler.prototype._stop = function() {
 		glow.widgets.Editor.Toolbar.Button = function(name, opts) { /*debug*///console.log("new glow.widgets.Editor.Toolbar.Button("+name+", "+opts.toSource()+")")
 			this.Base = arguments.callee.base; this.base = this.Base.prototype;
 			this.Base.apply(this, arguments);
-			
+
 
 			this.type = "button";
 
-			
-			// a button's CSS classname is defined here 
+
+			// a button's CSS classname is defined here
 			var buttonClass = name.toLowerCase() + "-button";
 			this.element = glow.dom.create('<li class="editor-toolbar-item"><span class="editor-toolbar-button"><a href="#" title="'+(opts.title || name)+'" tabindex="-1"><span class="editor-toolbar-icon '+buttonClass+'"><span>'+(opts.label || name)+'<\/span><\/span><\/a><\/span><\/li>');
- 			
+
  			// shortcuts
  			var toolLink = this.element.get("a");
- 			this.icon = this.element.get(".editor-toolbar-icon"); 
- 
+ 			this.icon = this.element.get(".editor-toolbar-icon");
+
 			var key_listener;
 
  			glow.events.addListener(this.icon, "mouseover", function() { if (this.isEnabled && !this.isActive) toolLink.addClass("hover"); }, this);
@@ -905,11 +905,11 @@ Idler.prototype._stop = function() {
 
  			var that = this;
 			glow.events.addListener(this.element.get("a"), "mousedown", function() { that.press(); return false; }, this); // bind the click handler context to the Tool (not the HTMLElement)
-			glow.events.addListener(this.element.get("a"), "click", function() { return false; }); 
+			glow.events.addListener(this.element.get("a"), "click", function() { return false; });
 		}
-		
+
 		glow.lang.extend(glow.widgets.Editor.Toolbar.Button, glow.widgets.Editor.Toolbar.Tool);
-		
+
 		/**
 			@ignore
 			@private
@@ -918,14 +918,14 @@ Idler.prototype._stop = function() {
 			@extends glow.widgets.Editor.Toolbar.Tool
 		 */
 		glow.widgets.Editor.Toolbar.DropDown = function(name, opts) { /*debug*///console.log("new glow.widgets.Editor.Toolbar.DropDown("+name+", "+opts.toSource()+")")
-			
+
 			// this is at the begining of all the objects that extend glow.widgets.editor.toolbar.tool - is this the right way to do it?
 			this.Base = arguments.callee.base;
 			this.base = this.Base.prototype;
 			this.Base.apply(this, arguments);
 
 			this.type = "dropdown";
-			
+
 			this._opts = {
 				title: opts.title || name,
 				label: opts.lable || name,
@@ -939,35 +939,35 @@ Idler.prototype._stop = function() {
  			// shortcuts
  			var that = this,
 				toolLink = this.element.get("a");
- 				this.icon = this.element.get(".editor-toolbar-dropdown"); 
- 
+ 				this.icon = this.element.get(".editor-toolbar-dropdown");
+
 			// create overlaymenu child obect - this is used as the menu when the drop-down tool-link is clicked on
 			this.overlayMenu = new glow.widgets.Editor.Toolbar.OverlayMenu(
 				this,
 				{
 					menuItems: opts.menuItems,
 					onClick: function(e) {
-						
+
 						// change the dropdown tool-link label
 						that.label(that.overlayMenu.menuItems[that.overlayMenu.selected].title);
-	
+
 						// fire tool-link - again, this is done from the overlayMenu because the tool-link isn't being interacted with
 						//events.fire(that, "activate");
 						that.press();
 						//events.fire(that, "deactivate");
 						//that.deactivate();
-						
+
 						if (glow.env.ie) {
 							that.editor.editArea.contentWindow.focus();
 						}
-						
+
 					}
 				}
 			);
 
 			// getter/setter for the label of the tool-link
 			this.label = function(newLabel) {
-				if (typeof newLabel != "undefined") {	
+				if (typeof newLabel != "undefined") {
 					that.element.get("a span span").html(newLabel);
 					return this;
 				}
@@ -1022,8 +1022,8 @@ Idler.prototype._stop = function() {
 				toolLink.removeClass("disabled");
 			}, this);
 			// ***
- 			
-			
+
+
 			// ***
 			// activate/deactivate events
 			glow.events.addListener(this, "activate", function() { /*debug*///console.log("activate");
@@ -1035,8 +1035,8 @@ Idler.prototype._stop = function() {
 				toolLink.removeClass("active");
 			}, this);
 			// ***
-			
-			
+
+
 			// ***
 			// keypress events
 			glow.events.addListener(toolLink, "keydown", function(e) {
@@ -1045,7 +1045,7 @@ Idler.prototype._stop = function() {
 				if(e.key == "DOWN") {
 					// Open the overlay
 					_openOverlayMenu();
-					
+
 					// Always hightlight the item in the dropDown that is currently displayed in the tool
 					var toolText = $(this).text();
 					that.overlayMenu.container.get("li").each(function(i){
@@ -1055,7 +1055,7 @@ Idler.prototype._stop = function() {
 							li[0].focus();
 						}
 					});
-					
+
 					return false;
 				}
 				// Close the overlayMenu
@@ -1076,14 +1076,14 @@ Idler.prototype._stop = function() {
 				that.overlayMenu.container
 					.css("left", (inputOffset.left + 5))
 					.css("top", (inputOffset.top + that.element[0].offsetHeight + 2));
-			}		
+			}
 		}
 
 		function _closeOverlayMenu() { /*debug*///console.log("_closeOverlayMenu()");
 			this.deactivate();
 			this.overlayMenu.hide();
 		}
-		
+
 		glow.lang.extend(glow.widgets.Editor.Toolbar.DropDown, glow.widgets.Editor.Toolbar.Tool);
 
 		/**
@@ -1120,7 +1120,7 @@ Idler.prototype._stop = function() {
 			// This param allows you to customise how each menuItem looks
 			// DON'T THINK WE NEED THIS?
 			opts.formatItem = opts.formatItem || function(o) { return o.html(); };
-						
+
 			// default empty function for onclick
 			opts.onClick = opts.onClick || function() {};
 
@@ -1134,7 +1134,7 @@ Idler.prototype._stop = function() {
 				closeOnEsc: true,
 				autoPosition: false
 			});
-			
+
 			// inherit the theme of the dropdown we are associated with
 			if (dropDown._opts.theme) {
 				overlayMenu.container.addClass('overlayMenu-' + dropDown._opts.theme);
@@ -1142,11 +1142,11 @@ Idler.prototype._stop = function() {
 
 			// Add opts.menuItems onto the overlayMenu. This make
 			overlayMenu.menuItems = opts.menuItems;
-			
+
 			// param to tell user the index value of the selected menuItem.
 			// default value is null as nothing has been selected yet.
 			overlayMenu.selected = null;
-			
+
 			// add menuItems onto overlayMenu HTML as <li>s
 			var z = 0;
 			for (var i = 0, leni = overlayMenu.menuItems.length; i<leni; i++) {
@@ -1161,7 +1161,7 @@ Idler.prototype._stop = function() {
 				}
 				z++;
 			}
-			
+
 			// when the overlayMenu is hidden by clicking on the mask then deactivate the dropDown tool-link
 			events.addListener(overlayMenu, 'hide', function(){
 				if (dropDown.isActive == true) {
@@ -1169,7 +1169,7 @@ Idler.prototype._stop = function() {
 					dropDown.isActive = false;
 				}
 			});
-			
+
 			// pass in a tag, and if the tag matches one of the tags in the menuItems return the matching menuItem's title
 			overlayMenu.getTitleFromTag = function(tag) {
 				var menuItem;
@@ -1182,7 +1182,7 @@ Idler.prototype._stop = function() {
 				// return null if no tag matches
 				return null;
 			}
-			
+
 			var arrLi = overlayMenu.container.get("li");
 			events.addListener(overlayMenuContents, "mouseover", function(e) {
 				_highlightMenuItem($(e.source), arrLi);
@@ -1256,10 +1256,10 @@ Idler.prototype._stop = function() {
 				// Call user defined click event
 				opts.onClick(e);
 			}
-			
+
 			return overlayMenu;
 		}
-		
+
 		// Pass in an element, and this function will return the index value of its position amongst its siblings
 		function _findPositionInNodelist(elm) {
 			var siblings = $(elm).parent().children(),
@@ -1271,39 +1271,39 @@ Idler.prototype._stop = function() {
 			});
 			return r;
 		}
-		
+
 		function _highlightMenuItem(li, arrLi) {
 			arrLi.each(function(q) {
 				$(arrLi[q]).removeClass("highlighted");
 			});
 			li.addClass("highlighted");
 		}
-		
+
 		// Disables (sets to -1) the tabIndex of the passed in element
 		function _disableTabIndex(elm){
 			elm.tabIndex = -1;
 		}
 
-		
+
 
 // TODO: all these would be better handled by onWhatever event handlers passed into the Tool constructor call
 		glow.widgets.Editor.Toolbar.Button.prototype.activate = function() {
 			this.base.activate.apply(this, arguments);
 		}
-		
+
 		glow.widgets.Editor.Toolbar.Button.prototype.deactivate = function() {
 			this.base.deactivate.apply(this, arguments);
 		}
-		
+
 		glow.widgets.Editor.Toolbar.Button.prototype.enable = function(name) {
 			this.base.enable.apply(this, arguments);
 		}
-		
+
 		glow.widgets.Editor.Toolbar.Button.prototype.disable = function(name) {
 			this.base.disable.apply(this, arguments);
 		}
 
-		
+
 
 		/**
 			@ignore
@@ -1325,7 +1325,7 @@ Idler.prototype._stop = function() {
 
 		}
 
-		/* built-in tools here. */		 
+		/* built-in tools here. */
 		// this is now called on each instance of editor
 		function createTools(localeModule) {
 			return {
@@ -1354,8 +1354,8 @@ Idler.prototype._stop = function() {
 					}
 				},
 				strike: {
-					name : "strike", 
-					type : "button", 
+					name : "strike",
+					type : "button",
 					opts : {
 						title:      localeModule.STRIKE_TITLE,
 						label:      localeModule.STRIKE_LABEL,
@@ -1366,8 +1366,8 @@ Idler.prototype._stop = function() {
 				},
 
  				/*blockquote: {
-					name : "blockquote", 
-					type : "button", 
+					name : "blockquote",
+					type : "button",
 					opts : {
 						title:      localeModule.BLOCK_TITLE,
 						label:      localeModule.BLOCK_LABEL,
@@ -1379,7 +1379,7 @@ Idler.prototype._stop = function() {
 
 				unorderedlist: {
 					name : "unorderedlist",
-					type : "button", 
+					type : "button",
 					opts : {
 						title:      localeModule.UNORDERED_TITLE,
 						label:      localeModule.UNORDERED_LABEL,
@@ -1390,7 +1390,7 @@ Idler.prototype._stop = function() {
 				},
 				orderedlist: {
 					name : "orderedlist",
-					type : "button", 
+					type : "button",
 					opts : {
 						title:      localeModule.ORDERED_TITLE,
 						label:      localeModule.ORDERED_LABEL,
@@ -1401,7 +1401,7 @@ Idler.prototype._stop = function() {
 				},
 				formatBlock: {
 					name : "formatBlock",
-					type : "dropDown", 
+					type : "dropDown",
 					opts : {
 						title:      localeModule.FORMATBLOCK_TITLE,
 						label:      localeModule.FORMATBLOCK_LABEL,
@@ -1438,7 +1438,7 @@ Idler.prototype._stop = function() {
 				/* tag.call(this.editor.editArea, this.command)
 				,
 				heading1:{
-					name : "heading1", 
+					name : "heading1",
 					opts : {
 						title:      localeModule.HEADING1_TITLE,
 						label:      localeModule.HEADING1_LABEL,
@@ -1448,7 +1448,7 @@ Idler.prototype._stop = function() {
 					}
 				},
 				toggle: {
-					name : "toggle", 
+					name : "toggle",
 					opts : {
 						title:      localeModule.TOGGLE_TITLE,
 						label:      localeModule.TOGGLE_LABEL,
@@ -1480,7 +1480,7 @@ Idler.prototype._stop = function() {
 				function() { // For FF
 					that.element[0].contentWindow.document.designMode = "on";
 					that.contentWindow = that.element[0].contentWindow;
-	
+
 					if (that.editor.textarea.val()) {
 						that.contentWindow.document.write(that.editor.textarea.val());
 					}
@@ -1506,19 +1506,19 @@ Idler.prototype._stop = function() {
 					if (glow.env.gecko) {
 						that.contentWindow.document.execCommand("styleWithCSS", false, false);
 					}
-					
-					// see Webkit bug related to onbeforeunload and iframes 
+
+					// see Webkit bug related to onbeforeunload and iframes
 					// https://bugs.webkit.org/show_bug.cgi?id=21699
 					// http://code.google.com/p/chromium/issues/detail?id=5773
 					if (glow.env.webkit) {
 						events.addListener(that.element[0].contentWindow, 'beforeunload', function () { that.editor.commit(); return true; } );
 						events.addListener(window, 'beforeunload', function () { that.editor.commit(); return true; } );
 					}
-					
+
 					// Give the toolbar one focusable button
 					// Boolean that we use to make sure we only do this once
 					that._toolbarInTabIndex = false;
-					
+
 					// Listener for when the user clicks on the editor
 					glow.events.addListener(
 						that.editor.element.get(".editor-state"),
@@ -1528,7 +1528,7 @@ Idler.prototype._stop = function() {
 						},
 						that
 					);
-					
+
 					// Listener for when the user tabs into the iframe
 					if (!isNaN(glow.env.ie)) {
 						that.contentWindow.attachEvent(
@@ -1548,7 +1548,7 @@ Idler.prototype._stop = function() {
 							that
 						);
 					}
-	
+
 					if (that.editor.bound) {
 						that.idler = new Idler(
 							that.contentWindow,
@@ -1570,7 +1570,7 @@ Idler.prototype._stop = function() {
 		/**
 			@ignore
 			@name addToolbarIntoTabIndex
-			@description 
+			@description
 		 */
 		function addToolbarIntoTabIndex() {
 			if (this.editor._toolbarInTabIndex == true) return;
@@ -1614,7 +1614,7 @@ Idler.prototype._stop = function() {
 			else {
 
 				glow.dom.get(this.contentWindow.document).item(0).addEventListener(
-					'keydown', 
+					'keydown',
 					(function(that){
 						return function(event){
 							event = event || window.event;
@@ -1640,7 +1640,7 @@ Idler.prototype._stop = function() {
 			{
 				// Set [TAB]+[SHIFT] to tab up the page
 					if ((event.keyCode == 9) && (event.shiftKey == true)) {	//console.log('shift up');
-						
+
 						// If [TAB]+[SHIFT] then we want to set the focus to the tool in the toolbar that has been set to receive focus (see function 'manageToolbarFocus')
 						var arrIcons = glow.dom.get(this.editor.element).get('ul.editor-toolbar-tools a');
 						arrIcons.each(function(i) {
@@ -1775,15 +1775,15 @@ Idler.prototype._stop = function() {
 			@ignore
 			@private
 			@name getDistantSibling
-			@description  Builds an array of the hyperlinks in the toolbar, sets all their tabIndexes to -1 and then returns either 
+			@description  Builds an array of the hyperlinks in the toolbar, sets all their tabIndexes to -1 and then returns either
 			              the next or previous element in the array based on the element passed in as a param
 		 */
 		function getDistantSibling(elm, move, arrLinks) { // console.log('changing the toolbar');
 			arrLinks = arrLinks || getAncestor(glow.dom.get(elm), "ul").get('a');
 			//arrLinks = arrLinks || glow.dom.get(elm).parent().parent().parent().get('a');
-			
+
 			//feedback(arrLinks.html());
-			
+
 			var itemIndexToFocus = 0,
 				trueArrayLength  = (arrLinks.length-1);
 
@@ -1814,7 +1814,7 @@ Idler.prototype._stop = function() {
 				}
 				elm = elm.parent();
 			}
-			return elm;			
+			return elm;
 		}
 
 		/**
@@ -1836,7 +1836,7 @@ Idler.prototype._stop = function() {
 			@ignore
 			@private
 			@name tag
-			@description Applies execCommand 
+			@description Applies execCommand
 			@function
 		 */
 
@@ -1852,7 +1852,7 @@ Idler.prototype._stop = function() {
 			this.contentWindow.focus();
 			updateArea.call(this);
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -1860,16 +1860,16 @@ Idler.prototype._stop = function() {
 			@description gets the selected text
 			@function
 		 */
-		glow.widgets.Editor.EditArea.prototype._getSelected = function() { 
+		glow.widgets.Editor.EditArea.prototype._getSelected = function() {
 			if (glow.env.ie) {
-				// IE doesn't use the DOM2 methods for selection and determining range 
+				// IE doesn't use the DOM2 methods for selection and determining range
 				return this.contentWindow.document.selection;
 			}
 			else {
 				return this.contentWindow.getSelection();
 			}
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -1886,13 +1886,13 @@ Idler.prototype._stop = function() {
 				var e = glow.events.fire(this, 'domPathChange', {
 					domPath: currentDomPath
 				});
-				
+
 				if (!e.defaultPrevented()) {
 					this.editor.toolbar._update(currentDomPath);
 				}
 			}
 		}
-		
+
 // 		glow.widgets.Editor.EditArea.prototype.formatblock_blockquote = function() {
 // 			elmPath = this._domPath();
 // 			currentTag = elmPath.split("|");
@@ -1919,7 +1919,7 @@ Idler.prototype._stop = function() {
 // 				}
 // 			}
 // 		}
-		
+
 		/* TODO: Use for later release...
 		glow.widgets.Editor.EditArea.prototype.formatblock_h1 = function() {
 			this.formatblock_heading("h1");
@@ -1967,7 +1967,7 @@ Idler.prototype._stop = function() {
 				this.contentWindow.document.designMode = "on";
 			}
 		} */
-		
+
 		/**
 			@ignore
 			@private
@@ -1981,14 +1981,14 @@ Idler.prototype._stop = function() {
 			elm = elm || this._getSelectedNode();
 			var elmBody = glow.dom.get(this.editor.editArea.contentWindow.document).get('body').item(0);
 			var trail = "";
-			
+
 			if (elm === null) return null;
-			
+
 			while (elm.nodeName.toUpperCase() != elmBody.nodeName.toUpperCase()) {
 				trail = '<' + elm.nodeName.toLowerCase() + ((elm.getAttribute('style'))? ' style="'+elm.getAttribute('style')+'"' : '') + '>' + trail;
 				elm = elm.parentNode;
 			}
-			
+
 			var cleanTrail = this.editor.cleaner.clean(trail);
 			cleanTrail = cleanTrail.replace(/></g, "|").replace(/>/g, "|").replace(/</g, "|");
 			cleanTrail = cleanTrail.replace(/\|\/[^\|]+\|/g, "|"); // collapse /named nodes that sometimes appear
@@ -2003,9 +2003,9 @@ Idler.prototype._stop = function() {
 			@function
 			@returns {HTML node}
 		 */
-		glow.widgets.Editor.EditArea.prototype._getSelectedNode = function() { 
+		glow.widgets.Editor.EditArea.prototype._getSelectedNode = function() {
 			var selected = this._getSelected();
-			
+
 			if (!glow.env.ie) {
 				if (selected && selected.rangeCount === 0) {
 					return null; // selection is not in the editor, can't get any selected node!
@@ -2022,7 +2022,7 @@ Idler.prototype._stop = function() {
 				return selected.createRange().parentElement();
 			}
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -2033,17 +2033,17 @@ Idler.prototype._stop = function() {
 		glow.widgets.Editor.EditArea.prototype._nodeAt = function(location) {
 			var w = this.contentWindow;
 			var d = w.document;
-			
+
 			var counter = 0;
 			var node = d.body;
-			
+
 			function walkNode(node, location) {
 				if (node.nodeName == "#text") {
 					counter += node.nodeValue.length;
-					if (counter >= location) {					
+					if (counter >= location) {
 						return node.parentNode;
 					}
-					
+
 				}
 				if (node.childNodes) {
 					for (var i = 0; i < node.childNodes.length; i++) {
@@ -2052,11 +2052,11 @@ Idler.prototype._stop = function() {
 					}
 				}
 			}
-			
+
 			var foundNode = walkNode(node, location);
 			return foundNode;
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -2066,7 +2066,7 @@ Idler.prototype._stop = function() {
 		glow.widgets.Editor.EditArea.prototype._getContent = function() { /*debug*///console.log("glow.widgets.Editor.EditArea#_getContent()");
 			return this.contentWindow.document.body.innerHTML;
 		}
-		
+
 		/**
 			@ignore
 			@private
@@ -2095,7 +2095,7 @@ Idler.prototype._stop = function() {
    			else { // moz, saf, opera
    				var r = el.document.createRange();
    				r.selectNodeContents(el.document.body.firstChild.childNodes[0]);
-   				
+
    				var s = el.getSelection();
    				s.removeAllRanges();
    				el.getSelection().addRange(r);

@@ -72,7 +72,7 @@
 			This is the property name used by unique checks
 		*/
 			ucheckPropName = "_unique" + glow.UID,
-			
+
 		/**
 			@name glow.dom-dataPropName
 			@private
@@ -80,7 +80,7 @@
 			@description The property name added to the DomElement by the NodeList#data method.
 		*/
 			dataPropName = "_uniqueData" + glow.UID,
-		
+
 		/**
 			@name glow.dom-dataIndex
 			@private
@@ -88,13 +88,13 @@
 			@description The value of the dataPropName added by the NodeList#data method.
 		*/
 			dataIndex = 1, // must be a truthy value
-			
+
 		/**
 			@name glow.dom-dataCache
 			@private
 			@type Object
 			@description Holds the data used by the NodeList#data method.
-			
+
 			The structure is like:
 			[
 				{
@@ -103,7 +103,7 @@
 			]
 		*/
 			dataCache = [],
-		
+
 		/*
 		PrivateVar: htmlColorNames
 			Mapping of colour names to hex values
@@ -153,7 +153,7 @@
 			tmpDiv = doc.createElement("div"),
 			/*
 			PrivateVars: tableArray, elmFilter
-				Used in private function stringToNodes to capture any 
+				Used in private function stringToNodes to capture any
 				elements that cannot be a childNode of <div>.
 					Each entry in JSON responds to an element.
 					First array value is how deep the element will be created in a node tree.
@@ -182,40 +182,40 @@
 				script: paddingElmArray,
 				style: paddingElmArray
 			};
-		
+
 		// clean up IE's mess
 		if (env.ie) {
 			window.attachEvent("onunload", function() {
 				tmpDiv = null;
 			});
 		}
-		
+
 		glow.ready(function() {
 			docBody = doc.body;
 			docElm = doc.documentElement;
 		});
-		
-		
+
+
 		// test for nodePropertiesCloned
 		(function() {
 			var div = doc.createElement("div");
 			div.a = 1;
 			nodePropertiesCloned = !!div.cloneNode(true).a;
 		})();
-		
+
 		/**
 		 @name glow.dom-getFirstChildElm
 		 @private
 		 @description Returns the first leaf of a NodeList
-		 @param {NodeList} 
+		 @param {NodeList}
 		*/
-		function getFirstChildElm(parent) {					
+		function getFirstChildElm(parent) {
 			for (var child = parent.firstChild; child; child = child.nextSibling) {
 				if (child.nodeType == 1) {
 					return child;
-				}			
-			}			
-			return null;			
+				}
+			}
+			return null;
 		}
 
 		/*
@@ -242,16 +242,16 @@
 				tagName = (/^\s*<([^\s>]+)/.exec(str) || [,'div'])[1],
 				// This matches str content with potential elements that cannot
 				// be a child of <div>.  elmFilter declared at top of page.
-				elmWrap = elmWraps[tagName] || emptyArray, 
+				elmWrap = elmWraps[tagName] || emptyArray,
 				nodeDepth,
 				childElm,
 				rLen = 0;
-			
+
 			// Create the new element using the node tree contents available in filteredElm.
 			tmpDiv.innerHTML = (elmWrap[1] + str + elmWrap[2]);
-			
+
 			childElm = tmpDiv;
-			
+
 			// Strip newElement down to just the required element and its parent
 			nodeDepth = elmWrap[0];
 			while(nodeDepth--) {
@@ -262,9 +262,9 @@
 			while (childElm.firstChild) {
 				r[rLen++] = childElm.removeChild(childElm.firstChild);
 			}
-			
+
 			childElm = null;
-			
+
 			return r;
 		}
 
@@ -441,7 +441,7 @@
 				return r;
 			};
 		}
-		
+
 		/*
 			Get the child elements for an html node
 		*/
@@ -450,7 +450,7 @@
 				childNodes = node.childNodes,
 				i = 0,
 				ri = 0;
-			
+
 			for (; childNodes[i]; i++) {
 				if (childNodes[i].nodeType == 1 && childNodes[i].nodeName != "!") {
 					r[ri++] = childNodes[i];
@@ -458,8 +458,8 @@
 			}
 			return r;
 		}
-		
-		
+
+
 		var horizontalBorderPadding = [
 				'border-left-width',
 				'border-right-width',
@@ -472,11 +472,11 @@
 				'padding-top',
 				'padding-bottom'
 			];
-		
+
 		/*
 		PrivateMethod: getElmDimension
 			Gets the size of an element as an integer, not including padding or border
-		*/		
+		*/
 		function getElmDimension(elm, cssProp /* (width|height) */) {
 			var r, // val to return
 				docElmOrBody = env.standardsMode ? docElm : docBody,
@@ -634,7 +634,7 @@
 				}
 				return total + "px";
 			}
-			
+
 			if (propTest[1]) { // is width / height
 				if (!isVisible(elm)) { //element may be display: none
 					return tempBlock(elm, function() {
@@ -715,18 +715,18 @@
 				positionVal = elmStyle[axisPos],
 				runtimePositionVal = element.runtimeStyle[axisPos],
 				r;
-			
+
 			// copy to the runtime type to prevent changes to the display
 			element.runtimeStyle[axisPos] = element.currentStyle[axisPos];
 			// set value to left / top
 			elmStyle[axisPos] = value;
 			// get the pixel value
 			r = elmStyle["pixel" + axisPosUpper];
-			
+
 			// revert values
 			elmStyle[axisPos] = positionVal;
 			element.runtimeStyle[axisPos] = runtimePositionVal;
-			
+
 			return r;
 		}
 
@@ -815,28 +815,28 @@
 			}
 			return r.get(ret);
 		}
-		
+
 		/*
 		 Get the 'real' positioned parent for an element, otherwise return null.
 		*/
 		function getPositionedParent(elm) {
 			var offsetParent = elm.offsetParent;
-			
+
 			// get the real positioned parent
 			// IE places elements with hasLayout in the offsetParent chain even if they're position:static
 			// Also, <body> and <html> can appear in the offsetParent chain, but we don't want to return them if they're position:static
-			while (offsetParent && r.get(offsetParent).css("position") == "static") {	
+			while (offsetParent && r.get(offsetParent).css("position") == "static") {
 				offsetParent = offsetParent.offsetParent;
 			}
-			
+
 			// sometimes the <html> element doesn't appear in the offsetParent chain, even if it has position:relative
 			if (!offsetParent && r.get(docElm).css("position") != "static") {
 				offsetParent = docElm;
 			}
-			
+
 			return offsetParent || null;
 		}
-		
+
 		/**
 		 @name glow.dom-getScrollOffset
 		 @private
@@ -845,9 +845,9 @@
 		 @param {Boolean} isLeft True if we're dealing with left scrolling, otherwise top
 		*/
 		function getScrollOffset(elm, isLeft) {
-			var r,			
+			var r,
 				scrollProp = 'scroll' + (isLeft ? "Left" : "Top");
-			
+
 			// are we dealing with the window object or the document object?
 			if (elm.window) {
 				// get the scroll of the documentElement or the pageX/Yoffset
@@ -861,7 +861,7 @@
 			}
 			return r;
 		}
-		
+
 		/**
 		 @name glow.dom-setScrollOffset
 		 @private
@@ -871,7 +871,7 @@
 		 @param {Number} newVal New scroll value
 		*/
 		function setScrollOffset(elm, isLeft, newVal) {
-			
+
 			// are we dealing with the window object or the document object?
 			if (elm.window) {
 				// we need to get whichever value we're not setting
@@ -884,7 +884,7 @@
 				elm['scroll' + (isLeft ? "Left" : "Top")] = newVal;
 			}
 		}
-		
+
 		/**
 		 @name glow.dom-scrollOffset
 		 @private
@@ -892,12 +892,12 @@
 		 @param {glow.dom.NodeList} nodeList Elements to get / set the position of
 		 @param {Boolean} isLeft True if we're dealing with left scrolling, otherwise top
 		 @param {Number} [val] Val to set (if not provided, we'll get the value)
-		 
+
 		 @returns NodeList for sets, Number for gets
 		*/
 		function scrollOffset(nodeList, isLeft, val) {
 			var i = nodeList.length;
-			
+
 			if (val !== undefined) {
 				while (i--) {
 					setScrollOffset(nodeList[i], isLeft, val);
@@ -983,7 +983,7 @@
 		@example
 			// NodeList of two elements
 			var myNodeList = glow.dom.create("<div>Hello</div><div>World</div>");
-			
+
 		@example
 			// Nodelist of one list item
 			var listItem = glow.dom.create('<li>{content}</li>', {
@@ -998,21 +998,21 @@
 				i = 0,
 				rLen = 0,
 				toCheck;
-			
+
 			// set default options
 			opts = glow.lang.apply({
 				interpolate: null,
 				escapeHtml: false
 			}, opts || {});
-			
+
 			if (opts.interpolate) {
 				sHtml = lang.interpolate(sHtml, opts.interpolate, {
 					escapeHtml: opts.escapeHtml
 				});
 			}
-			
+
 			toCheck = stringToNodes(sHtml);
-			
+
 			for (; toCheck[i]; i++) {
 				if (toCheck[i].nodeType == 1 && toCheck[i].nodeName != "!") {
 					ret[rLen++] = toCheck[i];
@@ -1152,7 +1152,7 @@
 			@description Calls a function for each node.
 
 				The supplied function will be called for each node in the NodeList.
-				
+
 				The index of the node will be provided as the first parameter, and
 				'this' will refer to the node.
 
@@ -1219,10 +1219,10 @@
 			*/
 			isWithin: function (node) {
 				if (node.push) { node = node[0]; }
-				
+
 				// missing some nodes? Return false
 				if ( !node || !this.length ) { return false; }
-				
+
 				var that = this,
 					i = 0,
 					length = that.length,
@@ -1378,9 +1378,9 @@
 			@name glow.dom.NodeList#hasAttr
 			@function
 			@description Does the node have a particular attribute?
-				
+
 				The first node in the NodeList is tested
-				
+
 			@param {String} name The name of the attribute to test for.
 
 			@returns {Boolean}
@@ -1413,22 +1413,22 @@
 
 				return typeof attributes[attr] != "undefined";
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#prop
 			@function
 			@description Gets or sets node peropties
-			
+
 				This function gets / sets node properties, to get attributes,
 				see {@link glow.dom.NodeList#attr NodeList#attr}.
-				
+
 				When getting a property, it is retrieved from the first
 				node in the NodeList. Setting properties to each element in
 				the NodeList.
-				
+
 				To set multiple properties in one call, pass in an object of
 				name/value pairs.
-				
+
 			@param {String | Object} name The name of the property, or an object of name/value pairs
 			@param {String} [value] The value to set the property to.
 
@@ -1453,19 +1453,19 @@
 				});
 			*/
 			prop: function(name, val) {
-				
+
 				// setting multiple
 				if (name.constructor === Object) {
 					var hash = name,
 						key;
-					
+
 					// loop through hash
 					for (key in hash) {
 						this.prop(key, hash[key]);
 					}
 					return this;
 				}
-				
+
 				// setting single (to all in the NodeList)
 				if (val !== undefined) {
 					var i = this.length;
@@ -1474,12 +1474,12 @@
 					}
 					return this;
 				}
-				
+
 				// getting
 				if (!this[0]) { return undefined; }
 				return this[0][name];
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#hasClass
 			@function
@@ -1574,10 +1574,10 @@
 				var i = this.length,
 					paddedClassName,
 					paddedName = " " + name + " ";
-					
+
 				while (i--) {
 					paddedClassName = " " + this[i].className + " ";
-					
+
 					if (paddedClassName.indexOf(paddedName) != -1) {
 						this[i].className = paddedClassName.replace(paddedName, " ");
 					} else {
@@ -1720,7 +1720,7 @@
 						formElement = formElements[i];
 						nodeName = formElement.nodeName.toLowerCase();
 						name = formElement.name;
-						
+
 						// fieldsets & objects come back as form elements, but we don't care about these
 						// we don't bother with fields that don't have a name
 						// switch to whitelist?
@@ -2004,10 +2004,10 @@
 			@description Filter the NodeList using a function
 
 				The supplied function will be called for each node in the NodeList.
-				
+
 				The index of the node will be provided as the first parameter, and
 				'this' will refer to the node.
-				
+
 				Return true to keep the node, or false to remove it.
 
 			@param {Function} func Function to test each node
@@ -2055,7 +2055,7 @@
 					n = 0,
 					length = this.length,
 					childTmp;
-				
+
 				for (; i < length; i++) {
 					ret = ret.concat( getChildElms(this[i]) );
 				}
@@ -2086,10 +2086,10 @@
 				for (; i < length; i++) {
 					ret[ri++] = this[i].parentNode;
 				}
-				
+
 				return r.get(unique(ret));
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#ancestors
 			@function
@@ -2100,7 +2100,7 @@
 				Returns NodeList
 
 			@example
-				// get ancestor elements for anchor elements 
+				// get ancestor elements for anchor elements
 				var ancestors = glow.dom.get("a").ancestors();
 			*/
 			ancestors: function() {
@@ -2109,28 +2109,28 @@
 					i = 0,
 					length = this.length,
 					elm;
-					
+
 				while (i < length) {
 					elm = this[i].parentNode;
-					
-					while (elm && elm.nodeType == 1) {							
+
+					while (elm && elm.nodeType == 1) {
 						ret[ri++] = elm;
 						elm = elm.parentNode;
-					}								
+					}
 					i++;
 				}
-				
+
 				return r.get(unique(ret));
 			},
-			
-			
+
+
 			/**
 			@name glow.dom.NodeList#wrap
 			@function
 			@description Wraps the given NodeList with the specified element(s).
-			
+
 				The given NodeList items will always be placed in the first child node that contains no further element nodes.
-				
+
 				Each item in a given NodeList will be wrapped individually.
 
 			@returns {glow.dom.NodeList}
@@ -2138,7 +2138,7 @@
 				Returns the NodeList with new wrapper parents
 
 			@example
-				// wrap the given element 
+				// wrap the given element
 				glow.dom.get("p").wrap("<div></div>");
 				// <div><p></p></div>
 			*/
@@ -2147,43 +2147,43 @@
 					childElm,
 					parent,
 					wrappingNodes;
-					
+
 				if (typeof wrapper == 'string') {
 					wrappingNodes = r.create(wrapper);
 				}
 				else {
 					wrappingNodes = r.get(wrapper);
 				}
-						
-				for (i=0; i < length; i++) {					
+
+				for (i=0; i < length; i++) {
 					parent = wrappingNodes[0];
-					
-					while (parent) {					
+
+					while (parent) {
 						childElm = getFirstChildElm(parent);
-							
-						if (childElm) {					
+
+						if (childElm) {
 							parent = childElm;
 						}
 						else {
 							break;
 						}
-					}							
-					
-					if (this[i].parentNode) {						
-						wrappingNodes.insertBefore(this[i]);													
+					}
+
+					if (this[i].parentNode) {
+						wrappingNodes.insertBefore(this[i]);
 					}
 					// If wrapping multiple nodes, we need to take a clean copy of the wrapping nodes
 					if (i != length-1) {
 						wrappingNodes = wrappingNodes.clone();
 					}
-					
+
 					parent.appendChild(this[i]);
 
 				}
-				
+
 				return this;
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#unwrap
 			@function
@@ -2203,8 +2203,8 @@
 				var toRemove,
 					nodesToRemove = this.parent(),
 					length = nodesToRemove.length;
-				
-				for (i=0; i < length; i++) {				
+
+				for (i=0; i < length; i++) {
 					toRemove = nodesToRemove.slice(i, i+1);
 					// if the item we're removing has no new parent (i.e. is not in document), then we just remove the child and destroy the old parent
 					if (!toRemove[0].parentNode){
@@ -2213,8 +2213,8 @@
 					}
 					else {
 						toRemove.children().insertBefore(toRemove);
-						toRemove.destroy();							
-					}						
+						toRemove.destroy();
+					}
 
 				}
 				return this;
@@ -2258,9 +2258,9 @@
 			@name glow.dom.NodeList#is
 			@function
 			@description Tests if all the nodes match a CSS selector.
-			
+
 				Jake: I'm deprecating this until we have time to make it faster (probably when we change our CSS selector engine)
-			
+
 			@deprecated
 			@param {String} selector A CSS selector string
 
@@ -2350,7 +2350,7 @@
 				*/
 				var i = 0,
 					len = this.length;
-					
+
 				for (; i < len; i++) {
 					while(this[i].firstChild) {
 						this[i].removeChild(this[i].firstChild);
@@ -2365,7 +2365,7 @@
 			@description Removes each node from its parent node.
 				If you no longer need the nodes, consider using
 				{@link glow.dom.NodeList#destroy destroy}
-				
+
 			@returns {glow.dom.NodeList}
 
 			@example
@@ -2380,7 +2380,7 @@
 				}
 				return that;
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#destroy
 			@function
@@ -2396,12 +2396,12 @@
 			destroy: function () {
 				// remove any data attached to this NodeList
 				this.get("*").push(this).removeData();
-				
+
 				this.appendTo(tmpDiv);
 				// destroy nodes
 				tmpDiv.innerHTML = "";
 				// empty the nodelist
-				
+
 				Array.prototype.splice.call(this, 0, this.length);
 				return this;
 			},
@@ -2410,9 +2410,9 @@
 			@name glow.dom.NodeList#clone
 			@function
 			@description Gets a new NodeList containing a clone of each node.
-			
+
 			@param {Boolean} [cloneListeners=false] Also clone any event listeners assigned using Glow
-			
+
 			@returns {glow.dom.NodeList}
 
 				Returns a new NodeList containing clones of all the nodes in
@@ -2421,26 +2421,26 @@
 			@example
 				// get a copy of all heading elements
 				var myClones = glow.dom.get("h1, h2, h3, h4, h5, h6").clone();
-				
+
 			@example
-				// get a copy of all anchor elements with 
+				// get a copy of all anchor elements with
 				var myAnchors = glow.dom.get("a").clone(true);
 			*/
-			clone: function (cloneListeners) {				
+			clone: function (cloneListeners) {
 				var ret = [],
 					i = this.length,
 					allCloneElms,
 					allBaseElms
 					eventIdProp = '__eventId' + glow.UID;
-				
+
 				if (i === 0) {
 					return new r.NodeList();
 				}
-				
+
 				while (i--) {
 					ret[i] = this[i].cloneNode(true);
 				}
-				
+
 				// some browsers (ie) also clone node properties as attributes
 				// we need to get rid of the eventId.
 				allCloneElms = r.get( ret ).get("*").push( ret );
@@ -2450,7 +2450,7 @@
 						allCloneElms[i][eventIdProp] = null;
 					}
 				}
-				
+
 				// copy data from base elements to clone elements
 				allBaseElms = this.get("*").push( this );
 				i = allCloneElms.length;
@@ -2460,7 +2460,7 @@
 						glow.dom.get(allBaseElms[i]).data()
 					);
 				}
-				
+
 				// shall we clone events too?
 				if (cloneListeners) {
 					// check the stuff we need is hanging around, we don't want
@@ -2469,13 +2469,13 @@
 					if ( !glow.events ) {
 						throw "glow.events required to clone event listeners";
 					}
-					
+
 					glow.events._copyListeners(
 						this.get("*").push( this ),
 						allCloneElms || r.get( ret ).get("*").push( ret )
 					);
 				}
-				
+
 				return r.get(ret);
 			},
 
@@ -2597,15 +2597,15 @@
 				setElmsSize(this, height, "height");
 				return this;
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#scrollLeft
 			@function
 			@description Gets/sets the number of pixels the element has scrolled horizontally
-				
+
 				Get the value by calling without arguments, set by providing a new
 				value.
-				
+
 				To get/set the scroll position of the window, use this method on
 				a nodelist containing the window object.
 
@@ -2632,15 +2632,15 @@
 			scrollLeft: function(val) {
 				return scrollOffset(this, true, val);
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#scrollTop
 			@function
 			@description Gets/sets the number of pixels the element has scrolled vertically
-				
+
 				Get the value by calling without arguments, set by providing a new
 				value.
-				
+
 				To get/set the scroll position of the window, use this method on
 				a nodelist containing the window object.
 
@@ -2667,7 +2667,7 @@
 			scrollTop: function(val) {
 				return scrollOffset(this, false, val);
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#show
 			@function
@@ -2814,7 +2814,7 @@
 			@example
 				// where appropriate, px is assumed when no unit is passed
 				glow.dom.get("#myDiv").css("height", 300);
-		
+
 			@example
 				// set multiple CSS values at once
 				// NOTE: Property names containing a hyphen such as font-weight must be quoted
@@ -2841,7 +2841,7 @@
 					prop = toStyleProp(prop);
 					for (; i < len; i++) {
 						thisStyle = that[i].style;
-						
+
 						if (typeof val == "number" && hasUnits.test(originalProp)) {
 							val = val.toString() + "px";
 						}
@@ -2868,7 +2868,7 @@
 			@name glow.dom.NodeList#offset
 			@function
 			@description Gets the offset from the top left of the document.
-			
+
 				If the NodeList contains multiple items, the offset of the
 				first item is returned.
 
@@ -2976,15 +2976,15 @@
 					return {left:left, top:top};
 				}
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#position
 			@function
 			@description Get the top & left position of an element relative to its positioned parent
-				
+
 				This is useful if you want to make a position:static element position:absolute
 				and retain the original position of the element
-				
+
 			@returns {Object} An object with 'top' and 'left' number properties
 
 			@example
@@ -2994,25 +2994,25 @@
 			position: function() {
 				var positionedParent = r.get( getPositionedParent(this[0]) ),
 					hasPositionedParent = !!positionedParent[0],
-					
+
 					// element margins to deduct
 					marginLeft = parseInt( this.css("margin-left") ) || 0,
 					marginTop  = parseInt( this.css("margin-top")  ) || 0,
-					
+
 					// offset parent borders to deduct, set to zero if there's no positioned parent
 					positionedParentBorderLeft = ( hasPositionedParent && parseInt( positionedParent.css("border-left-width") ) ) || 0,
 					positionedParentBorderTop  = ( hasPositionedParent && parseInt( positionedParent.css("border-top-width")  ) ) || 0,
-					
+
 					// element offsets
 					elOffset = this.offset(),
 					positionedParentOffset = hasPositionedParent ? positionedParent.offset() : {top: 0, left: 0};
-				
+
 				return {
 					left: elOffset.left - positionedParentOffset.left - marginLeft - positionedParentBorderLeft,
 					top:  elOffset.top  - positionedParentOffset.top  - marginTop  - positionedParentBorderTop
 				}
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#append
 			@function
@@ -3321,27 +3321,27 @@
 				}
 				return this;
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#data
 			@function
 			@description Use this to safely attach arbitrary data to any DOM Element.
-			
+
 			This method is useful when you wish to avoid memory leaks that are possible when adding your own data directly to DOM Elements.
-			
+
 			When called with no arguments, will return glow's entire data store for the first item in the NodeList.
-			
+
 			Otherwise, when given a stringy key, will return the associated value from the first item in the NodeList.
-			
+
 			When given both a key and a value, will store that data on every item in the NodeList.
-			
+
 			Optionally you can pass in a single object composed of multiple key, value pairs.
-			
+
 			@param {String|Object} [key] The name of the value in glow's data store for the NodeList item.
 			@param {Object} [val] The the value you wish to associate with the given key.
 			@see glow.dom.NodeList#removeData
 			@example
-			
+
 			glow.dom.get("p").data("tea", "milky");
 			var colour = glow.dom.get("p").data("tea"); // milky
 			@returns {Object} When setting a value this method can be chained, as in that case it will return itself.
@@ -3351,11 +3351,11 @@
 					for (var prop in key) { this.data(prop, key[prop]); }
 					return this; // chainable with ({key: val}) signature
 				}
-				
+
 				var index,
 					elm;
 					// uses private class-scoped variables: dataCache, dataPropName, dataIndex
-				
+
 				switch (arguments.length) {
 					case 0: // getting entire cache from first node
 						if (this[0] === undefined) { return undefined; }
@@ -3369,31 +3369,31 @@
 						// TODO - need to defend against reserved words being used as keys?
 						for (var i = this.length; i--;) {
 							elm = this[i];
-							
+
 							if ( !(index = elm[dataPropName]) ) { // assumes index is always > 0
 								index = dataIndex++;
-								
+
 								elm[dataPropName] = index;
 								dataCache[index] = {};
 							}
 							dataCache[index][key] = val;
 						}
-						
+
 						return this; // chainable with (key, val) signature
 					default:
 						throw new Error("glow.dom.NodeList#data expects 2 or less arguments, not "+arguments.length+".");
 				}
 			},
-			
+
 			/**
 			@name glow.dom.NodeList#removeData
 			@function
 			@description Removes data previously added by {@link glow.dom.NodeList#data} from items in a NodeList.
-			
+
 			When called with no arguments, will delete glow's entire data store for every item in the NodeList.
-			
+
 			Otherwise, when given a key, will delete the associated value from every item in the NodeList.
-			
+
 			@param {String} [key] The name of the value in glow's data store for the NodeList item.
 			*/
 			removeData: function (key) { /*debug*///console.log("removeData("+key+")");
@@ -3401,11 +3401,11 @@
 					i = this.length,
 					index;
 					// uses private class-scoped variables: dataCache, dataPropName
-				
+
 				while (i--) {
 					elm = this[i];
 					index = elm[dataPropName];
-					
+
 					if (index !== undefined) {
 						switch (arguments.length) {
 							case 0:
@@ -3427,7 +3427,7 @@
 						}
 					}
 				}
-				
+
 				return this; // chainable
 			},
 
@@ -3608,7 +3608,7 @@
 					var r = [],
 						i = 0,
 						len = context.length;
-						
+
 					for (; i < len; i++) {
 						append( r, getChildElms(context[i]) );
 					}
@@ -3722,7 +3722,7 @@
 					}
 					return r;
 				}
-				
+
 				// main implementation
 				return function(sSelector) {
 					// no point trying if there's no current context

@@ -12,14 +12,14 @@ t.test("Load DOM", function() {
 t.test("Test Embedding", function() {
 
 	t.expect(6);
-	
+
 	var $ = glow.dom.get;
-	
+
 	var flashHolder = glow.dom.create('<div id="flashTest"></div>').appendTo("body");
-	
+
 	var embed_tag = glow.env.ie ? "object" : "embed";
-	
-	// see, nothing up my sleeve...	
+
+	// see, nothing up my sleeve...
 	t.ok($("#flashTest " + embed_tag).length==0,"no embed element exists");
 
 	try {
@@ -33,28 +33,28 @@ t.test("Test Embedding", function() {
 	}
 
 	movie.embed();
-	
+
 	if (!movie.movie) {
 		flashHolder.destroy();
 		t.skip("Flash 9 or greater required");
 		return;
 	}
-	
+
 	t.ok(movie.movie.nodeName.toLowerCase() == embed_tag, "Movie property references Flash")
 
-	
+
 	t.ok($("#flashTest " + embed_tag).length==1,"after call to embed, we have an embedded object");
-	
+
 	flashHolder.destroy();
 });
 
 t.test("Test Flash fails without required parameters", function() {
 
 	t.expect(3);
-	
+
 	var $ = glow.dom.get;
 	var flashHolder = glow.dom.create('<div id="flashTest"></div>').appendTo("body");
-	
+
 	var embed_tag = glow.env.ie ? "object" : "embed";
 
 	try {
@@ -80,7 +80,7 @@ t.test("Test Flash fails without required parameters", function() {
 	catch(e){
 		t.ok(true,"calling Flash with missing required parameters " + e.message);
 	}
-	
+
 	flashHolder.remove();
 });
 
@@ -89,7 +89,7 @@ t.test("check version checking", function() {
 	t.expect(4);
 	var flashHolder = glow.dom.create('<div id="flashTest"></div>').appendTo("body");
 
-	
+
 	try {
 		new glow.embed.Flash("testdata/flash/smile.swf","#flashTest","99").embed();
 		t.ok(glow.dom.get("#flashTest")[0].innerHTML.match(/This content requires Flash Player version 99/) != null,"Default Error message is displayed");
@@ -133,7 +133,7 @@ t.test("check that supplied attributes are set correctly", function() {
 	var flashHolder = glow.dom.create('<div id="flashTest"></div>').appendTo("body");
 
 	var embed_tag = glow.env.ie ? "object" : "embed";
-	
+
 	var movie = new glow.embed.Flash("testdata/flash/smile.swf","#flashTest","6",{
 	  attributes: {
 		id:"testFlash",
@@ -145,13 +145,13 @@ t.test("check that supplied attributes are set correctly", function() {
 		FlashVars: {hello:"world",foo:"bar"}
 	  }
 	}).embed();
-	
+
 	if (!movie.movie) {
 		flashHolder.destroy();
 		t.skip("Flash 6 or greater required");
 		return;
 	}
-	
+
 	t.ok($("#testFlash")[0].tagName.toLowerCase() == embed_tag,"set id");
 	t.ok($("#testFlash")[0].getAttribute("name") == "gwor","set name");
 	t.ok($("#testFlash")[0].getAttribute("blat") == "gret","set arbitrary attribute");
@@ -175,18 +175,18 @@ t.test("Shortcut attribute setting", function() {
 	t.expect(2);
 	var $ = glow.dom.get;
 	var flashHolder = glow.dom.create('<div id="flashTest"></div>').appendTo("body");
-	
+
 	var myFlash = new glow.embed.Flash("testdata/flash/smile.swf","#flashTest","6",{
 		id: "newIdValue",
 		className: "someClassName"
 	}).embed();
-  
+
 	if (!myFlash.movie) {
 		flashHolder.destroy();
 		t.skip("Flash 6 or greater required");
 		return;
 	}
-	
+
 	t.equals(myFlash.movie.id, "newIdValue", "ID");
 	t.equals(myFlash.movie.className, "someClassName", "className");
 	flashHolder.destroy();
@@ -202,19 +202,19 @@ t.test("check correct defaults for missing parameters", function() {
 
 	var movie = new glow.embed.Flash("testdata/flash/smile.swf","#flashTest","6").embed();
 	var embed = $("#flashTest " + embed_tag)[0];
-	
+
 	if (!movie.movie) {
 		flashHolder.destroy();
 		t.skip("Flash 6 or greater required");
 		return;
 	}
-	
+
 	try {
 		//not using getAttribute for the first two as some browsers give empty strings while others give null
 		t.ok(embed.id != "","Movie has auto-generated ID");
-		
+
 		var hasName = embed.name != "" && embed.name != undefined;
-		
+
 		t.ok( !hasName, "no name by default" );
 		if (glow.env.ie) {
 		  t.ok($(embed).children().filter(function() { return this.name == "allowscriptaccess" }).attr("value") == "always", "allowscriptaccess:always");

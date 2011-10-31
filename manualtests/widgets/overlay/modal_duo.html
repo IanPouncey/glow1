@@ -15,14 +15,14 @@
 			<' + '/script>'
 		);
 	// ]]></script>
-	
+
 	<script type="text/javascript">gloader.load(['glow', '@VERSION@', 'glow.widgets.Panel'])</script>
-	
+
 	<style type="text/css" media="screen">
 		#panel1 {
 			xbackground-color: #fff;
 		}
-		
+
 		#panel2 {
 			xbackground-color: #9ff;
 		}
@@ -31,48 +31,48 @@
 
 <body>
 	<h1>glow.widgets.Overlay</h1>
-	
+
 	<h2>Two modal panels</h2>
-	
+
 	<ul>
 		<li>Toggle: <a href="#" id="toggleOverlay1">2 Overlays</a></li>
 		<li>Use tab-key to move focus from one Overlay to another</li>
 		<li>Ensure focus does not go to any element outside the highest overlay</li>
 	</ul>
-	
+
 	<form action="#" method="get">
 	<fieldset>
 		<input name="exampleInput" id="exampleInput" type="text" value="foo" />
 	</fieldset>
 	</form>
-	
+
 	<div id="panel1">
 		Panel 1
 		<p>Lorem ipsum foo <a href="#">foo</a></p>
 	</div>
-	
+
 	<div id="panel2">
 		Panel 2
 		<p><a href="#">Lorem</a> ipsum foo foo</p>
 	</div>
-	
+
 	<script type="text/javascript" class="showSrc">
 		glow.ready(function() {
 			var $ = glow.dom.get;
-			
+
 			window.panel1 = new glow.widgets.Panel('#panel1', {
 				modal: true,
 				width:201,
 				x: 130,
 				y: 130
 			});
-			
+
 			window.panel2 = new glow.widgets.Panel('#panel2', {
 				modal: true,
 				x: 200,
 				y: 200
 			});
-			
+
 			glow.events.addListener('#toggleOverlay1', 'click', function() {
 				if (panel1.isShown) {
 					panel1.hide();
@@ -84,22 +84,22 @@
 				}
 				return false;
 			});
-			
+
 			// log events
 			glow.events.addListener('#panel1', 'focus', function() {
 				manualTests.log('panel1 event:focus');
 			});
-			
+
 			glow.events.addListener('#panel2', 'focus', function() {
 				manualTests.log('panel2 event:focus');
 			});
-			
+
 			glow.events.addListener('#exampleInput', 'focus', function() {
 				manualTests.log('* inputElement event:focus');
 			});
 		});
 	</script>
-	
+
 	<script type="text/javascript">manualTests.showSrc();</script>
 	<script type="text/javascript">manualTests.log('Logging enabled');</script>
 </body>
